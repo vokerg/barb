@@ -3,6 +3,7 @@ import logo from './logo.svg';
 
 import { createStore, combineReducers } from 'redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
 import './App.css';
 
 const persistedState = {shops: [
@@ -13,7 +14,7 @@ const persistedState = {shops: [
     favorited: false,
     description: "This is a long description supposed to be displayed on a shop page",
     services: [
-      "Washing", "Cutting"
+      "Washing", "Cutting", "Peducure"
     ],
     ratings: [
       {
@@ -75,9 +76,67 @@ const shops = (state = [], action) => {
   }
 }
 
-const ShopList = (props) => {
-  console.log(props.route);
-  let shops = (props.shops === undefined ? store.getState().shops : props.shops);
+const getShopsByFilter = (shops, filter = "all") => {
+  switch (filter) {
+    case "all": {
+      return shops;
+    }
+    case "favorites": {
+      return shops.filter(shop => shop.favorited);
+    }
+  }
+}
+
+
+const Filter = () => {
+  return (
+    <div>
+      <span><h5>
+        <Link to="/">
+          All
+        </Link>
+        {"    "}
+        <Link to="/filter/favorites">
+          Favorites
+        </Link>
+      </h5></span>
+    </div>
+  )
+}
+
+
+const MainPageView = ({shops}) => {
+  return (
+    <div>
+      <Filter />
+      <ShopList shops={shops} />
+    </div>
+  )
+}
+const mapStateToProp = (state, ownProps) => {
+  const filter = ownProps.match.params.filter;
+  const shops = getShopsByFilter(state.shops, filter);
+  return {
+    shops
+  }
+}
+const mapDispatchToProp = () => {
+
+}
+const MainPage = connect(mapStateToProp, mapDispatchToProp)(MainPageView);
+/*
+const MainPage = ({match}) => {
+
+
+  const filter = match.params.filter;
+
+  let shops = getShopsByFilter(store.getState().shops, filter);
+  return (
+    <MainPageView shops={shops}/>
+  )
+}
+*/
+const ShopList = ({shops}) => {
   return (
     <div>
       {shops.map(element=>
@@ -99,15 +158,16 @@ const ShopList = (props) => {
 }
 
 const ShopPreview = (props) => {
+  const {shop} = props;
   return (
       <div>
         <div>
-          <Link exact="true" to={ "/shop/" + props.shop.id }>
-            { props.shop.name }
+          <Link exact="true" to={ "/shop/" + shop.id }>
+            { shop.name }
           </Link>
         </div>
-        <div>{ props.shop.address }</div>
-        <button onClick= { props.onFavoriteClick }>{props.shop.favorited ? "Unfavorite" : "Favorite"}</button>
+        <div>{ shop.address }</div>
+        <button onClick= { props.onFavoriteClick }>{shop.favorited ? "Unfavorite" : "Favorite"}</button>
       </div>
   )
 };
@@ -125,7 +185,9 @@ const getShopById = (shop_id) => {
 };
 
 const getShopsByService = (service) => {
-  return store.getState().shops;
+  return store.getState().shops.filter(
+    shop => shop.services.includes(service)
+  )
 };
 
 
@@ -147,9 +209,9 @@ class Shop extends Component{
     return (
       <div>
         <div>
-          <div>{ shop.name }</div>
-          <div>{ shop.address }</div>
-          <div>{ shop.description }</div>
+          <h2>{ shop.name }</h2>
+          <h3>{ shop.address }</h3>
+          <h4>{ shop.description }</h4>
         </div>
         <ShopServiceList services={ shop.services } />
         <RatingList ratings={ shop.ratings } />
@@ -172,13 +234,14 @@ const ShopServiceList = (props) => {
   )
 };
 
-const ShopsByService = (props) => {
+const ShopsByService = ({match}) => {
+  const service = match.params.service
   return (
     <div>
       <div>
-        { props.service }
+        { service }
       </div>
-      <ShopList shops={ getShopsByService(props.service) } />
+      <ShopList shops={ getShopsByService(service) } />
     </div>
   )
 }
@@ -232,19 +295,22 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <BrowserRouter>
-          <div>
-            <Route exact path="/" component= {ShopList} shops={store.getState().shops} />
-            <Route exact path="/shop/:shop_id" component= {Shop} />
-            <Route exact path="/service/:service" component= {ShopsByService} />
-          </div>
-        </BrowserRouter>
+        <Provider store= {store}>
+          <BrowserRouter>
+            <div>
+              <Route exact path="/" component= {MainPage} />
+              <Route exact path="/shop/:shop_id" component= {Shop} />
+              <Route exact path="/service/:service" component= {ShopsByService} />
+              <Route path="/filter/:filter" component= {MainPage} />
+            </div>
+          </BrowserRouter>
+        </Provider>
       </div>
     );
   }
 }
 
-store.dispatch({type:"DO_NOTHING"});
+//store.dispatch({type:"DO_NOTHING"});
 //store.subscribe(App);
 
 export default App;
