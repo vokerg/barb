@@ -9,11 +9,17 @@ const getShopsByService = (shops, service) => shops.filter(
 
 const ShopsByServiceView = ({service, shops, onFavoriteClick}) => {
   return (
-    <div>
-      <div>
-        { service }
+    <div class="container">
+      <div class="col-lg-9">
+        <div class="card mt-4">
+          <div class="card-body">
+            <div>
+              { service }
+            </div>
+            <ShopList shops={ shops } onFavoriteClick={ onFavoriteClick } />
+          </div>
+        </div>
       </div>
-      <ShopList shops={ shops } onFavoriteClick={ onFavoriteClick } />
     </div>
   )
 }

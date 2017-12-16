@@ -1,30 +1,26 @@
 import React  from 'react';
 import logo from './logo.svg';
-import './App.css';
+//import './App.css';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import './vendor/bootstrap/css/bootstrap.min.css'
+import './css/shop-item.css'
+
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import MainPage from './components/mainPage'
 import ShopsByService from './components/ShopsByService'
 import Shop from './components/shop'
 import getConfiguredStore from './configureStore'
-
-
-
-
-
+import Navigation from './components/Navigation'
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to React</h1>
-      </header>
-      <Provider store= { getConfiguredStore() }>
-        <BrowserRouter>
+  <div className="App">
+    <Provider store= { getConfiguredStore() }>
+      <BrowserRouter>
           <div>
+            <Navigation />
             <Route exact path="/" component= {MainPage} />
             <Route exact path="/shop/:shop_id" component= {Shop} />
             <Route exact path="/service/:service" component= {ShopsByService} />

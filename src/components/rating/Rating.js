@@ -4,13 +4,10 @@ const Rating = (props) => {
   const { rating } = props;
   return (
     <div>
-      <div>
-        <span>Author: { rating.author }</span>
-        <span> Rating: { rating.rating }</span>
-      </div>
-      <div>
-        <span>Comment: { rating.comment }</span>
-      </div>
+      <p>{ rating.comment }</p>
+      <p><small class="text-muted">Rating: { rating.rating } </small></p>
+      <p><small class="text-muted">Posted by { rating.author }</small></p>
+      <hr />
     </div>
   )
 }

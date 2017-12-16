@@ -17,9 +17,15 @@ const getShopsByFilter = (shops, filter = "all") => {
 
 const MainPageView = ({shops, onFavoriteClick}) => {
   return (
-    <div>
-      <Filter />
-      <ShopList shops={shops} onFavoriteClick={onFavoriteClick} />
+    <div class="container">
+      <div class="col-lg-9">
+        <div class="card mt-4">
+          <div class="card-body">
+            <Filter />
+            <ShopList shops={shops} onFavoriteClick={onFavoriteClick} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

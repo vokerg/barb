@@ -18,11 +18,17 @@ const getShopById = (shops, shop_id) => {
 
 const ShopFullView = ({shop}) => {
   return(
-      <div>
-        <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
-        <ShopServiceList services={ shop.services } />
+    <div class="container">
+      <div class="col-lg-9">
+        <div class="card mt-4">
+          <div class="card-body">
+            <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
+            <ShopServiceList services={ shop.services } />
+          </div>
+        </div>
         <RatingList ratings={ shop.ratings } />
       </div>
+    </div>
     )
 }
 
