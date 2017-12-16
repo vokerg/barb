@@ -13,8 +13,8 @@ const shops = (state = [], action) => {
           }
         }
       ))}
-    default: return state;
+    default: return state
   }
 }
 
-export default shops;
+export default shops

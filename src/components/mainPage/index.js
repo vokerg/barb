@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect }  from 'react-redux'
-import Filter from '../Filter'
+import Filter from './Filter'
 import ShopList from '../ShopList'
-
 
 const getShopsByFilter = (shops, filter = "all") => {
   switch (filter) {
@@ -24,6 +23,7 @@ const MainPageView = ({shops, onFavoriteClick}) => {
     </div>
   )
 }
+
 const mapStateToProps = ({shops}, {match}) => {
   const filter = match.params.filter;
   const returnShops = getShopsByFilter(shops, filter)
@@ -31,6 +31,7 @@ const mapStateToProps = ({shops}, {match}) => {
     shops: returnShops
   }
 }
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onFavoriteClick: (id) => {
@@ -41,6 +42,6 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
-const MainPage = connect(mapStateToProps, mapDispatchToProps)(MainPageView);
 
+const MainPage = connect(mapStateToProps, mapDispatchToProps)(MainPageView);
 export default MainPage;

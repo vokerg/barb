@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Filter = () => {
   return (
@@ -15,6 +15,6 @@ const Filter = () => {
       </h5></span>
     </div>
   )
-};
+}
 
-export default Filter;
+export default Filter

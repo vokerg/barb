@@ -1,7 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import RatingList from '../rating'
 import ShopServiceList from './ShopServiceList'
 import ShopInfo from './ShopInfo'
@@ -18,7 +17,6 @@ const getShopById = (shops, shop_id) => {
 }
 
 const ShopFullView = ({shop}) => {
-  console.log(shop.services);
   return(
       <div>
         <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>

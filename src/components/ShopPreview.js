@@ -13,6 +13,6 @@ const ShopPreview = ({shop, onFavoriteClick}) => {
         <button onClick= { onFavoriteClick }>{shop.favorited ? "Unfavorite" : "Favorite"}</button>
       </div>
   )
-};
+}
 
-export default ShopPreview;
+export default ShopPreview
