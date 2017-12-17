@@ -26,7 +26,7 @@ const ShopFullView = ({shop}) => {
             <ShopServiceList services={ shop.services } />
           </div>
         </div>
-        <RatingList ratings={ shop.ratings } />
+        <RatingList shop={ shop } />
       </div>
     </div>
     )

@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from 'redux';
 import shops from './reducers/shops'
 
-const persistedState = {shops: [
+export const persistedState = {shops: [
   {
     id: "1",
     name: "Shop1",
