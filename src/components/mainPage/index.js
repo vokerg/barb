@@ -15,7 +15,7 @@ const getShopsByFilter = (shops, filter = "all") => {
   }
 }
 
-const MainPageView = ({shops, onFavoriteClick}) => {
+const MainPage = ({shops, onFavoriteClick}) => {
   return (
     <div class="container">
       <div class="col-lg-9">
@@ -49,5 +49,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const MainPage = connect(mapStateToProps, mapDispatchToProps)(MainPageView);
-export default MainPage;
+export default connect(mapStateToProps, mapDispatchToProps)(MainPageView);

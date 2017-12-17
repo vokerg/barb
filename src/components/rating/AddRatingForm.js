@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddRating = (props) => {
+const AddRatingForm = (props) => {
   return (
     <div>
       <div>
@@ -23,4 +23,4 @@ const AddRating = (props) => {
   )
 }
 
-export default AddRating
+export default AddRatingForm

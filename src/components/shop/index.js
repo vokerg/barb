@@ -5,7 +5,6 @@ import RatingList from '../rating'
 import ShopServiceList from './ShopServiceList'
 import ShopInfo from './ShopInfo'
 
-
 const getShopById = (shops, shop_id) => {
   let shop_found;
   shops.forEach(shop => {
@@ -16,7 +15,7 @@ const getShopById = (shops, shop_id) => {
   return shop_found
 }
 
-const ShopFullView = ({shop}) => {
+const Shop = ({shop}) => {
   return(
     <div className="container">
       <div className="col-lg-9">
@@ -38,6 +37,4 @@ const mapStateToPropShop = ({shops}, {match}) => {
     shop: getShopById(shops, shop_id)
   }
 }
-const Shop = withRouter(connect(mapStateToPropShop, ()=>({}))(ShopFullView))
-
-export default Shop
+export default withRouter(connect(mapStateToPropShop, ()=>({}))(ShopFullView))

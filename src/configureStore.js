@@ -50,8 +50,8 @@ export const persistedState = {shops: [
       }
     ],
   },
-]};
+]}
 
-const getConfiguredStore = () => createStore(combineReducers({shops}), persistedState);
+const getConfiguredStore = () => createStore(combineReducers({shops}), persistedState)
 
-export default getConfiguredStore;
+export default getConfiguredStore

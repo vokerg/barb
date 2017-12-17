@@ -7,7 +7,7 @@ const getShopsByService = (shops, service) => shops.filter(
   shop => shop.services.includes(service)
 )
 
-const ShopsByServiceView = ({service, shops, onFavoriteClick}) => {
+const ShopsByService = ({service, shops, onFavoriteClick}) => {
   return (
     <div class="container">
       <div class="col-lg-9">
@@ -43,5 +43,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const ShopsByService = withRouter(connect(mapStateToProp, mapDispatchToProps)(ShopsByServiceView))
-export default ShopsByService
+export default withRouter(connect(mapStateToProp, mapDispatchToProps)(ShopsByServiceView))

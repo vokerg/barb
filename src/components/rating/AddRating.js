@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch, {shop_id}) => ({
   }
 })
 
-class AddRatingView extends React.Component {
+class AddRating extends React.Component {
   componentDidMount() {
     this.addRatingVisibility = false;
   }
@@ -55,5 +55,4 @@ class AddRatingView extends React.Component {
   }
 }
 
-const AddRating = connect(() => ({}), mapDispatchToProps)(AddRatingView)
-export default AddRating;
+export default connect(() => ({}), mapDispatchToProps)(AddRatingView)

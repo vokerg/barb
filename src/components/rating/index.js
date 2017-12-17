@@ -2,7 +2,6 @@ import React from 'react'
 import Rating from './Rating'
 import AddRating from './AddRating'
 
-
 const RatingList = (props) => {
     const ratings = props.shop.ratings
     return (
