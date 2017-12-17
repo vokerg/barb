@@ -1,9 +1,11 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+
 import RatingList from '../rating'
 import ShopServiceList from './ShopServiceList'
 import ShopInfo from './ShopInfo'
+import GoogleMaps from '../GoogleMaps'
 
 const getShopById = (shops, shop_id) => {
   let shop_found;
@@ -23,6 +25,7 @@ const Shop = ({shop}) => {
           <div className="card-body">
             <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
             <ShopServiceList services={ shop.services } />
+            <GoogleMaps markers={[shop.coordinates]}/>
           </div>
         </div>
         <RatingList shop={ shop } />

@@ -8,6 +8,9 @@ export const persistedState = {shops: [
     address: "Norrebrogade 1",
     favorited: false,
     description: "This is a long description supposed to be displayed on a shop page",
+    coordinates: {
+      lat: 55.718035, lng: 12.470284
+    },
     services: [
       "Washing", "Cutting", "Peducure"
     ],
@@ -38,6 +41,9 @@ export const persistedState = {shops: [
     address: "Norrebrogade 2",
     favorited: true,
     description: "This is a long description supposed to be displayed on a shop page",
+    coordinates: {
+      lat: 55.694147, lng: 12.563216
+    },
     services: [
       "Shaving", "Washing", "Cutting", "Manicure"
     ],
