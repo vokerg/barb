@@ -5,8 +5,8 @@ const Rating = (props) => {
   return (
     <div>
       <p>{ rating.comment }</p>
-      <p><small class="text-muted">Rating: { rating.rating } </small></p>
-      <p><small class="text-muted">Posted by { rating.author }</small></p>
+      <p><small className="text-muted">Rating: { rating.rating } </small></p>
+      <p><small className="text-muted">Posted by { rating.author }</small></p>
       <hr />
     </div>
   )

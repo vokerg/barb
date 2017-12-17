@@ -37,4 +37,4 @@ const mapStateToPropShop = ({shops}, {match}) => {
     shop: getShopById(shops, shop_id)
   }
 }
-export default withRouter(connect(mapStateToPropShop, ()=>({}))(ShopFullView))
+export default withRouter(connect(mapStateToPropShop, ()=>({}))(Shop))

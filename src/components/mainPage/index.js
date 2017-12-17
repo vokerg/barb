@@ -17,10 +17,10 @@ const getShopsByFilter = (shops, filter = "all") => {
 
 const MainPage = ({shops, onFavoriteClick}) => {
   return (
-    <div class="container">
-      <div class="col-lg-9">
-        <div class="card mt-4">
-          <div class="card-body">
+    <div className="container">
+      <div className="col-lg-9">
+        <div className="card mt-4">
+          <div className="card-body">
             <Filter />
             <ShopList shops={shops} onFavoriteClick={onFavoriteClick} />
           </div>
@@ -49,4 +49,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPageView);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

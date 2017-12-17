@@ -5,11 +5,11 @@ import AddRating from './AddRating'
 const RatingList = (props) => {
     const ratings = props.shop.ratings
     return (
-      <div class="card card-outline-secondary my-4">
-        <div class="card-header">
+      <div className="card card-outline-secondary my-4">
+        <div className="card-header">
           Shop Reviews
         </div>
-        <div class="card-body">
+        <div className="card-body">
           {ratings.map((rating) =>
               <Rating
                 key={rating.id}

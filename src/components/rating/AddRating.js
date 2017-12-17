@@ -55,4 +55,4 @@ class AddRating extends React.Component {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(AddRatingView)
+export default connect(() => ({}), mapDispatchToProps)(AddRating)

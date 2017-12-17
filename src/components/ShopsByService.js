@@ -9,10 +9,10 @@ const getShopsByService = (shops, service) => shops.filter(
 
 const ShopsByService = ({service, shops, onFavoriteClick}) => {
   return (
-    <div class="container">
-      <div class="col-lg-9">
-        <div class="card mt-4">
-          <div class="card-body">
+    <div className="container">
+      <div className="col-lg-9">
+        <div className="card mt-4">
+          <div className="card-body">
             <div>
               { service }
             </div>
@@ -43,4 +43,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProp, mapDispatchToProps)(ShopsByServiceView))
+export default withRouter(connect(mapStateToProp, mapDispatchToProps)(ShopsByService))
