@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore } from 'redux';
 import mainReducer from './reducers'
 
 export const persistedState = {shops: [

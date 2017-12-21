@@ -25,10 +25,10 @@ const Shop = ({shop}) => {
     )
 }
 
-const mapStateToPropShop = ({shops}, {match}) => {
+const mapStateToPropShop = (state, {match}) => {
   const shop_id = match.params.shop_id
   return {
-    shop: getShopById(shops, shop_id)
+    shop: getShopById(state, shop_id)
   }
 }
 export default withRouter(connect(mapStateToPropShop, ()=>({}))(Shop))
