@@ -41,4 +41,30 @@ const shops = (state = [], action) => {
   }
 }
 
+export const getShopsByService = (state, service) => state.filter(
+  shop => shop.services.includes(service)
+)
+
+export const getShopById = (state, shop_id) => {
+  let shop_found;
+  state.forEach(shop => {
+    if (shop.id === shop_id) {
+      shop_found=shop
+    }
+  })
+  return shop_found
+}
+
+export const getShopsByFilter = (state, filter = "all") => {
+  switch (filter) {
+    case "favorites": {
+      return state.filter(shop => shop.favorited);
+    }
+    case "all":
+    default: {
+      return state;
+    }
+  }
+}
+
 export default shops

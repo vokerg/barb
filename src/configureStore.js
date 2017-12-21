@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-import shops from './reducers/shops'
+import mainReducer from './reducers'
 
 export const persistedState = {shops: [
   {
@@ -58,6 +58,6 @@ export const persistedState = {shops: [
   },
 ]}
 
-const getConfiguredStore = () => createStore(combineReducers({shops}), persistedState)
+const getConfiguredStore = () => createStore(mainReducer, persistedState)
 
 export default getConfiguredStore

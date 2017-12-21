@@ -2,18 +2,7 @@ import React from 'react'
 import { connect }  from 'react-redux'
 import Filter from './Filter'
 import ShopList from '../ShopList'
-
-const getShopsByFilter = (shops, filter = "all") => {
-  switch (filter) {
-    case "favorites": {
-      return shops.filter(shop => shop.favorited);
-    }
-    case "all":
-    default: {
-      return shops;
-    }
-  }
-}
+import { getShopsByFilter } from '../../reducers'
 
 const MainPage = ({shops, onFavoriteClick}) => {
   return (
@@ -30,9 +19,9 @@ const MainPage = ({shops, onFavoriteClick}) => {
   )
 }
 
-const mapStateToProps = ({shops}, {match}) => {
+const mapStateToProps = (state, {match}) => {
   const filter = match.params.filter;
-  const returnShops = getShopsByFilter(shops, filter)
+  const returnShops = getShopsByFilter(state, filter)
   return {
     shops: returnShops
   }

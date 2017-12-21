@@ -2,10 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import ShopList from './ShopList'
-
-const getShopsByService = (shops, service) => shops.filter(
-  shop => shop.services.includes(service)
-)
+import {getShopsByService} from '../reducers'
 
 const ShopsByService = ({service, shops, onFavoriteClick}) => {
   return (
@@ -24,11 +21,11 @@ const ShopsByService = ({service, shops, onFavoriteClick}) => {
   )
 }
 
-const mapStateToProp = ({shops}, {match}) => {
+const mapStateToProp = (state, {match}) => {
   const service = match.params.service;
   return {
     service,
-    shops: getShopsByService(shops, service)
+    shops: getShopsByService(state, service)
   }
 }
 

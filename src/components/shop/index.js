@@ -6,16 +6,7 @@ import RatingList from '../rating'
 import ShopServiceList from './ShopServiceList'
 import ShopInfo from './ShopInfo'
 import GoogleMaps from '../GoogleMaps'
-
-const getShopById = (shops, shop_id) => {
-  let shop_found;
-  shops.forEach(shop => {
-    if (shop.id === shop_id) {
-      shop_found=shop
-    }
-  })
-  return shop_found
-}
+import { getShopById } from '../../reducers'
 
 const Shop = ({shop}) => {
   return(
