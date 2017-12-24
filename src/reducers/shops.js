@@ -16,6 +16,7 @@ const shops = (state = [], action) => {
           }
         }
       ))}
+
     case "ADD_RATING": {
       return (state.map(element => {
         if (element.id === action.shop_id) {
@@ -37,6 +38,21 @@ const shops = (state = [], action) => {
         }
       }))
     }
+
+    case "ADD_SHOP": {
+      return [...state, {
+        id: action.id,
+        name: action.name,
+        description: action.description,
+        comment: action.comment,
+        ratings: [],
+        coordinates: {
+          lat: 1, lng: 1
+        },
+        services: []
+      }]
+    }
+
     default: return state
   }
 }

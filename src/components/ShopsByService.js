@@ -2,7 +2,8 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import ShopList from './ShopList'
-import {getShopsByService} from '../reducers'
+import { getShopsByService } from '../reducers'
+import { favoriteClick } from '../actions'
 
 const ShopsByService = ({service, shops, onFavoriteClick}) => {
   return (
@@ -32,10 +33,7 @@ const mapStateToProp = (state, {match}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFavoriteClick: (id) => {
-      dispatch({
-        type: "ADD_FAVORITE",
-        id: id
-      })
+      dispatch(favoriteClick(id))
     }
   }
 }

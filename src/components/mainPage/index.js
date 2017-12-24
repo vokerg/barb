@@ -3,6 +3,7 @@ import { connect }  from 'react-redux'
 import Filter from './Filter'
 import ShopList from '../ShopList'
 import { getShopsByFilter } from '../../reducers'
+import { favoriteClick } from '../../actions'
 
 const MainPage = ({shops, onFavoriteClick}) => {
   return (
@@ -30,10 +31,7 @@ const mapStateToProps = (state, {match}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFavoriteClick: (id) => {
-      dispatch({
-        type: "ADD_FAVORITE",
-        id: id
-      })
+      dispatch(favoriteClick(id))
     }
   }
 }

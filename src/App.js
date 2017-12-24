@@ -15,17 +15,7 @@ import getConfiguredStore from './configureStore'
 import Navigation from './components/Navigation'
 
 const App = () => {
-/*
-const reducedState = shops(persistedState.shops, {
-  type: "ADD_RATING",
-  shop_id: "1",
-  author: "Mick Jagger",
-  rating: "1",
-  comment: "Satisfaction"
-})
 
-console.log(reducedState);
-*/
   return (
   <div className="App">
     <Provider store= { getConfiguredStore() }>
@@ -33,6 +23,7 @@ console.log(reducedState);
           <div>
             <Navigation />
             <Route exact path="/" component= {MainPage} />
+            <Route exact path="/createshop" component= {EditShop} />
             <Route exact path="/shop/:shop_id" component= {Shop} />
             <Route exact path="/service/:service" component= {ShopsByService} />
             <Route path="/filter/:filter" component= {MainPage} />

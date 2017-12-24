@@ -2,16 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import AddRatingForm from './AddRatingForm'
+import { addRating } from '../../actions'
 
 const mapDispatchToProps = (dispatch, {shop_id}) => ({
   onAddRating(author, rating, comment){
-    dispatch({
-      type: "ADD_RATING",
-      shop_id,
-      author,
-      rating,
-      comment
-    })
+    dispatch(addRating(shop_id, author, rating, comment))
   }
 })
 
