@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 
 import MainPage from './components/mainPage'
 import ShopsByService from './components/ShopsByService'
+import EditShop from './components/editShop'
 import Shop from './components/shop'
 import getConfiguredStore from './configureStore'
 import Navigation from './components/Navigation'
@@ -35,6 +36,7 @@ console.log(reducedState);
             <Route exact path="/shop/:shop_id" component= {Shop} />
             <Route exact path="/service/:service" component= {ShopsByService} />
             <Route path="/filter/:filter" component= {MainPage} />
+            <Route exact path="/shop/edit/:filter" component= {EditShop} />
           </div>
         </BrowserRouter>
       </Provider>
