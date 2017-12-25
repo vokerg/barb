@@ -27,7 +27,7 @@ const App = () => {
             <Route exact path="/shop/:shop_id" component= {Shop} />
             <Route exact path="/service/:service" component= {ShopsByService} />
             <Route path="/filter/:filter" component= {MainPage} />
-            <Route exact path="/shop/edit/:filter" component= {EditShop} />
+            <Route exact path="/shop/edit/:id" component= {EditShop} />
           </div>
         </BrowserRouter>
       </Provider>

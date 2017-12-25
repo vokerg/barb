@@ -10,6 +10,16 @@ export const addShop = (name, address, description) => {
   }
 }
 
+export const updateShop = (id, name, address, description) => {
+  return {
+    type: "UPDATE_SHOP",
+    id,
+    name,
+    address,
+    description
+  }
+}
+
 export const addRating = (shop_id, author, rating, comment) => {
   return {
     type: "ADD_RATING",

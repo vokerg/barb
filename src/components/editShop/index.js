@@ -1,15 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addShop } from '../../actions'
+import { addShop, updateShop } from '../../actions'
+import { getShopById } from '../../reducers'
 
 class EditShop extends React.Component {
 	constructor(props) {
 		super();
+		const {shop} = props;
 		this.state = {
-			name: '',
-			address: '',
-			description: ''
-		};
+			name: (shop === undefined) ? '' : shop.name,
+			address: (shop === undefined) ? '' : shop.address,
+			description: (shop === undefined) ? '' : shop.description
+		}
 
 		const updateFieldEvent = key => event => {
 			this.setState({
@@ -20,12 +22,18 @@ class EditShop extends React.Component {
 		this.onUpdateName = updateFieldEvent("name");
 		this.onUpdateAddress = updateFieldEvent("address");
 		this.onUpdateDescription = updateFieldEvent("description");
-
 	}
+
 	handleSubmit(event) {
-		event.preventDefault();
-		const {name, address, description} = this.state;
-		this.props.addShop(name, address, description);
+		event.preventDefault()
+		const {name, address, description} = this.state
+		const {shop} = this.props
+		if (shop === undefined) {
+			this.props.addShop(name, address, description)
+		}
+		else {
+			this.props.updateShop(shop.id, name, address, description)
+		}
 	}
 
 	render() {
@@ -43,7 +51,7 @@ class EditShop extends React.Component {
 					</label>
 					<label>
 						Description:
-						<input type="textarea" value= { this.state.description } onChange={ this.onUpdateDescription }/>
+						<textarea type="text" value= { this.state.description } onChange={ this.onUpdateDescription }/>
 					</label>
 				</div>
 				<div>
@@ -55,7 +63,20 @@ class EditShop extends React.Component {
 	}
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = (state, ownProps) => {
+	if (ownProps.match.params.id !== undefined) {
+		const id = ownProps.match.params.id
+		let shop = getShopById(state, id)
+		const {name, address, description} = shop
+		return {
+			shop: {
+				id,
+				name,
+				address,
+				description
+			}
+		}
+	}
 	return {}
 }
 
@@ -63,6 +84,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		addShop: (name, address, description) => {
 			dispatch(addShop(name, address, description));
+		},
+		updateShop: (id, name, address, description) => {
+			dispatch(updateShop(id, name, address, description));
 		}
 	}
 }

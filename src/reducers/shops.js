@@ -53,6 +53,21 @@ const shops = (state = [], action) => {
       }]
     }
 
+    case "UPDATE_SHOP": {
+      return state.map(shop => {
+        if (shop.id === action.id) {
+          return {
+            ...shop,
+            name: action.name,
+            description: action.description,
+            comment: action.comment
+          }
+        } else {
+          return shop
+        }
+      })
+    }
+
     default: return state
   }
 }
