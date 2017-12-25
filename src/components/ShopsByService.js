@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import ShopList from './ShopList'
 import { getShopsByService } from '../reducers'
@@ -23,7 +22,7 @@ const ShopsByService = ({service, shops, onFavoriteClick}) => {
 }
 
 const mapStateToProp = (state, {match}) => {
-  const service = match.params.service;
+  const service = match.params.service
   return {
     service,
     shops: getShopsByService(state, service)
@@ -38,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProp, mapDispatchToProps)(ShopsByService))
+export default connect(mapStateToProp, mapDispatchToProps)(ShopsByService)

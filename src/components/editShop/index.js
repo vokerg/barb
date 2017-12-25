@@ -5,8 +5,8 @@ import { getShopById } from '../../reducers'
 
 class EditShop extends React.Component {
 	constructor(props) {
-		super();
-		const {shop} = props;
+		super()
+		const {shop} = props
 		this.state = {
 			name: (shop === undefined) ? '' : shop.name,
 			address: (shop === undefined) ? '' : shop.address,
@@ -30,9 +30,11 @@ class EditShop extends React.Component {
 		const {shop} = this.props
 		if (shop === undefined) {
 			this.props.addShop(name, address, description)
+			this.props.history.push('/')
 		}
 		else {
 			this.props.updateShop(shop.id, name, address, description)
+			this.props.history.push('/shop/' + shop.id)
 		}
 	}
 

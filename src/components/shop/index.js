@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
 import RatingList from '../rating'
@@ -24,7 +23,7 @@ const Shop = ({shop}) => {
         <RatingList shop={ shop } />
       </div>
     </div>
-    )
+  )
 }
 
 const mapStateToPropShop = (state, {match}) => {
@@ -33,4 +32,4 @@ const mapStateToPropShop = (state, {match}) => {
     shop: getShopById(state, shop_id)
   }
 }
-export default withRouter(connect(mapStateToPropShop, ()=>({}))(Shop))
+export default connect(mapStateToPropShop, ()=>({}))(Shop)
