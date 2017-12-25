@@ -43,6 +43,7 @@ const shops = (state = [], action) => {
       return [...state, {
         id: action.id,
         name: action.name,
+        address: action.address,
         description: action.description,
         comment: action.comment,
         ratings: [],
@@ -59,6 +60,7 @@ const shops = (state = [], action) => {
           return {
             ...shop,
             name: action.name,
+            address: action.address,
             description: action.description,
             comment: action.comment
           }

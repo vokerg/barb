@@ -38,27 +38,27 @@ class EditShop extends React.Component {
 
 	render() {
 	  return (
-		<div>
-			<form onSubmit={(this.handleSubmit).bind(this)}>
-				<div>
-					<label>
-						Name:
-						<input type="text" value={ this.state.name } onChange={ this.onUpdateName }/>
-					</label>
-					<label>
-						Address:
-						<input type="text" value= { this.state.address } onChange={ this.onUpdateAddress }/>
-					</label>
-					<label>
-						Description:
-						<textarea type="text" value= { this.state.description } onChange={ this.onUpdateDescription }/>
-					</label>
-				</div>
-				<div>
-					<input type="submit" value="Save" />
-				</div>
-			</form>
-		</div>
+			<div>
+				<form onSubmit={(this.handleSubmit).bind(this)}>
+					<div>
+						<label>
+							Name:
+							<input type="text" value={ this.state.name } onChange={ this.onUpdateName }/>
+						</label>
+						<label>
+							Address:
+							<input type="text" value= { this.state.address } onChange={ this.onUpdateAddress }/>
+						</label>
+						<label>
+							Description:
+							<textarea type="text" value= { this.state.description } onChange={ this.onUpdateDescription }/>
+						</label>
+					</div>
+					<div>
+						<input type="submit" value="Save" />
+					</div>
+				</form>
+			</div>
 	  )
 	}
 }
@@ -83,12 +83,12 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		addShop: (name, address, description) => {
-			dispatch(addShop(name, address, description));
+			dispatch(addShop(name, address, description))
 		},
 		updateShop: (id, name, address, description) => {
-			dispatch(updateShop(id, name, address, description));
+			dispatch(updateShop(id, name, address, description))
 		}
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditShop);
+export default connect(mapStateToProps, mapDispatchToProps)(EditShop)
