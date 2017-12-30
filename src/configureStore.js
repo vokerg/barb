@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import applyMiddleware from './middleware'
 import mainReducer from './reducers'
 
 export const persistedState = {shops: [
@@ -58,6 +59,8 @@ export const persistedState = {shops: [
   },
 ]}
 
-const getConfiguredStore = () => createStore(mainReducer, persistedState)
+
+
+const getConfiguredStore = () => createStore(mainReducer, persistedState, applyMiddleware)
 
 export default getConfiguredStore

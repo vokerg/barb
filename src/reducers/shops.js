@@ -14,8 +14,8 @@ const shops = (state = [], action) => {
           else {
             return {...element}
           }
-        }
-      ))}
+      }))
+    }
 
     case "ADD_RATING": {
       return (state.map(element => {
@@ -34,7 +34,7 @@ const shops = (state = [], action) => {
           }
         }
         else {
-          return element;
+          return element
         }
       }))
     }
@@ -69,7 +69,6 @@ const shops = (state = [], action) => {
         }
       })
     }
-
     default: return state
   }
 }
