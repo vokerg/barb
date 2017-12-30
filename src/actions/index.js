@@ -20,11 +20,11 @@ export const updateShop = (id, name, address, description) => {
   }
 }
 
-export const addRating = (shop_id, author, rating, comment) => {
+export const addRating = (shopId, author, rating, comment) => {
   return {
     type: "ADD_RATING",
     id: uuidv4(),
-    shop_id,
+    shopId,
     author,
     rating,
     comment

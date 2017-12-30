@@ -6,6 +6,7 @@ const RatingList = (props) => {
     const ratings = props.shop.ratings
     return (
       <div className="card card-outline-secondary my-4">
+        <AddRating shopId={props.shop.id}/>
         <div className="card-header">
           Shop Reviews
         </div>
@@ -17,7 +18,6 @@ const RatingList = (props) => {
               />
           )}
         </div>
-        <AddRating shop_id={props.shop.id}/>
       </div>
     )
 }

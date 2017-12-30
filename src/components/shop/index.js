@@ -27,9 +27,9 @@ const Shop = ({shop}) => {
 }
 
 const mapStateToPropShop = (state, {match}) => {
-  const shop_id = match.params.shop_id
+  const shopId = match.params.shopId
   return {
-    shop: getShopById(state, shop_id)
+    shop: getShopById(state, shopId)
   }
 }
 export default connect(mapStateToPropShop, ()=>({}))(Shop)

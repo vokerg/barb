@@ -19,7 +19,7 @@ const shops = (state = [], action) => {
 
     case "ADD_RATING": {
       return (state.map(element => {
-        if (element.id === action.shop_id) {
+        if (element.id === action.shopId) {
           return {
             ...element,
             ratings: [
@@ -77,10 +77,10 @@ export const getShopsByService = (state, service) => state.filter(
   shop => shop.services.includes(service)
 )
 
-export const getShopById = (state, shop_id) => {
+export const getShopById = (state, shopId) => {
   let shop_found;
   state.forEach(shop => {
-    if (shop.id === shop_id) {
+    if (shop.id === shopId) {
       shop_found=shop
     }
   })

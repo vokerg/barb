@@ -24,7 +24,7 @@ const App = () => {
             <Navigation />
             <Route exact path="/" component= {MainPage} />
             <Route exact path="/createshop" component= {EditShop} />
-            <Route exact path="/shop/:shop_id" component= {Shop} />
+            <Route exact path="/shop/:shopId" component= {Shop} />
             <Route exact path="/service/:service" component= {ShopsByService} />
             <Route path="/filter/:filter" component= {MainPage} />
             <Route exact path="/shop/edit/:id" component= {EditShop} />

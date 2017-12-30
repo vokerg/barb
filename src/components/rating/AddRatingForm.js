@@ -10,7 +10,14 @@ const AddRatingForm = (props) => {
         </label>
         <label>
           Rating:
-          <input type="text" name="rating" ref={props.ratingRef}/>
+          <select name="rating" ref={props.ratingRef}>
+            <option></option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
         </label>
       </div>
       <div>
