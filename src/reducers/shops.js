@@ -69,8 +69,20 @@ const shops = (state = [], action) => {
         }
       })
     }
+
+    case "LOAD_SHOPS": {
+      console.log(action.response)
+      /*return [
+        ...action.response
+      ]*/
+      return action.response.map(shop => {
+        return {...shop, id:shop._id}
+      })
+    }
+
     default: return state
   }
+
 }
 
 export const getShopsByService = (state, service) => state.filter(

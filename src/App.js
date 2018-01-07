@@ -14,20 +14,7 @@ import Shop from './components/shop'
 import getConfiguredStore from './configureStore'
 import Navigation from './components/Navigation'
 
-import request from 'superagent'
-
 const App = () => {
-console.log("in the app")
-
-request
-  .get('/shops/')
-//  .set('Access-Control-Allow-Credentials', 'false')
-//  .set('Access-Control-Allow-Origin': 'http://localhost:8000/shops')
-  .end((err, res) => {
-    console.log(res)
-  })
-
-
   return (
   <div className="App">
     <Provider store= { getConfiguredStore() }>

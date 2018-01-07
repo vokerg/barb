@@ -3,22 +3,33 @@ import { connect }  from 'react-redux'
 import Filter from './Filter'
 import ShopList from '../ShopList'
 import { getShopsByFilter } from '../../reducers'
-import { favoriteClick } from '../../actions'
+import { favoriteClick, fetchShops } from '../../actions'
 
-const MainPage = ({shops, onFavoriteClick}) => {
-  return (
-    <div className="container">
-      <div className="col-lg-9">
-        <div className="card mt-4">
-          <div className="card-body">
-            <Filter />
-            <ShopList shops={shops} onFavoriteClick={onFavoriteClick} />
+
+class MainPage extends React.Component {
+  componentDidMount() {
+    this.props.fetchShops()
+  }
+  render() {
+    const {shops, onFavoriteClick} = this.props
+    return (
+      <div className="container">
+        <div className="col-lg-9">
+          <div className="card mt-4">
+            <div className="card-body">
+              <Filter />
+              <ShopList shops={shops} onFavoriteClick={onFavoriteClick} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
+
+//const MainPage = ({shops, onFavoriteClick}) => {
+
+//}
 
 const mapStateToProps = (state, {match}) => {
   const filter = match.params.filter;
@@ -32,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onFavoriteClick: (id) => {
       dispatch(favoriteClick(id))
+    },
+    fetchShops: () => {
+      dispatch(fetchShops())
     }
   }
 }

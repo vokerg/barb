@@ -1,4 +1,19 @@
 import  uuidv4 from 'uuid/v4'
+import api from '../api'
+
+const loadShops = (response) => {
+  console.log("response in action", response)
+  return {
+    type: "LOAD_SHOPS",
+    response
+  }
+}
+
+export const fetchShops = () => api(response => {
+  console.log("response in fetchshops", response)
+  return loadShops(response)
+}
+)
 
 export const addShop = (name, address, description) => {
   return {
