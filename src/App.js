@@ -20,7 +20,7 @@ const App = () => {
 console.log("in the app")
 
 request
-  .get('http://localhost:8000/shops/')
+  .get('/shops/')
 //  .set('Access-Control-Allow-Credentials', 'false')
 //  .set('Access-Control-Allow-Origin': 'http://localhost:8000/shops')
   .end((err, res) => {
