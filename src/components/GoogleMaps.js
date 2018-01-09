@@ -24,7 +24,6 @@ const GoogleMaps = compose(
     )
   })}
   < /GoogleMap>
-
 )
 
 export default GoogleMaps

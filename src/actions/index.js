@@ -1,8 +1,12 @@
 import  uuidv4 from 'uuid/v4'
 import * as fromApi from '../api'
 
+export const requestShops = () => {
+  return {
+    type: "REQUEST_SHOPS"
+  }
+}
 const loadShops = (response) => {
-  console.log("response in action", response)
   return {
     type: "LOAD_SHOPS",
     response
