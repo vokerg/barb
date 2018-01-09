@@ -1,5 +1,5 @@
 import  uuidv4 from 'uuid/v4'
-import api from '../api'
+import * as fromApi from '../api'
 
 const loadShops = (response) => {
   console.log("response in action", response)
@@ -9,11 +9,8 @@ const loadShops = (response) => {
   }
 }
 
-export const fetchShops = () => api(response => {
-  console.log("response in fetchshops", response)
-  return loadShops(response)
-}
-)
+export const fetchShops = filter => fromApi.shopsPromise(filter)
+  .then(response => loadShops(response))
 
 export const addShop = (name, address, description) => {
   return {

@@ -8,7 +8,8 @@ import { favoriteClick, fetchShops } from '../../actions'
 
 class MainPage extends React.Component {
   componentDidMount() {
-    this.props.fetchShops()
+    console.log("filter", this.props.filter)
+    this.props.fetchShops(this.props.filter)
   }
   render() {
     const {shops, onFavoriteClick} = this.props
@@ -35,7 +36,8 @@ const mapStateToProps = (state, {match}) => {
   const filter = match.params.filter;
   const returnShops = getShopsByFilter(state, filter)
   return {
-    shops: returnShops
+    filter,
+    shops: returnShops,
   }
 }
 
@@ -44,8 +46,8 @@ const mapDispatchToProps = (dispatch) => {
     onFavoriteClick: (id) => {
       dispatch(favoriteClick(id))
     },
-    fetchShops: () => {
-      dispatch(fetchShops())
+    fetchShops: (filter) => {
+      dispatch(fetchShops(filter))
     }
   }
 }

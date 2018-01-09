@@ -57,19 +57,12 @@ const db = {shops: [
   },
 ]}
 
-const promise = new Promise((resolve, reject) => {
-  request
-    .get('/shops/')
-    .end((err, res) => {
-      resolve(res.body)
-    })
-})
-
-const fetchShops = (callb) =>
-  promise.then((shops) => {
-    console.log("shops in then ", shops)
-    return callb(shops)
+export const shopsPromise = (filter="all") =>
+  new Promise((resolve, reject) => {
+    request
+      .get('/shops/')
+      .query({'filter': filter})
+      .end((err, res) => {
+        resolve(res.body)
+      })
   })
-
-
-export default fetchShops
