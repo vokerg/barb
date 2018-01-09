@@ -10,7 +10,7 @@ const ShopPreview = ({shop, onFavoriteClick}) => {
           </Link>
         </div>
         <div>{ shop.address }</div>
-        <button onClick= { onFavoriteClick }>{shop.favorited ? "Unfavorite" : "Favorite"}</button>
+        <button onClick= { onFavoriteClick }>{shop.favorited===true ? "Unfavorite" : "Favorite"}</button>
       </div>
   )
 }

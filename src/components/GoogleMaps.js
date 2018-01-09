@@ -1,5 +1,5 @@
 import React from "react"
-import { compose, withProps } from "recompose"
+import { compose, withProps, lifecycle, withHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
 const GoogleMaps = compose(
@@ -13,8 +13,10 @@ const GoogleMaps = compose(
   withGoogleMap
 )((props) =>
   <GoogleMap
+    ref={props.mapRef}
     defaultZoom={11}
-    defaultCenter={props.markers[0]}
+    defaultCenter={{lat: 55.718035, lng: 12.470284}}
+    onBoundsChanged={props.onBoundsChanged}
   >
   {props.markers.map(marker => {
     return (
@@ -22,6 +24,7 @@ const GoogleMaps = compose(
     )
   })}
   < /GoogleMap>
+
 )
 
 export default GoogleMaps

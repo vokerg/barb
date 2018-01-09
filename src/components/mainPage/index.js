@@ -2,14 +2,13 @@ import React from 'react'
 import { connect }  from 'react-redux'
 import Filter from './Filter'
 import ShopList from '../ShopList'
-import { getShopsByFilter } from '../../reducers'
+import { getShops } from '../../reducers'
 import { favoriteClick, fetchShops } from '../../actions'
-
 
 class MainPage extends React.Component {
   componentDidMount() {
-    console.log("filter", this.props.filter)
-    this.props.fetchShops(this.props.filter)
+    const {fetchShops, filter} = this.props
+    fetchShops(filter)
   }
   render() {
     const {shops, onFavoriteClick} = this.props
@@ -28,16 +27,11 @@ class MainPage extends React.Component {
   }
 }
 
-//const MainPage = ({shops, onFavoriteClick}) => {
-
-//}
-
 const mapStateToProps = (state, {match}) => {
-  const filter = match.params.filter;
-  const returnShops = getShopsByFilter(state, filter)
+  const filter = match.params.filter
   return {
     filter,
-    shops: returnShops,
+    shops: getShops(state),
   }
 }
 

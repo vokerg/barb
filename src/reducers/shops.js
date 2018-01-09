@@ -71,10 +71,6 @@ const shops = (state = [], action) => {
     }
 
     case "LOAD_SHOPS": {
-      console.log(action.response)
-      /*return [
-        ...action.response
-      ]*/
       return action.response.map(shop => {
         return {...shop, id:shop._id}
       })
@@ -82,7 +78,6 @@ const shops = (state = [], action) => {
 
     default: return state
   }
-
 }
 
 export const getShopsByService = (state, service) => state.filter(
@@ -99,16 +94,6 @@ export const getShopById = (state, shopId) => {
   return shop_found
 }
 
-export const getShopsByFilter = (state, filter = "all") => {
-  switch (filter) {
-    case "favorites": {
-      return state.filter(shop => shop.favorited);
-    }
-    case "all":
-    default: {
-      return state;
-    }
-  }
-}
+export const getShops = state => state
 
 export default shops
