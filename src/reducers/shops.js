@@ -80,10 +80,6 @@ const shops = (state = [], action) => {
   }
 }
 
-export const getShopsByService = (state, service) => state.filter(
-  shop => shop.services.includes(service)
-)
-
 export const getShopById = (state, shopId) => {
   let shop_found;
   state.forEach(shop => {

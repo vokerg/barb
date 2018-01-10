@@ -6,7 +6,6 @@ import isLoading, * as fromLoading from './isLoading'
 
 const mainReducer = combineReducers({shops, isLoading})
 
-export const getShopsByService = (state, service) => fromShops.getShopsByService(state.shops, service)
 export const getShopById = (state, shopId) => fromShops.getShopById(state.shops, shopId)
 export const getShops = state => fromShops.getShops(state.shops)
 export const isShopsRequested = state =>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ShopList from './ShopList'
-import { getShopsByService } from '../reducers'
+import { getShops } from '../reducers'
 import { favoriteClick, requestShops, fetchShops } from '../actions'
 
 class ShopsByService extends React.Component  {
@@ -32,7 +32,7 @@ const mapStateToProp = (state, {match}) => {
   const service = match.params.service
   return {
     service,
-    shops: getShopsByService(state, service)
+    shops: getShops(state)
   }
 }
 
