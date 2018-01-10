@@ -2,23 +2,30 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ShopList from './ShopList'
 import { getShopsByService } from '../reducers'
-import { favoriteClick } from '../actions'
+import { favoriteClick, requestShops, fetchShops } from '../actions'
 
-const ShopsByService = ({service, shops, onFavoriteClick}) => {
-  return (
-    <div className="container">
-      <div className="col-lg-9">
-        <div className="card mt-4">
-          <div className="card-body">
-            <div>
-              { service }
+class ShopsByService extends React.Component  {
+  componentDidMount() {
+    const {fetchShops, service} = this.props
+    fetchShops(service)
+  }
+  render() {
+    const {service, shops, onFavoriteClick} = this.props
+    return (
+      <div className="container">
+        <div className="col-lg-9">
+          <div className="card mt-4">
+            <div className="card-body">
+              <div>
+                { service }
+              </div>
+              <ShopList shops={ shops } onFavoriteClick={ onFavoriteClick } />
             </div>
-            <ShopList shops={ shops } onFavoriteClick={ onFavoriteClick } />
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 const mapStateToProp = (state, {match}) => {
@@ -31,6 +38,10 @@ const mapStateToProp = (state, {match}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchShops: (service) => {
+      dispatch(requestShops())
+      dispatch(fetchShops('All', service))
+    },
     onFavoriteClick: (id) => {
       dispatch(favoriteClick(id))
     }

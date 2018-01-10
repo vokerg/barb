@@ -13,7 +13,7 @@ const loadShops = (response) => {
   }
 }
 
-export const fetchShops = filter => fromApi.shopsPromise(filter)
+export const fetchShops = (filter, service) => fromApi.shopsPromise(filter, service)
   .then(response => loadShops(response))
 
 export const addShop = (name, address, description) => {
