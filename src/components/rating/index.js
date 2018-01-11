@@ -11,9 +11,9 @@ const RatingList = (props) => {
           Shop Reviews
         </div>
         <div className="card-body">
-          {ratings.map((rating) =>
+          {ratings.map((rating, i) =>
               <Rating
-                key={rating.id}
+                key={i}
                 rating={rating}
               />
           )}
