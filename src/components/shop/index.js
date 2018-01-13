@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom'
 
 const Shop = ({shop, shopId}) => {
   return(
+    (shopId !== 0) ?
     <div className="container">
-      {(shopId !== 0) ?
       <div className="col-lg-9">
           <div className="card mt-4">
             <div className="card-body">
@@ -23,15 +23,13 @@ const Shop = ({shop, shopId}) => {
           </div>
           <RatingList shop={ shop } />
       </div>
-      : <div>Loading...</div>
-    }
     </div>
-
+  : <div>Loading...</div>
   )
 }
 
 const mapStateToPropShop = (state, {match}) => {
-  let shopId = match.params.shopId
+  let {shopId} = match.params
   shopId = (shopId !== 'new') ? shopId : getCurrentId(state)
   return {
     shopId,

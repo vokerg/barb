@@ -6,6 +6,7 @@ export const requestShops = () => {
     type: "REQUEST_SHOPS"
   }
 }
+
 const loadShops = (response) => {
   return {
     type: "LOAD_SHOPS",
@@ -13,9 +14,12 @@ const loadShops = (response) => {
   }
 }
 
-export const fetchShops = (filter, service) =>
+export const fetchShops = (filter, service) => dispatch =>
+{
+  dispatch(requestShops())
   fromApi.getShops(filter, service)
-    .then(response => loadShops(response))
+    .then(response => dispatch(loadShops(response)))
+}
 
 const addStateShop = (id, name, address, description) => {
   return {
