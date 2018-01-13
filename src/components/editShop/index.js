@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import ServiceSelect from './serviceSelect'
 import { addShop, updateShop } from '../../actions'
 import { getShopById } from '../../reducers'
+
 
 class EditShop extends React.Component {
 	constructor(props) {
@@ -59,6 +61,10 @@ class EditShop extends React.Component {
 					<div>
 						<input type="submit" value="Save" />
 					</div>
+
+					<ServiceSelect />
+
+
 				</form>
 			</div>
 	  )
