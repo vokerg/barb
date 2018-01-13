@@ -18,9 +18,9 @@ const GoogleMaps = compose(
     defaultCenter={{lat: 55.718035, lng: 12.470284}}
     onBoundsChanged={props.onBoundsChanged}
   >
-  {props.markers.map(marker => {
+  {props.markers.map((marker, i) => {
     return (
-      <Marker key={marker.lat} position={marker} onClick={() => {}} />
+      <Marker key={i} position={marker} onClick={() => {}} />
     )
   })}
   < /GoogleMap>

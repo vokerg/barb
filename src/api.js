@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-export const shopsPromise = (filter="all", service="") =>
+export const getShops = (filter="all", service="") =>
   new Promise((resolve, reject) => {
     request
       .get('/shops/')
@@ -40,16 +40,13 @@ export const updateShop = (shopId, name='', address='', favorited='', descriptio
   })
 
 export const createShop = (name, address, description, lat=0, lng=0) =>
-
-/*"coordinates": {
-    "lat": 55.718035,
-    "lng": 12.470284
-},*/
-
   new Promise((resolve, reject) => {
     const coordinates={lat, lng}
     request.put('/shops/')
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({name, address, description, coordinates})
-      .then((shop) => resolve(shop))
+      .then((res) => {
+        console.log(res.body)
+        return resolve(res.body)
+      })
   })

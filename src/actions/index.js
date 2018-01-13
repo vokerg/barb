@@ -13,11 +13,11 @@ const loadShops = (response) => {
   }
 }
 
-export const fetchShops = (filter, service) => fromApi.shopsPromise(filter, service)
-  .then(response => loadShops(response))
+export const fetchShops = (filter, service) =>
+  fromApi.getShops(filter, service)
+    .then(response => loadShops(response))
 
-export const addShopState = (id, name, address, description) => {
-  console.log(id)
+const addStateShop = (id, name, address, description) => {
   return {
     type: "ADD_SHOP",
     id,
@@ -29,7 +29,9 @@ export const addShopState = (id, name, address, description) => {
 
 export const addShop = (name, address, description) =>
   fromApi.createShop(name, address, description)
-    .then(() => addShopState(1, name, address, description))
+    .then(({_id}) =>
+      addStateShop(_id, name, address, description)
+    )
 
 const updateStateShop = (id, name, address, description) => {
   return {

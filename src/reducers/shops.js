@@ -45,7 +45,6 @@ const shops = (state = [], action) => {
         name: action.name,
         address: action.address,
         description: action.description,
-        comment: action.comment,
         ratings: [],
         coordinates: {
           lat: 1, lng: 1
@@ -62,7 +61,6 @@ const shops = (state = [], action) => {
             name: action.name,
             address: action.address,
             description: action.description,
-            comment: action.comment
           }
         } else {
           return shop

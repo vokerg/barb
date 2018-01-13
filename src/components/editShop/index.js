@@ -30,7 +30,7 @@ class EditShop extends React.Component {
 		const {shop} = this.props
 		if (shop === undefined) {
 			this.props.addShop(name, address, description)
-			this.props.history.push('/')
+			this.props.history.push('/shop/new')
 		}
 		else {
 			this.props.updateShop(shop.id, name, address, description)
