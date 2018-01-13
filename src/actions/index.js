@@ -16,15 +16,20 @@ const loadShops = (response) => {
 export const fetchShops = (filter, service) => fromApi.shopsPromise(filter, service)
   .then(response => loadShops(response))
 
-export const addShop = (name, address, description) => {
+export const addShopState = (id, name, address, description) => {
+  console.log(id)
   return {
-    id: uuidv4(),
     type: "ADD_SHOP",
+    id,
     name,
     address,
     description
   }
 }
+
+export const addShop = (name, address, description) =>
+  fromApi.createShop(name, address, description)
+    .then(() => addShopState(1, name, address, description))
 
 const updateStateShop = (id, name, address, description) => {
   return {
