@@ -8,32 +8,24 @@ import ShopInfo from './ShopInfo'
 import GoogleMaps from '../GoogleMaps'
 import { getShopById, getCurrentId } from '../../reducers'
 import { fetchShops } from '../../actions'
-
-const Temp = (props) => {
-  console.log("my props", props)
-	return <div>{props.children}</div>
-}
+import Container from '../container'
 
 const Shop = ({shop, shopId, fetchShops}) => {
   if (shop === undefined) {
-    console.log("there")
     fetchShops('All', '', shopId)
   }
   return(
     ((shopId !== 0) && (shop !== undefined)) ?
-    <div className="container">
-      <Temp>halo</Temp>
-      <div className="col-lg-9">
-          <div className="card mt-4">
-            <div className="card-body">
-              <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
-              <Link exact="true" to={ "/shop/edit/" + shop.id }>Edit</Link>
-              <ShopServiceList services={ shop.services } />
-              <GoogleMaps markers={[shop.coordinates]}/>
-            </div>
-          </div>
-          <RatingList shop={ shop } />
-      </div>
+    <div>
+      <Container>
+        <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
+        <Link exact="true" to={ "/shop/edit/" + shop.id }>Edit</Link>
+        <ShopServiceList services={ shop.services } />
+        <GoogleMaps markers={[shop.coordinates]}/>
+      </Container>
+      <Container>
+        <RatingList shop={ shop } />
+      </Container>
     </div>
   : <div>Loading...</div>
   )
