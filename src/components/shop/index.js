@@ -1,16 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import RatingList from '../rating'
 import ShopServiceList from './ShopServiceList'
 import ShopInfo from './ShopInfo'
 import GoogleMaps from '../GoogleMaps'
 import { getShopById, getCurrentId } from '../../reducers'
-import { Link } from 'react-router-dom'
+import { fetchShops } from '../../actions'
 
-const Shop = ({shop, shopId}) => {
+const Shop = ({shop, shopId, fetchShops}) => {
+  if (shop === undefined) {
+    console.log("there")
+    fetchShops('All', '', shopId)
+  }
   return(
-    (shopId !== 0) ?
+    ((shopId !== 0) && (shop !== undefined)) ?
     <div className="container">
       <div className="col-lg-9">
           <div className="card mt-4">
@@ -36,4 +41,11 @@ const mapStateToPropShop = (state, {match}) => {
     shop: getShopById(state, shopId)
   }
 }
-export default connect(mapStateToPropShop, ()=>({}))(Shop)
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchShops: (filter, services, id) => dispatch(fetchShops(filter, services, id))
+  }
+}
+
+export default connect(mapStateToPropShop, mapDispatchToProps)(Shop)

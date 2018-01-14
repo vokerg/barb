@@ -13,10 +13,10 @@ const loadShops = (response) => {
     response
   }
 }
-export const fetchShops = (filter, service) => dispatch =>
+export const fetchShops = (filter, service, id) => dispatch =>
 {
   dispatch(requestShops())
-  fromApi.getShops(filter, service)
+  fromApi.getShops(filter, service, id)
     .then(response => dispatch(loadShops(response)))
 }
 
