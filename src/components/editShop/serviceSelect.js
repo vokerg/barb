@@ -2,30 +2,38 @@ import React from 'react'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css';
 
-const SERVICES = [
-	{ label: 'Shaving', value: 'Shaving' },
-	{ label: 'Manicure', value: 'Manicure' },
-	{ label: 'Cut', value: 'Cut' },
-	{ label: 'Pedicure', value: 'Pedicure' },
-];
-
-
 class ServiceSelect extends React.Component{
   componentWillMount() {
-    this.setState({value:[], options:[]})
-    setTimeout(function () {
-      this.setState({options:SERVICES, value:["Shaving","Manicure"]})
-      console.log(this.state)
-    }.bind(this), 5000);
-
+		const {valueList} = this.props
+		this.setState({
+			value:valueList,
+			options:valueList,
+		})
   }
 
   handleChange(value) {
-    this.setState({value})
+		const {options} = this.state
+		const {serviceList, servicesCallback} = this.props
+		const tempArray = [
+			...options,
+			...serviceList
+		]
+
+    this.setState({
+			value,
+			options:[
+				...options
+					.filter(element =>
+						!serviceList.includes(element)),
+				...value.split(',')
+					.filter(element =>
+						(!tempArray.includes(element)) && (element !== ""))
+			]
+		})
+		servicesCallback(value)
   }
 
   render() {
-    console.log("rerender", this.state)
     const {options, value} = this.state
     return (
       <div className="section">
@@ -35,11 +43,13 @@ class ServiceSelect extends React.Component{
           closeOnSelect={false}
           multi
           simpleValue
-          options={options}
+          options={[...this.props.serviceList, ...options].map(service => {
+						return {label: service, value: service}
+					})}
           value={value}
           onChange={this.handleChange.bind(this)}
+					placeholder="Select your favourite(s)"
         />
-
       </div>
     )
   }

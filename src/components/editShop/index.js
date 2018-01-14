@@ -1,18 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ServiceSelect from './serviceSelect'
-import { addShop, updateShop } from '../../actions'
+import { addShop, updateShop, getServices } from '../../actions'
 import { getShopById } from '../../reducers'
-
 
 class EditShop extends React.Component {
 	constructor(props) {
 		super()
+		props.getServices()
 		const {shop} = props
 		this.state = {
 			name: (shop === undefined) ? '' : shop.name,
 			address: (shop === undefined) ? '' : shop.address,
-			description: (shop === undefined) ? '' : shop.description
+			description: (shop === undefined) ? '' : shop.description,
+			services: (shop === undefined) ? [] : shop.services
 		}
 
 		const updateFieldEvent = key => event => {
@@ -24,18 +25,19 @@ class EditShop extends React.Component {
 		this.onUpdateName = updateFieldEvent("name");
 		this.onUpdateAddress = updateFieldEvent("address");
 		this.onUpdateDescription = updateFieldEvent("description");
+
 	}
 
 	handleSubmit(event) {
 		event.preventDefault()
-		const {name, address, description} = this.state
+		const {name, address, description, services} = this.state
 		const {shop} = this.props
 		if (shop === undefined) {
-			this.props.addShop(name, address, description)
+			this.props.addShop(name, address, description, services)
 			this.props.history.push('/shop/new')
 		}
 		else {
-			this.props.updateShop(shop.id, name, address, description)
+			this.props.updateShop(shop.id, name, address, description, services)
 			this.props.history.push('/shop/' + shop.id)
 		}
 	}
@@ -62,9 +64,13 @@ class EditShop extends React.Component {
 						<input type="submit" value="Save" />
 					</div>
 
-					<ServiceSelect />
-
-
+					<ServiceSelect
+						serviceList={this.props.serviceList}
+						valueList={this.state.services}
+						servicesCallback={value =>
+							this.setState({services: value.split(',')})
+						}
+					/>
 				</form>
 			</div>
 	  )
@@ -72,29 +78,34 @@ class EditShop extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	if (ownProps.match.params.id !== undefined) {
-		const id = ownProps.match.params.id
+	let returnObject = {}
+	const {id} = ownProps.match.params
+	if (id !== undefined) {
 		let shop = getShopById(state, id)
-		const {name, address, description} = shop
-		return {
+		const {name, address, description, services} = shop
+		returnObject = {
 			shop: {
 				id,
 				name,
 				address,
-				description
+				description,
+				services
 			}
 		}
 	}
-	return {}
+	return {...returnObject, serviceList: state.services}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addShop: (name, address, description) => {
-			dispatch(addShop(name, address, description))
+		addShop: (name, address, description, services) => {
+			dispatch(addShop(name, address, description, services))
 		},
-		updateShop: (id, name, address, description) => {
-			dispatch(updateShop(id, name, address, description))
+		updateShop: (id, name, address, description, services) => {
+			dispatch(updateShop(id, name, address, description, services))
+		},
+		getServices: () => {
+			dispatch(getServices())
 		}
 	}
 }

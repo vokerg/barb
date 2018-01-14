@@ -13,7 +13,6 @@ const loadShops = (response) => {
     response
   }
 }
-
 export const fetchShops = (filter, service) => dispatch =>
 {
   dispatch(requestShops())
@@ -21,36 +20,38 @@ export const fetchShops = (filter, service) => dispatch =>
     .then(response => dispatch(loadShops(response)))
 }
 
-const addStateShop = (id, name, address, description) => {
+const addStateShop = (id, name, address, description, services) => {
   return {
     type: "ADD_SHOP",
     id,
     name,
     address,
-    description
+    description,
+    services
   }
 }
-
-export const addShop = (name, address, description) =>
-  fromApi.createShop(name, address, description)
+export const addShop = (name, address, description, services) =>
+  fromApi.createShop(name, address, description, services)
     .then(({_id}) =>
-      addStateShop(_id, name, address, description)
+      addStateShop(_id, name, address, description, services)
     )
 
-const updateStateShop = (id, name, address, description) => {
+const updateStateShop = (id, name, address, description, services) => {
   return {
     type: "UPDATE_SHOP",
     id,
     name,
     address,
-    description
+    description,
+    services
   }
 }
-
-export const updateShop = (id, name, address, description) =>
-  fromApi.updateShop(id, name, address, '', description, '', '')
-    .then(() => updateStateShop(id, name, address, description))
-
+export const updateShop = (id, name, address, description, services) =>
+{
+  console.log("services from promise", services)
+return  fromApi.updateShop(id, name, address, '', description, services, '')
+    .then(() => updateStateShop(id, name, address, description, services))
+}
 
 const addStateRating = (shopId, author, rating, comment) => {
   return {
@@ -62,10 +63,19 @@ const addStateRating = (shopId, author, rating, comment) => {
     comment
   }
 }
-
 export const addRating = (shopId, author, rating, comment) =>
   fromApi.addRating(shopId, author, rating, comment)
     .then(() => addStateRating(shopId, author, rating, comment))
+
+const getStateServices = (services) => {
+  return {
+    type: "LOAD_SERVICES",
+    services
+  }
+}
+export const getServices = () =>
+  fromApi.getServices()
+    .then(services => getStateServices(services))
 
 export const favoriteClick = (id) => {
   return {
