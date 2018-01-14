@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import ShopList from './ShopList'
 import { getShops } from '../reducers'
 import { favoriteClick, requestShops, fetchShops } from '../actions'
+import Container from './container'
 
 class ShopsByService extends React.Component  {
   componentDidMount() {
@@ -12,18 +13,12 @@ class ShopsByService extends React.Component  {
   render() {
     const {service, shops, onFavoriteClick} = this.props
     return (
-      <div className="container">
-        <div className="col-lg-9">
-          <div className="card mt-4">
-            <div className="card-body">
-              <div>
-                { service }
-              </div>
-              <ShopList shops={ shops } onFavoriteClick={ onFavoriteClick } />
-            </div>
-          </div>
+      <Container>
+        <div>
+          { service }
         </div>
-      </div>
+        <ShopList shops={ shops } onFavoriteClick={ onFavoriteClick } />
+      </Container>
     )
   }
 }

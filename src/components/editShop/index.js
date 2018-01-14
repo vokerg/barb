@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import ServiceSelect from './serviceSelect'
 import { addShop, updateShop, getServices } from '../../actions'
 import { getShopById } from '../../reducers'
+import Container from '../container'
 
 class EditShop extends React.Component {
 	constructor(props) {
@@ -44,26 +45,26 @@ class EditShop extends React.Component {
 
 	render() {
 	  return (
-			<div>
+			<Container>
 				<form onSubmit={(this.handleSubmit).bind(this)}>
 					<div>
-						<label>
-							Name:
-							<input type="text" value={ this.state.name } onChange={ this.onUpdateName }/>
-						</label>
-						<label>
-							Address:
-							<input type="text" value= { this.state.address } onChange={ this.onUpdateAddress }/>
-						</label>
-						<label>
-							Description:
-							<textarea type="text" value= { this.state.description } onChange={ this.onUpdateDescription }/>
-						</label>
+						<div>
+							<label>
+								Name:
+								<input type="text" value={ this.state.name } onChange={ this.onUpdateName }/>
+							</label>
+							<label>
+								Address:
+								<input type="text" value= { this.state.address } onChange={ this.onUpdateAddress }/>
+							</label>
+						</div>
+						<div>
+							<label>
+								Description:
+								<textarea type="text" value= { this.state.description } onChange={ this.onUpdateDescription }/>
+							</label>
+						</div>
 					</div>
-					<div>
-						<input type="submit" value="Save" />
-					</div>
-
 					<ServiceSelect
 						serviceList={this.props.serviceList}
 						valueList={this.state.services}
@@ -71,8 +72,13 @@ class EditShop extends React.Component {
 							this.setState({services: value.split(',')})
 						}
 					/>
+					<div>
+						<hr></hr>
+						<input type="submit" value="Save" />
+						<input type="button" value="Cancel" />
+					</div>
 				</form>
-			</div>
+			</Container>
 	  )
 	}
 }

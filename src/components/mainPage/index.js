@@ -4,6 +4,7 @@ import Filter from './Filter'
 import ShopList from '../ShopList'
 import { getShops, isShopsRequested } from '../../reducers'
 import { favoriteClick, fetchShops } from '../../actions'
+import Container from '../container'
 
 class MainPage extends React.Component {
   componentDidMount() {
@@ -13,16 +14,10 @@ class MainPage extends React.Component {
   render() {
     const {shops, onFavoriteClick, isShopsRequested} = this.props
     return (
-      <div className="container">
-        <div className="col-lg-9">
-          <div className="card mt-4">
-            <div className="card-body">
-              <Filter />
-              <ShopList shops={shops} onFavoriteClick={onFavoriteClick} isShopsRequested={isShopsRequested} />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Container>
+        <Filter />
+        <ShopList shops={shops} onFavoriteClick={onFavoriteClick} isShopsRequested={isShopsRequested} />
+      </Container>
     )
   }
 }

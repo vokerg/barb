@@ -9,6 +9,11 @@ import GoogleMaps from '../GoogleMaps'
 import { getShopById, getCurrentId } from '../../reducers'
 import { fetchShops } from '../../actions'
 
+const Temp = (props) => {
+  console.log("my props", props)
+	return <div>{props.children}</div>
+}
+
 const Shop = ({shop, shopId, fetchShops}) => {
   if (shop === undefined) {
     console.log("there")
@@ -17,6 +22,7 @@ const Shop = ({shop, shopId, fetchShops}) => {
   return(
     ((shopId !== 0) && (shop !== undefined)) ?
     <div className="container">
+      <Temp>halo</Temp>
       <div className="col-lg-9">
           <div className="card mt-4">
             <div className="card-body">
