@@ -18,11 +18,29 @@ const GoogleMaps = compose(
     defaultCenter={{lat: 55.718035, lng: 12.470284}}
     onBoundsChanged={props.onBoundsChanged}
   >
-  {props.markers.map((marker, i) => {
-    return (
-      <Marker key={i} position={marker} onClick={() => {}} />
-    )
-  })}
+  {props.markers !== undefined ?
+    props.markers.map((marker, i) => {
+      return (
+        <Marker
+          key={i}
+          position={props.marker}
+          onClick={() => {}}
+        />
+      )
+    })
+  : (props.marker !== undefined) ?
+    <Marker
+      onDragEnd={
+        coordinates => props.onDragEnd({
+          lat: coordinates.latLng.lat(),
+          lng: coordinates.latLng.lng()
+        })
+      }
+      position={props.marker}
+      draggable
+    />
+    : <div></div>
+  }
   < /GoogleMap>
 )
 

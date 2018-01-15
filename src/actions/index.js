@@ -20,37 +20,39 @@ export const fetchShops = (filter, service, id) => dispatch =>
     .then(response => dispatch(loadShops(response)))
 }
 
-const addStateShop = (id, name, address, description, services) => {
+const addStateShop = (id, name, address, description, services, coordinates) => {
   return {
     type: "ADD_SHOP",
     id,
     name,
     address,
     description,
-    services
+    services,
+    coordinates
   }
 }
-export const addShop = (name, address, description, services) =>
-  fromApi.createShop(name, address, description, services)
+export const addShop = (name, address, description, services, coordinates) =>
+  fromApi.createShop(name, address, description, services, coordinates)
     .then(({_id}) =>
-      addStateShop(_id, name, address, description, services)
+      addStateShop(_id, name, address, description, services, coordinates)
     )
 
-const updateStateShop = (id, name, address, description, services) => {
+const updateStateShop = (id, name, address, description, services, coordinates) => {
   return {
     type: "UPDATE_SHOP",
     id,
     name,
     address,
     description,
-    services
+    services,
+    coordinates
   }
 }
-export const updateShop = (id, name, address, description, services) =>
+export const updateShop = (id, name, address, description, services, coordinates) =>
 {
   console.log("services from promise", services)
-return  fromApi.updateShop(id, name, address, '', description, services, '')
-    .then(() => updateStateShop(id, name, address, description, services))
+return  fromApi.updateShop(id, name, address, '', description, services, coordinates)
+    .then(() => updateStateShop(id, name, address, description, services, coordinates))
 }
 
 const addStateRating = (shopId, author, rating, comment) => {

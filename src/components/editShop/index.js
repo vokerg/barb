@@ -4,17 +4,26 @@ import ServiceSelect from './serviceSelect'
 import { addShop, updateShop, getServices } from '../../actions'
 import { getShopById } from '../../reducers'
 import Container from '../container'
+//import GoogleMap from './map'
+import GoogleMap from '../GoogleMaps'
+import * as constants from '../../constants'
 
 class EditShop extends React.Component {
 	constructor(props) {
 		super()
 		props.getServices()
 		const {shop} = props
+		console.log("coordinates from shop object", shop.coordinates)
 		this.state = {
 			name: (shop === undefined) ? '' : shop.name,
 			address: (shop === undefined) ? '' : shop.address,
 			description: (shop === undefined) ? '' : shop.description,
-			services: (shop === undefined) ? [] : shop.services
+			services: (shop === undefined) ? [] : shop.services,
+			coordinates: ((shop === undefined)
+					&& (shop.coordinates !== undefined)
+					&& (shop.coordinates !== {}))
+				? constants.DEFAULT_COORDINATES : shop.coordinates
+
 		}
 
 		const updateFieldEvent = key => event => {
@@ -31,19 +40,31 @@ class EditShop extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
-		const {name, address, description, services} = this.state
+		let {
+			name,
+			address,
+			description,
+			services,
+			coordinates
+		} = this.state
+
+		coordinates = {
+			lat: Number(coordinates.lat),
+			lng: Number(coordinates.lng)
+		}
 		const {shop} = this.props
 		if (shop === undefined) {
-			this.props.addShop(name, address, description, services)
+			this.props.addShop(name, address, description, services, coordinates)
 			this.props.history.push('/shop/new')
 		}
 		else {
-			this.props.updateShop(shop.id, name, address, description, services)
+			this.props.updateShop(shop.id, name, address, description, services, coordinates)
 			this.props.history.push('/shop/' + shop.id)
 		}
 	}
 
 	render() {
+		console.log("coordinates", this.state.coordinates)
 	  return (
 			<Container>
 				<form onSubmit={(this.handleSubmit).bind(this)}>
@@ -72,6 +93,14 @@ class EditShop extends React.Component {
 							this.setState({services: value.split(',')})
 						}
 					/>
+					<hr></hr>
+					<GoogleMap
+						marker={this.state.coordinates}
+						onDragEnd={coordinates => {
+							console.log(coordinates)
+							this.setState({coordinates})
+						}}
+					/>
 					<div>
 						<hr></hr>
 						<input type="submit" value="Save" />
@@ -88,14 +117,15 @@ const mapStateToProps = (state, ownProps) => {
 	const {id} = ownProps.match.params
 	if (id !== undefined) {
 		let shop = getShopById(state, id)
-		const {name, address, description, services} = shop
+		const {name, address, description, services, coordinates} = shop
 		returnObject = {
 			shop: {
 				id,
 				name,
 				address,
 				description,
-				services
+				services,
+				coordinates
 			}
 		}
 	}
@@ -104,11 +134,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addShop: (name, address, description, services) => {
-			dispatch(addShop(name, address, description, services))
+		addShop: (name, address, description, services, coordinates) => {
+			dispatch(addShop(name, address, description, services, coordinates))
 		},
-		updateShop: (id, name, address, description, services) => {
-			dispatch(updateShop(id, name, address, description, services))
+		updateShop: (id, name, address, description, services, coordinates) => {
+			dispatch(updateShop(id, name, address, description, services, coordinates))
 		},
 		getServices: () => {
 			dispatch(getServices())

@@ -51,13 +51,11 @@ export const updateShop = (shopId, name='', address='', favorited='', descriptio
       .then(() => resolve())
   })
 
-export const createShop = (name, address, description, services=[], lat=0, lng=0) =>
+export const createShop = (name, address, description, services=[], coordinates={lat:0, lng:0}) =>
   new Promise((resolve, reject) => {
-    console.log("services from api", {name, address, description, coordinates, services})
-    const coordinates={lat, lng}
     request.put('/shops/')
       .set('content-type', 'application/x-www-form-urlencoded')
-      .send({name, address, description, coordinates:{lat, lng}, 'services[]':services})
+      .send({name, address, description, coordinates, 'services[]':services})
       .then(res => {
         console.log(res.body)
         resolve(res.body)
