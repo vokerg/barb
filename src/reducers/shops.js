@@ -46,9 +46,7 @@ const shops = (state = [], action) => {
         address: action.address,
         description: action.description,
         ratings: [],
-        coordinates: {
-          lat: 1, lng: 1
-        },
+        coordinates: action.coordinates,
         services: action.services
       }]
     }
@@ -61,7 +59,8 @@ const shops = (state = [], action) => {
             name: action.name,
             address: action.address,
             description: action.description,
-            services: action.services
+            services: action.services,
+            coordinates: action.coordinates
           }
         } else {
           return shop

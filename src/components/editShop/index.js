@@ -13,7 +13,6 @@ class EditShop extends React.Component {
 		super()
 		props.getServices()
 		const {shop} = props
-		console.log("coordinates from shop object", shop.coordinates)
 		this.state = {
 			name: (shop === undefined) ? '' : shop.name,
 			address: (shop === undefined) ? '' : shop.address,
@@ -35,12 +34,11 @@ class EditShop extends React.Component {
 		this.onUpdateName = updateFieldEvent("name");
 		this.onUpdateAddress = updateFieldEvent("address");
 		this.onUpdateDescription = updateFieldEvent("description");
-
 	}
 
 	handleSubmit(event) {
 		event.preventDefault()
-		let {
+		const {
 			name,
 			address,
 			description,
@@ -48,10 +46,6 @@ class EditShop extends React.Component {
 			coordinates
 		} = this.state
 
-		coordinates = {
-			lat: Number(coordinates.lat),
-			lng: Number(coordinates.lng)
-		}
 		const {shop} = this.props
 		if (shop === undefined) {
 			this.props.addShop(name, address, description, services, coordinates)
@@ -64,7 +58,6 @@ class EditShop extends React.Component {
 	}
 
 	render() {
-		console.log("coordinates", this.state.coordinates)
 	  return (
 			<Container>
 				<form onSubmit={(this.handleSubmit).bind(this)}>
@@ -96,10 +89,7 @@ class EditShop extends React.Component {
 					<hr></hr>
 					<GoogleMap
 						marker={this.state.coordinates}
-						onDragEnd={coordinates => {
-							console.log(coordinates)
-							this.setState({coordinates})
-						}}
+						onDragEnd={coordinates => this.setState({coordinates})}
 					/>
 					<div>
 						<hr></hr>

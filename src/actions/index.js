@@ -49,11 +49,9 @@ const updateStateShop = (id, name, address, description, services, coordinates) 
   }
 }
 export const updateShop = (id, name, address, description, services, coordinates) =>
-{
-  console.log("services from promise", services)
-return  fromApi.updateShop(id, name, address, '', description, services, coordinates)
+  fromApi.updateShop(id, name, address, '', description, services, coordinates)
     .then(() => updateStateShop(id, name, address, description, services, coordinates))
-}
+
 
 const addStateRating = (shopId, author, rating, comment) => {
   return {

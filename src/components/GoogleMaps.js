@@ -23,7 +23,10 @@ const GoogleMaps = compose(
       return (
         <Marker
           key={i}
-          position={props.marker}
+          position={{
+            lat: Number(marker.lat),
+            lng: Number(marker.lng)
+          }}
           onClick={() => {}}
         />
       )
@@ -36,7 +39,10 @@ const GoogleMaps = compose(
           lng: coordinates.latLng.lng()
         })
       }
-      position={props.marker}
+      position={{
+        lat: Number(props.marker.lat),
+        lng: Number(props.marker.lng)
+      }}
       draggable
     />
     : <div></div>

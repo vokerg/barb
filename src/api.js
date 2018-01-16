@@ -56,8 +56,5 @@ export const createShop = (name, address, description, services=[], coordinates=
     request.put('/shops/')
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({name, address, description, coordinates, 'services[]':services})
-      .then(res => {
-        console.log(res.body)
-        resolve(res.body)
-      })
+      .then(res => resolve(res.body))
   })

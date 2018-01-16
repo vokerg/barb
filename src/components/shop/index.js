@@ -14,8 +14,7 @@ const Shop = ({shop, shopId, fetchShops}) => {
   if (shop === undefined) {
     fetchShops('All', '', shopId)
   }
-  if (shop !== undefined)
-    console.log("shop", shop.coordinates)
+
   return(
     ((shopId !== 0) && (shop !== undefined)) ?
     <div>
