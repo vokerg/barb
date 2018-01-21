@@ -1,9 +1,21 @@
 import request from 'superagent'
 
-let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1YTYzNTZkNDA3N2RkYTNiMjllZTQ2MmUiLCJpYXQiOjE1MTY0Nzk5MjZ9.o2HOBAGQQDw2BK9uI9gekl_N_rUImulLiWnng_LJifg'
+let token = ''
 const tokenPlugin = req => {
   req.set({'Authorization': 'Bearer ' + token})
 }
+
+export const login = (username, password) =>
+  new Promise((resolve, reject) => {
+    request
+      .post('/login')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send({username, password})
+      .end((error, response) => {
+        token = response.body.token
+        return (!error) ? resolve() : reject()
+      })
+  })
 
 const getShop = (id) =>
   new Promise((resolve, reject) => {
@@ -31,6 +43,7 @@ export const getServices = () =>
   new Promise((resolve, reject) => {
     request
       .get('/services/')
+      .use(tokenPlugin)
       .end((err, res) => resolve(res.body))
   })
 
@@ -38,6 +51,7 @@ export const addRating = (shopId, author, rating, comment) =>
   new Promise((resolve, reject) => {
     request.put('/shops/' + shopId + '/ratings')
       .set('content-type', 'application/x-www-form-urlencoded')
+      .use(tokenPlugin)
       .send({shopId, author, rating, comment})
       .then(() => resolve())
   })
@@ -52,7 +66,9 @@ export const updateShop = (shopId, name='', address='', favorited='', descriptio
       services!=='' ? {"services[]":services}: {},
       coordinates!=='' ? {coordinates}: {},
     )
-    return request.post('/shops/' + shopId)
+    return request
+      .post('/shops/' + shopId)
+      .use(tokenPlugin)
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(shop)
       .then(() => resolve())
@@ -60,7 +76,9 @@ export const updateShop = (shopId, name='', address='', favorited='', descriptio
 
 export const createShop = (name, address, description, services=[], coordinates={lat:0, lng:0}) =>
   new Promise((resolve, reject) => {
-    request.put('/shops/')
+    request
+      .put('/shops/')
+      .use(tokenPlugin)
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({name, address, description, coordinates, 'services[]':services})
       .then(res => resolve(res.body))

@@ -22,7 +22,6 @@ class EditShop extends React.Component {
 					&& (shop.coordinates !== undefined)
 					&& (shop.coordinates !== {}))
 				? constants.DEFAULT_COORDINATES : shop.coordinates
-
 		}
 
 		const updateFieldEvent = key => event => {
@@ -46,14 +45,14 @@ class EditShop extends React.Component {
 			coordinates
 		} = this.state
 
-		const {shop} = this.props
+		const {shop, addShop, history, updateShop} = this.props
 		if (shop === undefined) {
-			this.props.addShop(name, address, description, services, coordinates)
-			this.props.history.push('/shop/new')
+			addShop(name, address, description, services, coordinates)
+			history.push('/shop/new')
 		}
 		else {
-			this.props.updateShop(shop.id, name, address, description, services, coordinates)
-			this.props.history.push('/shop/' + shop.id)
+			updateShop(shop.id, name, address, description, services, coordinates)
+			history.push('/shop/' + shop.id)
 		}
 	}
 
