@@ -1,5 +1,10 @@
 import request from 'superagent'
 
+let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1YTYzNTZkNDA3N2RkYTNiMjllZTQ2MmUiLCJpYXQiOjE1MTY0Nzk5MjZ9.o2HOBAGQQDw2BK9uI9gekl_N_rUImulLiWnng_LJifg'
+const tokenPlugin = req => {
+  req.set({'Authorization': 'Bearer ' + token})
+}
+
 const getShop = (id) =>
   new Promise((resolve, reject) => {
     request
@@ -14,18 +19,20 @@ export const getShops = (filter="all", service="", id="") =>
     : new Promise((resolve, reject) => {
       request
         .get('/shops/')
+        .use(tokenPlugin)
         .query({'filter': filter})
         .query({'service': service})
         .query({'id': id})
         .end((err, res) => resolve(res.body))
     })
 }
-  export const getServices = () =>
-    new Promise((resolve, reject) => {
-      request
-        .get('/services/')
-        .end((err, res) => resolve(res.body))
-    })
+
+export const getServices = () =>
+  new Promise((resolve, reject) => {
+    request
+      .get('/services/')
+      .end((err, res) => resolve(res.body))
+  })
 
 export const addRating = (shopId, author, rating, comment) =>
   new Promise((resolve, reject) => {
