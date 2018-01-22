@@ -1,6 +1,20 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import LoginView from './loginView'
-import {login} from '../../api'
+import { login } from '../../actions'
+
+const mapStateToProps = () => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login(username, password) {
+      dispatch(login(username, password))
+    }
+  }
+}
 
 class Login extends React.Component {
   constructor() {
@@ -26,10 +40,7 @@ class Login extends React.Component {
   onSubmit = event => {
     event.preventDefault();
     const {username, password} = this.state.user
-    login(username, password).then(
-      () => this.props.history.push('/'),
-      () => console.log("incorrect username or password")
-    )
+    this.props.login(username, password)
   }
 
   render() {
@@ -45,4 +56,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

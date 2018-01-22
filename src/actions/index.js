@@ -67,7 +67,7 @@ export const addRating = (shopId, author, rating, comment) =>
   fromApi.addRating(shopId, author, rating, comment)
     .then(() => addStateRating(shopId, author, rating, comment))
 
-const getStateServices = (services) => {
+const getStateServices = services => {
   return {
     type: "LOAD_SERVICES",
     services
@@ -77,9 +77,42 @@ export const getServices = () =>
   fromApi.getServices()
     .then(services => getStateServices(services))
 
-export const favoriteClick = (id) => {
+export const favoriteClick = id => {
   return {
     type: "ADD_FAVORITE",
     id: id
+  }
+}
+
+const stateLogin = (userId, token) => {
+  return {
+    type: "LOGIN",
+    userId,
+    token
+  }
+}
+const loginUnsuccessful = () => {
+  return {
+    type: "LOGIN_UNSUCCESSFUL"
+  }
+}
+
+export const login = (username, password) => {
+  return fromApi.login(username, password).then(
+    ({userId, token}) => stateLogin(userId, token),
+    loginUnsuccessful
+  )
+}
+
+export const doRedirect = redirectTo => {
+  return {
+    type: 'DO_REDIRECT',
+    doRedirect
+  }
+}
+
+export const redirect = () => {
+  return {
+    type: 'REDIRECT'
   }
 }

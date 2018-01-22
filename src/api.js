@@ -1,6 +1,11 @@
 import request from 'superagent'
 
 let token = ''
+export const setToken = tkn => {
+  console.log("token set")
+  token = tkn
+}
+
 const tokenPlugin = req => {
   req.set({'Authorization': 'Bearer ' + token})
 }
@@ -12,8 +17,10 @@ export const login = (username, password) =>
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({username, password})
       .end((error, response) => {
-        token = response.body.token
-        return (!error) ? resolve() : reject()
+        if (error) return reject()
+        const {userId, token} = response.body
+        console.log("from promise", token)
+        return resolve({userId, token})
       })
   })
 
