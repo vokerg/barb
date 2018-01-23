@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ServiceSelect from './serviceSelect'
-import { addShop, updateShop, getServices } from '../../actions'
+import { addShop, updateShop, getServices, doRedirect } from '../../actions'
 import { getShopById } from '../../reducers'
 import Container from '../container'
 //import GoogleMap from './map'
@@ -45,14 +45,16 @@ class EditShop extends React.Component {
 			coordinates
 		} = this.state
 
-		const {shop, addShop, history, updateShop} = this.props
+		const {shop, addShop, history, updateShop, doRedirect} = this.props
 		if (shop === undefined) {
 			addShop(name, address, description, services, coordinates)
-			history.push('/shop/new')
+			//history.push('/shop/new')
+			doRedirect('/shop/new')
 		}
 		else {
 			updateShop(shop.id, name, address, description, services, coordinates)
-			history.push('/shop/' + shop.id)
+			//history.push('/shop/' + shop.id)
+			doRedirect('/shop/' + shop.id)
 		}
 	}
 
@@ -131,6 +133,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		getServices: () => {
 			dispatch(getServices())
+		},
+		doRedirect: path => {
+			dispatch(doRedirect(path))
 		}
 	}
 }

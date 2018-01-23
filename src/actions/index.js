@@ -107,7 +107,7 @@ export const login = (username, password) => {
 export const doRedirect = redirectTo => {
   return {
     type: 'DO_REDIRECT',
-    doRedirect
+    redirectTo
   }
 }
 
