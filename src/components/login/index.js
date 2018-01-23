@@ -4,10 +4,6 @@ import { connect } from 'react-redux'
 import LoginView from './loginView'
 import { login } from '../../actions'
 
-const mapStateToProps = () => {
-  return {}
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
     login(username, password) {
@@ -56,4 +52,4 @@ class Login extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(()=>({}), mapDispatchToProps)(Login)

@@ -1,10 +1,7 @@
 import request from 'superagent'
 
 let token = ''
-export const setToken = tkn => {
-  console.log("token set")
-  token = tkn
-}
+export const setToken = tkn => token = tkn
 
 const tokenPlugin = req => {
   req.set({'Authorization': 'Bearer ' + token})
@@ -28,6 +25,7 @@ const getShop = (id) =>
   new Promise((resolve, reject) => {
     request
       .get('/shops/' + id)
+      .use(tokenPlugin)
       .end((err, res) => resolve(res.body))
   })
 

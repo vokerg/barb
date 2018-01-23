@@ -7,6 +7,11 @@ import { setToken } from './api'
 const tokenMiddleware = store => next => action => {
   if (action.type === 'LOGIN') {
     setToken(action.token)
+    localStorage.setItem('token', action.token)
+  }
+  if (action.type === 'LOGIN_UNSUCCESSFUL') {
+    setToken(null)
+    localStorage.setItem('token', null)
   }
   return next(action)
 }

@@ -1,30 +1,23 @@
 import React from 'react'
+import TextField from 'material-ui/TextField'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
 const AddRatingForm = (props) => {
   return (
     <div>
       <div>
-        <label>
-          Name:
-          <input type="text" name="name" ref={props.nameRef}/>
-        </label>
-        <label>
-          Rating:
-          <select name="rating" ref={props.ratingRef}>
-            <option></option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </label>
+        <TextField hintText="Name" ref={props.nameRef}/>
+        <SelectField floatingLabelText="Rating" ref={props.ratingRef}>
+          <MenuItem value={5} primaryText="Awesome" />
+          <MenuItem value={4} primaryText="Good" />
+          <MenuItem value={3} primaryText="Ok" />
+          <MenuItem value={2} primaryText="Bad" />
+          <MenuItem value={1} primaryText="Terrible" />
+        </SelectField>
       </div>
       <div>
-        <label>
-          Comment:
-          <textarea type="text" name="comment" ref={props.commentRef}/>
-        </label>
+        <TextField hintText="Comment" multiLine={true} ref={props.commentRef}/>
       </div>
     </div>
   )

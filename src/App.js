@@ -15,6 +15,7 @@ import Shop from './components/shop'
 import Navigation from './components/Navigation'
 import Login from './components/login'
 import { redirect } from './actions'
+import { setToken } from './api'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -29,6 +30,10 @@ const mapStateToProps = state => {
 }
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    setToken(localStorage.getItem("token"))
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       this.props.history.push(nextProps.redirectTo)
