@@ -14,12 +14,13 @@ import EditShop from './components/editShop'
 import Shop from './components/shop'
 import Navigation from './components/Navigation'
 import Login from './components/login'
-import { redirect } from './actions'
+import { redirect, localLoad } from './actions'
 import { setToken } from './api'
 
 const mapDispatchToProps = dispatch => {
   return {
-    redirect: () => dispatch(redirect())
+    redirect: () => dispatch(redirect()),
+    localLoad: (userId, token) => dispatch(localLoad(userId, token))
   }
 }
 
@@ -32,7 +33,9 @@ const mapStateToProps = state => {
 class App extends React.Component {
   constructor(props) {
     super(props)
-    setToken(localStorage.getItem("token"))
+    const token = localStorage.getItem("token")
+    setToken(token)
+    props.localLoad(localStorage.getItem("userId"), token)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {

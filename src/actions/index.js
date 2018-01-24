@@ -84,6 +84,14 @@ export const favoriteClick = id => {
   }
 }
 
+export const localLoad = (userId, token) => {
+  return {
+    type: "LOCAL_LOAD",
+    userId,
+    token
+  }
+}
+
 const stateLogin = (userId, token) => {
   return {
     type: "LOGIN",

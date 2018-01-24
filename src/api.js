@@ -16,7 +16,6 @@ export const login = (username, password) =>
       .end((error, response) => {
         if (error) return reject()
         const {userId, token} = response.body
-        console.log("from promise", token)
         return resolve({userId, token})
       })
   })

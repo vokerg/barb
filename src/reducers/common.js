@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 const token = (state = null, action) => {
   switch(action.type) {
-    case 'LOGIN': return action.token
+    case 'LOGIN': case 'LOCAL_LOAD': return action.token
     case 'LOGIN_UNSUCCESSFUL': return null
     default: return state
   }
@@ -10,7 +10,7 @@ const token = (state = null, action) => {
 
 const userId = (state=null, action) => {
   switch(action.type) {
-    case 'LOGIN': return action.userId
+    case 'LOGIN': case 'LOCAL_LOAD': return action.token
     case 'LOGIN_UNSUCCESSFUL': return null
     default: return state
   }
