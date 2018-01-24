@@ -1,16 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import ServiceSelect from './serviceSelect'
 import { addShop, updateShop, getServices, doRedirect } from '../../actions'
 import { getShopById } from '../../reducers'
-import Container from '../container'
-//import GoogleMap from './map'
 import GoogleMap from '../GoogleMaps'
 import * as constants from '../../constants'
+import EditShopForm from './editShopForm'
 
 class EditShop extends React.Component {
 	constructor(props) {
 		super()
+
+		if (props.userId === null) {
+			props.doRedirect('/login/')
+		}
+
 		props.getServices()
 		const {shop} = props
 		this.state = {
@@ -35,7 +40,8 @@ class EditShop extends React.Component {
 		this.onUpdateDescription = updateFieldEvent("description");
 	}
 
-	handleSubmit(event) {
+	handleSubmit = (event => {
+
 		event.preventDefault()
 		const {
 			name,
@@ -48,57 +54,38 @@ class EditShop extends React.Component {
 		const {shop, addShop, history, updateShop, doRedirect} = this.props
 		if (shop === undefined) {
 			addShop(name, address, description, services, coordinates)
-			//history.push('/shop/new')
 			doRedirect('/shop/new')
 		}
 		else {
 			updateShop(shop.id, name, address, description, services, coordinates)
-			//history.push('/shop/' + shop.id)
 			doRedirect('/shop/' + shop.id)
 		}
-	}
+	}).bind(this)
 
 	render() {
 	  return (
-			<Container>
-				<form onSubmit={(this.handleSubmit).bind(this)}>
-					<div>
-						<div>
-							<label>
-								Name:
-								<input type="text" value={ this.state.name } onChange={ this.onUpdateName }/>
-							</label>
-							<label>
-								Address:
-								<input type="text" value= { this.state.address } onChange={ this.onUpdateAddress }/>
-							</label>
-						</div>
-						<div>
-							<label>
-								Description:
-								<textarea type="text" value= { this.state.description } onChange={ this.onUpdateDescription }/>
-							</label>
-						</div>
-					</div>
-					<ServiceSelect
-						serviceList={this.props.serviceList}
-						valueList={this.state.services}
-						servicesCallback={value =>
-							this.setState({services: value.split(',')})
-						}
-					/>
-					<hr></hr>
-					<GoogleMap
-						marker={this.state.coordinates}
-						onDragEnd={coordinates => this.setState({coordinates})}
-					/>
-					<div>
-						<hr></hr>
-						<input type="submit" value="Save" />
-						<input type="button" value="Cancel" />
-					</div>
-				</form>
-			</Container>
+			<EditShopForm
+				onSubmit={this.handleSubmit}
+				name={this.state.name}
+				address={this.state.address}
+				description={this.state.description}
+				onUpdateName={this.onUpdateName}
+				onUpdateAddress={this.onUpdateAddress}
+				onUpdateDescription={this.onUpdateDescription}
+			>
+				<ServiceSelect
+					serviceList={this.props.serviceList}
+					valueList={this.state.services}
+					servicesCallback={value =>
+						this.setState({services: value.split(',')})
+					}
+				/>
+				<hr></hr>
+				<GoogleMap
+					marker={this.state.coordinates}
+					onDragEnd={coordinates => this.setState({coordinates})}
+				/>
+			</EditShopForm>
 	  )
 	}
 }
@@ -120,7 +107,7 @@ const mapStateToProps = (state, ownProps) => {
 			}
 		}
 	}
-	return {...returnObject, serviceList: state.services}
+	return {...returnObject, serviceList: state.services, userId: state.common.userId}
 }
 
 const mapDispatchToProps = (dispatch) => {
