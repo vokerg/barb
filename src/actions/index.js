@@ -112,6 +112,24 @@ export const login = (username, password) => {
   )
 }
 
+const stateSignup = () => {
+  return {
+    type: "SIGNUP"
+  }
+}
+
+const signupUnsuccessful = () => {
+  return {
+    type: "SIGNUP_UNSUCCESSFUL"
+  }
+}
+
+export const signup = (username, password) => {
+  return fromApi.signup(username, password).then(
+    stateSignup
+  )
+}
+
 export const doRedirect = redirectTo => {
   return {
     type: 'DO_REDIRECT',

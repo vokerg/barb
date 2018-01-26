@@ -7,6 +7,18 @@ const tokenPlugin = req => {
   req.set({'Authorization': 'Bearer ' + token})
 }
 
+export const signup = (username, password) =>
+  new Promise((resolve, reject) => {
+    request
+      .post('/signup')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send({username, password})
+      .end((error, response) => {
+        if (error) return reject()
+        return resolve()
+      })
+  })
+
 export const login = (username, password) =>
   new Promise((resolve, reject) => {
     request

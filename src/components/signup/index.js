@@ -1,29 +1,47 @@
 import React from 'react'
-import TextField from 'material-ui/TextField'
-import Card from 'material-ui/Card'
+import {connect} from 'react-redux'
+import SignupForm from './signupForm'
+import {signup} from '../../actions'
+
 
 class Signup extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      username: "",
+      password: "",
+      repeatPassword: ""
+    }
+  }
+
+  onChange = e => this.setState({
+    ...this.state,
+    [e.target.name]: e.target.value
+  })
+
+  onSubmit = (e) => {
+    e.preventDefault()
+    this.props.signup(this.state.username, this.state.password)
+  }
+
   render() {
-    return (
-      <div>
-        <br/>
-        <Card className="container">
-          <form>
-            <h2 className="card-heading">Sign up</h2>
-            <div className="field-line">
-              <TextField floatingLabelText="Name"/>
-            </div>
-            <div className="field-line">
-              <TextField floatingLabelText="Password" type="Password"/>
-            </div>
-            <div className="field-line">
-              <TextField floatingLabelText="Repeat password" type="Password"/>
-            </div>
-          </form>
-        </Card>
-      </div>
+    const {username, password, repeatPassword} = this.state
+    return(
+      <SignupForm
+        username = {username}
+        password = {password}
+        repeatPassword = {repeatPassword}
+        onChange = {this.onChange.bind(this)}
+        onSubmit = {this.onSubmit.bind(this)}
+      />
     )
   }
 }
 
-export default Signup
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signup: (username, password) => dispatch(signup(username, password))
+  }
+}
+
+export default connect(()=>({}), mapDispatchToProps)(Signup)
