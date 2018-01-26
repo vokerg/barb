@@ -9,6 +9,7 @@ import GoogleMaps from '../GoogleMaps'
 import { getShopById, getCurrentId } from '../../reducers'
 import { fetchShops } from '../../actions'
 import Container from '../container'
+import FlatButton from 'material-ui/FlatButton'
 
 const Shop = ({shop, shopId, fetchShops}) => {
   if (shop === undefined) {
@@ -20,6 +21,8 @@ const Shop = ({shop, shopId, fetchShops}) => {
     <div>
       <Container>
         <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
+        <FlatButton>Book time</FlatButton>
+        <FlatButton>Edit</FlatButton>
         <Link exact="true" to={ "/shop/edit/" + shop.id }>Edit</Link>
         <ShopServiceList services={ shop.services } />
         <GoogleMaps markers={[shop.coordinates]}/>

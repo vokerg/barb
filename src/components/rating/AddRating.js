@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import AddRatingForm from './AddRatingForm'
 import { addRating } from '../../actions'
 import Snackbar from 'material-ui/Snackbar'
+import FlatButton from 'material-ui/FlatButton'
 
 const mapDispatchToProps = (dispatch, {shopId}) => ({
   onAddRating(author, rating, comment){
@@ -30,11 +31,12 @@ class AddRating extends React.Component {
   }
 
   addRatingClick = () => {
+
     if (this.addRatingVisibility) {
       this.props.onAddRating(
-        this.nameElement.value,
-        this.ratingElement.value,
-        this.commentElement.value
+        this.nameElement.input.value,
+        this.ratingElement.input.value,
+        this.commentElement.input.value
       )
       this.setState({
         snackbarOpen: true
@@ -56,16 +58,16 @@ class AddRating extends React.Component {
               />
             :null
           }
-          <button onClick={ (this.addRatingClick).bind(this)}>
+          <FlatButton  onClick={ (this.addRatingClick).bind(this)}>
             { (this.addRatingVisibility) ? "Post review" : "Add review" }
-          </button>
+          </FlatButton>
           {(this.addRatingVisibility) ?
-            <button>Cancel</button>
+            <FlatButton>Cancel</FlatButton>
             :null
           }
           <Snackbar
             open={this.state.snackbarOpen}
-            message="Rating added"
+            message="Review added"
             autoHideDuration={3000}
             onRequestClose={(this.snackbarCloseRequest).bind(this)}
           />
