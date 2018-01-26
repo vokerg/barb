@@ -14,6 +14,7 @@ import EditShop from './components/editShop'
 import Shop from './components/shop'
 import Navigation from './components/Navigation'
 import Login from './components/login'
+import Signup from './components/signup'
 import { redirect, localLoad } from './actions'
 import { setToken } from './api'
 
@@ -57,6 +58,7 @@ class App extends React.Component {
             <Route path="/filter/:filter" component= {MainPage} />
             <Route exact path="/shop/edit/:id" component= {EditShop} />
             <Route exact path="/login" component= {Login} />
+            <Route exact path="/signup" component= {Signup} />
           </div>
         </MuiThemeProvider>
       </div>
