@@ -9,11 +9,13 @@ const tokenMiddleware = store => next => action => {
     setToken(action.token)
     localStorage.setItem('token', action.token)
     localStorage.setItem('userId', action.userId)
+    localStorage.setItem('username', action.username)
   }
-  if (action.type === 'LOGIN_UNSUCCESSFUL') {
+  if (action.type === 'LOGIN_UNSUCCESSFUL' || action.type === 'LOGOUT') {
     setToken(null)
     localStorage.removeItem('token')
     localStorage.removeItem('userId')
+    localStorage.removeItem('username')
   }
   return next(action)
 }

@@ -11,18 +11,23 @@ const LoginView = ({username, password, onChange, onSubmit}) => {
         <form onSubmit={onSubmit}>
           <div>
             <h2 className="card-heading">Login</h2>
-            <TextField
-              hintText="Usename"
-              name="username"
-              value={username}
-              onChange={onChange}
-            />
-            <TextField
-              hintText="Password"
-              name="password"
-              value={password}
-              onChange={onChange}
-            />
+            <div className="field-line">
+              <TextField
+                hintText="Usename"
+                name="username"
+                value={username}
+                onChange={onChange}
+              />
+            </div>
+            <div className="field-line">
+              <TextField
+                type="Password"
+                hintText="Password"
+                name="password"
+                value={password}
+                onChange={onChange}
+              />
+            </div>
           </div>
           <CardActions>
             <RaisedButton type="submit" label="Submit" />

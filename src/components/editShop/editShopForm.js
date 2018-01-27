@@ -2,7 +2,6 @@ import React from 'react'
 import Container from '../container'
 
 const editShop = (props) => {
-  console.log("form props", props)
   return(
     <Container>
       <form onSubmit={props.onSubmit}>

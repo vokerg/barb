@@ -51,7 +51,7 @@ class EditShop extends React.Component {
 			coordinates
 		} = this.state
 
-		const {shop, addShop, history, updateShop, doRedirect} = this.props
+		const {shop, addShop, updateShop, doRedirect} = this.props
 		if (shop === undefined) {
 			addShop(name, address, description, services, coordinates)
 			doRedirect('/shop/new')

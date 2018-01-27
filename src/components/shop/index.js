@@ -7,11 +7,11 @@ import ShopServiceList from './ShopServiceList'
 import ShopInfo from './ShopInfo'
 import GoogleMaps from '../GoogleMaps'
 import { getShopById, getCurrentId } from '../../reducers'
-import { fetchShops } from '../../actions'
+import { fetchShops, doRedirect } from '../../actions'
 import Container from '../container'
 import FlatButton from 'material-ui/FlatButton'
 
-const Shop = ({shop, shopId, fetchShops}) => {
+const Shop = ({shop, shopId, fetchShops, doRedirect}) => {
   if (shop === undefined) {
     fetchShops('All', '', shopId)
   }
@@ -21,9 +21,8 @@ const Shop = ({shop, shopId, fetchShops}) => {
     <div>
       <Container>
         <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
-        <FlatButton>Book time</FlatButton>
-        <FlatButton>Edit</FlatButton>
-        <Link exact="true" to={ "/shop/edit/" + shop.id }>Edit</Link>
+        <FlatButton onClick={() => doRedirect('/shop/book/' + shop.id)}>Book time</FlatButton>
+        <FlatButton onClick={() => doRedirect('/shop/edit/' + shop.id)}>Edit</FlatButton>
         <ShopServiceList services={ shop.services } />
         <GoogleMaps markers={[shop.coordinates]}/>
       </Container>
@@ -46,7 +45,8 @@ const mapStateToPropShop = (state, {match}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchShops: (filter, services, id) => dispatch(fetchShops(filter, services, id))
+    fetchShops: (filter, services, id) => dispatch(fetchShops(filter, services, id)),
+    doRedirect: redirectTo => dispatch(doRedirect(redirectTo))
   }
 }
 

@@ -84,19 +84,21 @@ export const favoriteClick = id => {
   }
 }
 
-export const localLoad = (userId, token) => {
+export const localLoad = (userId, token, username) => {
   return {
     type: "LOCAL_LOAD",
     userId,
-    token
+    token,
+    username
   }
 }
 
-const stateLogin = (userId, token) => {
+const stateLogin = (userId, token, username) => {
   return {
     type: "LOGIN",
     userId,
-    token
+    token,
+    username
   }
 }
 const loginUnsuccessful = () => {
@@ -104,10 +106,13 @@ const loginUnsuccessful = () => {
     type: "LOGIN_UNSUCCESSFUL"
   }
 }
+export const logout = () => ({
+  type: "LOGOUT"
+})
 
 export const login = (username, password) => {
   return fromApi.login(username, password).then(
-    ({userId, token}) => stateLogin(userId, token),
+    ({userId, token }) => stateLogin(userId, token, username),
     loginUnsuccessful
   )
 }

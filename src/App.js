@@ -18,11 +18,12 @@ import Signup from './components/signup'
 import { redirect, localLoad } from './actions'
 import { setToken } from './api'
 import BottomSnackbar from './components/bottomSnackbar'
+import Booking from './components/booking'
 
 const mapDispatchToProps = dispatch => {
   return {
     redirect: () => dispatch(redirect()),
-    localLoad: (userId, token) => dispatch(localLoad(userId, token))
+    localLoad: (userId, token, username) => dispatch(localLoad(userId, token, username))
   }
 }
 
@@ -37,7 +38,7 @@ class App extends React.Component {
     super(props)
     const token = localStorage.getItem("token")
     setToken(token)
-    props.localLoad(localStorage.getItem("userId"), token)
+    props.localLoad(localStorage.getItem("userId"), token, localStorage.getItem("username"))
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
@@ -61,6 +62,7 @@ class App extends React.Component {
               <Route exact path="/shop/edit/:id" component= {EditShop} />
               <Route exact path="/login" component= {Login} />
               <Route exact path="/signup" component= {Signup} />
+              <Route exact path="/shop/book/:id" component= {Booking} />
             </div>
             <div>
               <BottomSnackbar/>

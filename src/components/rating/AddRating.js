@@ -2,8 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import AddRatingForm from './AddRatingForm'
-import { addRating, setSnackbar } from '../../actions'
-import Snackbar from 'material-ui/Snackbar'
+import { addRating } from '../../actions'
 import FlatButton from 'material-ui/FlatButton'
 
 const mapDispatchToProps = (dispatch, {shopId}) => ({
