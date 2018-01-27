@@ -142,3 +142,16 @@ export const redirect = () => {
     type: 'REDIRECT'
   }
 }
+
+export const setSnackbar = snackbarMessage => {
+  return {
+    type: "SET_SNACKBAR",
+    snackbarMessage
+  }
+}
+
+export const clearSnackbar = () => {
+  return {
+    type: 'CLEAR_SNACKBAR'
+  }
+}

@@ -17,6 +17,7 @@ import Login from './components/login'
 import Signup from './components/signup'
 import { redirect, localLoad } from './actions'
 import { setToken } from './api'
+import BottomSnackbar from './components/bottomSnackbar'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -50,15 +51,20 @@ class App extends React.Component {
       <div className="App">
         <MuiThemeProvider>
           <div>
-            <Navigation />
-            <Route exact path="/" component= {MainPage} />
-            <Route exact path="/createshop" component= {EditShop} />
-            <Route exact path="/shop/:shopId" component= {Shop} />
-            <Route exact path="/service/:service" component= {ShopsByService} />
-            <Route path="/filter/:filter" component= {MainPage} />
-            <Route exact path="/shop/edit/:id" component= {EditShop} />
-            <Route exact path="/login" component= {Login} />
-            <Route exact path="/signup" component= {Signup} />
+            <div>
+              <Navigation />
+              <Route exact path="/" component= {MainPage} />
+              <Route exact path="/createshop" component= {EditShop} />
+              <Route exact path="/shop/:shopId" component= {Shop} />
+              <Route exact path="/service/:service" component= {ShopsByService} />
+              <Route path="/filter/:filter" component= {MainPage} />
+              <Route exact path="/shop/edit/:id" component= {EditShop} />
+              <Route exact path="/login" component= {Login} />
+              <Route exact path="/signup" component= {Signup} />
+            </div>
+            <div>
+              <BottomSnackbar/>
+            </div>
           </div>
         </MuiThemeProvider>
       </div>
