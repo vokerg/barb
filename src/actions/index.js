@@ -160,3 +160,16 @@ export const clearSnackbar = () => {
     type: 'CLEAR_SNACKBAR'
   }
 }
+
+const stateAddBooking = (shopId) => {
+  return {
+    type: 'ADD_BOOKING',
+    shopId
+  }
+}
+
+export const addBooking = (shopId, userId, date, service, comment) => {
+  return fromApi.addBooking(shopId, userId, date, service, comment).then(
+    () => stateAddBooking(shopId)
+  )
+}

@@ -60,7 +60,7 @@ class EditShop extends React.Component {
 			updateShop(shop.id, name, address, description, services, coordinates)
 			doRedirect('/shop/' + shop.id)
 		}
-	}).bind(this)
+	})
 
 	render() {
 	  return (

@@ -99,3 +99,13 @@ export const createShop = (name, address, description, services=[], coordinates=
       .send({name, address, description, coordinates, 'services[]':services})
       .then(res => resolve(res.body))
   })
+
+  export const addBooking = (shopId, userId, date, service, comment) =>
+    new Promise((resolve, reject) => {
+      request
+        .put('/shops/' + shopId + '/bookings/')
+        .use(tokenPlugin)
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({userId, date, service, comment})
+        .then(res => resolve(res.body))
+    })

@@ -6,10 +6,18 @@ import { addRating } from '../../actions'
 import FlatButton from 'material-ui/FlatButton'
 
 const mapDispatchToProps = (dispatch, {shopId}) => ({
-  onAddRating: (author, rating, comment) => dispatch(addRating(shopId, author, rating, comment)),
+  addRating: (author, rating, comment) => dispatch(addRating(shopId, author, rating, comment)),
 })
 
 class AddRating extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      name: "",
+      rating: "",
+      comment: ""
+    }
+  }
   componentDidMount() {
     this.addRatingVisibility = false;
   }
@@ -17,15 +25,33 @@ class AddRating extends React.Component {
   addRatingClick = () => {
 
     if (this.addRatingVisibility) {
-      this.props.onAddRating(
-        this.nameElement.input.value,
-        this.ratingElement.input.value,
-        this.commentElement.input.value
+      this.props.addRating(
+        this.state.name,
+        this.state.rating,
+        this.state.comment
       )
     }
     this.addRatingVisibility = !this.addRatingVisibility
     this.forceUpdate()
   }
+
+  onChangeName = (event, value) =>
+    this.setState({
+      ...this.state,
+      name: value
+    })
+
+  onChangeComment = (event, value) =>
+    this.setState({
+      ...this.state,
+      comment: value
+    })
+
+  onChangeRating = (event, value) =>
+    this.setState({
+      ...this.state,
+      rating: value
+    })
 
   render() {
       return (
@@ -33,9 +59,12 @@ class AddRating extends React.Component {
           {
             (this.addRatingVisibility) ?
               <AddRatingForm
-                nameRef={el => this.nameElement = el}
-                commentRef={el => this.commentElement = el}
-                ratingRef={el => this.ratingElement = el}
+                name={this.state.name}
+                comment={this.state.comment}
+                rating={this.state.rating}
+                onChangeName={this.onChangeName.bind(this)}
+                onChangeComment={this.onChangeComment.bind(this)}
+                onChangeRating={this.onChangeRating.bind(this)}
               />
             :null
           }

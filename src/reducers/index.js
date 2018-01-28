@@ -16,5 +16,6 @@ export const isShopsRequested = state => fromLoading.isShopsRequested(state.isLo
 export const getServices = state => fromServices.getServices(state.services)
 export const getSnackbarMessage = state => fromCommon.getSnackbarMessage(state.common)
 export const getUsername = state => fromCommon.getUsername(state.common)
+export const getUserId = state => fromCommon.getUserId(state.common)
 
 export default mainReducer
