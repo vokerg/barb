@@ -27,8 +27,21 @@ export const login = (username, password) =>
       .send({username, password})
       .end((error, response) => {
         if (error) return reject()
-        const {userId, token} = response.body
-        return resolve({userId, token})
+        const {userId, token, username} = response.body
+        return resolve({userId, token, username})
+      })
+  })
+
+export const loginFacebook = accessToken =>
+  new Promise((resolve, reject) => {
+    request
+      .post('/login/facebook')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send({accessToken})
+      .end((error, response) => {
+        if (error) return reject()
+        const {userId, username, token} = response.body
+        return resolve({userId, token, username})
       })
   })
 

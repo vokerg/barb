@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField'
 import {Card, CardActions} from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const LoginView = ({username, password, onChange, onSubmit}) => {
+const LoginView = ({username, password, onChange, onSubmit, onFacebookLogin}) => {
   return (
     <div>
       <br />
@@ -31,6 +31,9 @@ const LoginView = ({username, password, onChange, onSubmit}) => {
           </div>
           <CardActions>
             <RaisedButton type="submit" label="Submit" />
+          </CardActions>
+          <CardActions>
+            <RaisedButton label="Facebook" onClick={onFacebookLogin}/>
           </CardActions>
         </form>
       </Card>

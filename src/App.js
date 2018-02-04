@@ -48,6 +48,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('Render fired')
     return (
       <div className="App">
         <MuiThemeProvider>
@@ -63,6 +64,7 @@ class App extends React.Component {
               <Route exact path="/login" component= {Login} />
               <Route exact path="/signup" component= {Signup} />
               <Route exact path="/shop/book/:id" component= {Booking} />
+              <Route exact path="/fbredirect" component= {Login} />
             </div>
             <div>
               <BottomSnackbar/>

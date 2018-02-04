@@ -1,5 +1,6 @@
 import  uuidv4 from 'uuid/v4'
 import * as fromApi from '../api'
+import * as fromSocial from '../externalLoginApi'
 
 export const requestShops = () => {
   return {
@@ -113,6 +114,18 @@ export const logout = () => ({
 export const login = (username, password) => {
   return fromApi.login(username, password).then(
     ({userId, token }) => stateLogin(userId, token, username),
+    loginUnsuccessful
+  )
+}
+
+export const loginFacebook = () => {
+  return fromSocial.loginFacebook().then(
+    accessToken => {
+      return fromApi.loginFacebook(accessToken).then(
+        ({userId, token, username }) => stateLogin(userId, token, username),
+        loginUnsuccessful
+      )
+    },
     loginUnsuccessful
   )
 }

@@ -5,7 +5,6 @@ import {getUsername} from '../reducers'
 import {logout} from '../actions'
 
 class Navigation extends React.Component {
-
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -30,7 +29,7 @@ class Navigation extends React.Component {
                 <a className="nav-link" href="/login">Login</a>
               </li>
               <li key="4" className="nav-item">
-                <a className="nav-link" href="/signup1">Signup</a>
+                <a className="nav-link" href="/signup">Signup</a>
               </li>
             </ul>
           }

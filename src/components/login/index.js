@@ -2,13 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import LoginView from './loginView'
-import { login } from '../../actions'
+import { login, loginFacebook } from '../../actions'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login(username, password) {
-      dispatch(login(username, password))
-    }
+    login: (username, password) => dispatch(login(username, password)),
+    loginFacebook: () => dispatch(loginFacebook())
   }
 }
 
@@ -47,6 +46,7 @@ class Login extends React.Component {
         password={password}
         onChange={this.onChange.bind(this)}
         onSubmit={this.onSubmit.bind(this)}
+        onFacebookLogin={this.props.loginFacebook.bind(this)}
       />
     )
   }
