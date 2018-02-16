@@ -19,6 +19,7 @@ import { redirect, localLoad } from './actions'
 import { setToken } from './api'
 import BottomSnackbar from './components/bottomSnackbar'
 import Booking from './components/booking'
+import BookingAdmin from './components/bookingAdmin'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -61,6 +62,7 @@ class App extends React.Component {
               <Route exact path="/service/:service" component= {ShopsByService} />
               <Route path="/filter/:filter" component= {MainPage} />
               <Route exact path="/shop/edit/:id" component= {EditShop} />
+              <Route exact path="/shop/:id/bookings" component= {BookingAdmin} />
               <Route exact path="/login" component= {Login} />
               <Route exact path="/signup" component= {Signup} />
               <Route exact path="/shop/book/:id" component= {Booking} />
