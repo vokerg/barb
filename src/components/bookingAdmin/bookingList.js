@@ -1,5 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import SingleBooking from './singleBooking'
+import { loadBookings } from '../../actions'
+import { getBookings } from '../../reducers'
 
 class BookingList extends React.Component {
   constructor() {
@@ -8,7 +11,8 @@ class BookingList extends React.Component {
   }
 
   componentDidMount() {
-    console.log("component did mount")
+    const {userId, status, time, loadBookings} = this.props
+    loadBookings(userId, status, time)
   }
 
   componentWillReceiveProps() {
@@ -17,11 +21,12 @@ class BookingList extends React.Component {
 
   componentWillUpdate() {
     console.log("component will update")
+    //const {userId, status, time, loadBookings} = this.props
+    //loadBookings(userId, status, time)
   }
 
   render() {
     const {status, time} = this.props
-    console.log("RENDERRRR",status, time)
     return (
       <SingleBooking booking={{
         username: "vasea",
@@ -32,4 +37,14 @@ class BookingList extends React.Component {
   }
 }
 
-export default BookingList
+const mapStateToProps = (state) => ({
+  bookings : getBookings(state)
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadBookings: (userId, status, time) => dispatch(loadBookings(userId, status, time))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookingList)

@@ -122,3 +122,11 @@ export const createShop = (name, address, description, services=[], coordinates=
         .send({userId, date, service, comment})
         .then(res => resolve(res.body))
     })
+
+  export const getBookings = (shopId, status, time) =>
+    new Promise((resolve, reject) => {
+      request
+        .get('/shops/' + shopId + '/bookings/')
+        .use(tokenPlugin)
+        .end((err, res) => resolve(res.body))
+    })

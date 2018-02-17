@@ -1,6 +1,7 @@
 import React from 'react'
 import BookingList from './bookingList'
 import BookingFilter from './bookingFilter'
+import connect from 'react-redux'
 
 class BookingAdmin extends React.Component {
   constructor() {
@@ -20,7 +21,13 @@ class BookingAdmin extends React.Component {
 
   changeStatusFilter = this.changeFilter("statusFilter")
   changeTimeFilter = this.changeFilter("timeFilter")
-
+/*
+  changeStatusFilter = event => {
+    this.setState({
+      statusFilter: event.target.value
+    })
+  }
+*/
   render() {
     const {statusFilter, timeFilter} = this.state
     return (
@@ -32,11 +39,8 @@ class BookingAdmin extends React.Component {
           changeStatusFilter={this.changeStatusFilter.bind(this)}
           changeTimeFilter={this.changeTimeFilter.bind(this)}
         />
-        <BookingList status={statusFilter} time={timeFilter}/>
+        <BookingList shopId={this.props.match.params.id}/>
       </div>
     )
   }
 }
-
-
-export default BookingAdmin
