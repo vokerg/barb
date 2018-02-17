@@ -1,7 +1,6 @@
 import React from 'react'
 
-const SingleBooking = ({booking}) => {
-  const {username, service, date} = booking
+const SingleBooking = ({username, service, date}) => {
   return (
     <div>
       <span>{username}</span>
