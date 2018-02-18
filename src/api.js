@@ -115,6 +115,9 @@ export const createShop = (name, address, description, services=[], coordinates=
 
   export const addBooking = (shopId, userId, date, service, comment) =>
     new Promise((resolve, reject) => {
+      date = date.toString()
+      console.log({userId, date, service, comment})
+
       request
         .put('/shops/' + shopId + '/bookings/')
         .use(tokenPlugin)
