@@ -2,7 +2,9 @@ import { combineReducers } from 'redux'
 
 const bookings = (state = [], action) => {
   switch(action.type) {
-    case 'LOAD_BOOKINGS' : return action.bookings
+    case 'LOAD_BOOKINGS' : return action.bookings.map(booking => {
+      return {...booking, id: booking._id}
+    })
     default: return state
   }
 }

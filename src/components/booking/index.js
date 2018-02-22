@@ -34,7 +34,7 @@ class Booking extends React.Component {
     })
   }
 
-  commentChange = (event, object, value) => {
+  commentChange = (event, value) => {
     this.setState({
       ...this.state,
       comment: value

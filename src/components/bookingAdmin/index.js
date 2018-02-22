@@ -37,6 +37,14 @@ class BookingAdmin extends React.Component {
     })
   }
 
+  bookingApprove = id => () => {
+    console.log("booking with id", id, "approved");
+  }
+
+  bookingReject = id => () => {
+    console.log("booking with id", id, "rejected");
+  }
+
   render() {
     const {statusFilter, timeFilter} = this.state
     return (
@@ -48,7 +56,11 @@ class BookingAdmin extends React.Component {
           changeStatusFilter={ this.changeStatusFilter.bind(this) }
           changeTimeFilter={ this.changeTimeFilter.bind(this) }
         />
-        <BookingList bookings={ this.props.bookings }/>
+        <BookingList
+          bookings={ this.props.bookings }
+          bookingApprove = {this.bookingApprove}
+          bookingReject = {this.bookingReject}
+        />
       </div>
     )
   }
