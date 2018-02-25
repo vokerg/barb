@@ -198,3 +198,17 @@ export const loadBookings = (shopId, status, time) => {
       (bookings) => stateLoadBookings(bookings)
     )
 }
+
+const stateUpdateBookingStatus = (shopId, bookingId, status) => {
+  return {
+    type: 'UPDATE_BOOKING_STATUS',
+    shopId,
+    bookingId,
+    status
+  }
+}
+export const updateBookingStatus = (shopId, bookingId, status) => {
+  return fromApi.updateBookingStatus(shopId, bookingId, status).then(
+    () => stateUpdateBookingStatus(shopId, bookingId, status)
+  )
+}

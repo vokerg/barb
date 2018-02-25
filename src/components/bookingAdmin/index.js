@@ -2,7 +2,7 @@ import React from 'react'
 import BookingList from './bookingList'
 import BookingFilter from './bookingFilter'
 import { connect } from 'react-redux'
-import { loadBookings } from '../../actions'
+import { loadBookings, updateBookingStatus } from '../../actions'
 import { getBookings } from '../../reducers'
 
 class BookingAdmin extends React.Component {
@@ -13,6 +13,7 @@ class BookingAdmin extends React.Component {
       timeFilter: "Future"
     }
   }
+
 
   componentWillMount() {
     const shopId = this.props.match.params.id
@@ -37,13 +38,13 @@ class BookingAdmin extends React.Component {
     })
   }
 
-  bookingApprove = id => () => {
-    console.log("booking with id", id, "approved");
+  updateBookingStatus = status => id => () => {
+    console.log("booking with id", id, status);
+    const shopId = this.props.match.params.id
+    this.props.updateBookingStatus(shopId, id, status)
   }
-
-  bookingReject = id => () => {
-    console.log("booking with id", id, "rejected");
-  }
+  bookingApprove = this.updateBookingStatus('Approved')
+  bookingReject = this.updateBookingStatus('Rejected')
 
   render() {
     const {statusFilter, timeFilter} = this.state
@@ -72,7 +73,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadBookings: (userId, status, time) => dispatch(loadBookings(userId, status, time))
+    loadBookings: (shopId, status, time) => dispatch(loadBookings(shopId, status, time)),
+    updateBookingStatus: (shopId, bookingId, status) => dispatch(updateBookingStatus(shopId, bookingId, status))
   }
 }
 

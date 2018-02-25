@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SingleBooking = ({username, service, date, comment, bookingApproveClick, bookingRejectClick}) => {
+const SingleBooking = ({username, service, date, comment, status, bookingApproveClick, bookingRejectClick}) => {
   return (
     <tr>
       <td>{username}</td>
@@ -8,8 +8,16 @@ const SingleBooking = ({username, service, date, comment, bookingApproveClick, b
       <td>{service}</td>
       <td>{comment}</td>
       <td>
-        <button onClick={bookingApproveClick}>Approve</button>
-        <button onClick={bookingRejectClick}>Reject</button>
+        {(status === "Unprocessed" || status === "Rejected") ?
+          <button onClick={bookingApproveClick}>Approve</button>
+          :
+          <div></div>
+        }
+        {(status === "Unprocessed" || status === "Approved") ?
+          <button onClick={bookingRejectClick}>Reject</button>
+          :
+          <div></div>
+        }
       </td>
     </tr>
   )

@@ -113,24 +113,33 @@ export const createShop = (name, address, description, services=[], coordinates=
       .then(res => resolve(res.body))
   })
 
-  export const addBooking = (shopId, userId, date, service, comment) =>
-    new Promise((resolve, reject) => {
-      date = date.toString()
-      
-      request
-        .put('/shops/' + shopId + '/bookings/')
-        .use(tokenPlugin)
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({userId, date, service, comment})
-        .then(res => resolve(res.body))
-    })
+export const addBooking = (shopId, userId, date, service, comment) =>
+  new Promise((resolve, reject) => {
+    date = date.toString()
+    request
+      .put('/shops/' + shopId + '/bookings/')
+      .use(tokenPlugin)
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send({userId, date, service, comment})
+      .then(res => resolve(res.body))
+  })
 
-  export const getBookings = (shopId, status, time) =>
-    new Promise((resolve, reject) => {
-      request
-        .get('/shops/' + shopId + '/bookings/')
-        .use(tokenPlugin)
-        .query({'status': status})
-        .query({'time': time})
-        .end((err, res) => resolve(res.body))
-    })
+export const getBookings = (shopId, status, time) =>
+  new Promise((resolve, reject) => {
+    request
+      .get('/shops/' + shopId + '/bookings/')
+      .use(tokenPlugin)
+      .query({'status': status})
+      .query({'time': time})
+      .end((err, res) => resolve(res.body))
+  })
+
+export const updateBookingStatus = (shopId, bookingId, status) =>
+  new Promise((resolve, reject) => {
+    request
+      .post('/shops/' + shopId + '/bookings/' + bookingId)
+      .use(tokenPlugin)
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send({status})
+      .then(res => resolve(res.body))
+  })
