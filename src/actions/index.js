@@ -187,15 +187,17 @@ export const addBooking = (shopId, userId, date, service, comment) => {
   )
 }
 
-const stateLoadBookings = bookings => {
+const stateLoadBookings = (bookings, status, time) => {
   return {
     type: 'LOAD_BOOKINGS',
-    bookings
+    bookings,
+    status,
+    time
   }
 }
 export const loadBookings = (shopId, status, time) => {
     return fromApi.getBookings(shopId, status, time).then(
-      (bookings) => stateLoadBookings(bookings)
+      (bookings) => stateLoadBookings(bookings, status, time)
     )
 }
 
