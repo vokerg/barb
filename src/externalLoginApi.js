@@ -18,7 +18,6 @@ export const loginFacebook = () => {
       else {
         reject()
       }
-      console.log(response)
 
     })
   })

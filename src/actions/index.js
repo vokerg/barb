@@ -67,7 +67,7 @@ export const getServices = () =>
 
 export const favoriteClick = id => ({
   type: "ADD_FAVORITE",
-  id: id
+  id
 })
 
 export const localLoad = (userId, token, username) => ({
@@ -122,12 +122,10 @@ export const doRedirect = redirectTo => ({
 
 export const redirect = () => ({ type: 'REDIRECT' })
 
-export const setSnackbar = snackbarMessage => {
-  return {
+export const setSnackbar = snackbarMessage => ({
     type: "SET_SNACKBAR",
     snackbarMessage
-  }
-}
+})
 
 export const clearSnackbar = () => ({ type: 'CLEAR_SNACKBAR' })
 

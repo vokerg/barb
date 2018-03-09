@@ -14,16 +14,18 @@ const Shop = ({shop, shopId, fetchShops, doRedirect}) => {
   if (shop === undefined) {
     fetchShops('All', '', shopId)
   }
+  const {name, address, description, services, coordinates} = shop
 
   return(
     ((shopId !== 0) && (shop !== undefined)) ?
     <div>
       <Container>
-        <ShopInfo name={shop.name} address={shop.address} description={shop.description}/>
-        <FlatButton onClick={() => doRedirect('/shop/book/' + shop.id)}>Book time</FlatButton>
-        <FlatButton onClick={() => doRedirect('/shop/edit/' + shop.id)}>Edit</FlatButton>
-        <ShopServiceList services={ shop.services } />
-        <GoogleMaps markers={[shop.coordinates]}/>
+        <ShopInfo name={name} address={address} description={description}/>
+        <FlatButton onClick={() => doRedirect('/shop/book/' + shopId)}>Book time</FlatButton>
+        <FlatButton onClick={() => doRedirect('/shop/edit/' + shopId)}>Edit</FlatButton>
+        <FlatButton onClick={() => doRedirect('/shop/' + shopId + "/bookings/")}>Bookings</FlatButton>
+        <ShopServiceList services={ services } />
+        <GoogleMaps markers={[coordinates]}/>
       </Container>
       <Container>
         <RatingList shop={ shop } />

@@ -14,7 +14,6 @@ class BookingAdmin extends React.Component {
     }
   }
 
-
   componentWillMount() {
     const shopId = this.props.match.params.id
     this.props.loadBookings(shopId, this.state.statusFilter, this.state.timeFilter)
@@ -39,7 +38,6 @@ class BookingAdmin extends React.Component {
   }
 
   updateBookingStatus = status => id => () => {
-    console.log("booking with id", id, status);
     const shopId = this.props.match.params.id
     this.props.updateBookingStatus(shopId, id, status)
   }
