@@ -4,16 +4,17 @@ import * as fromSocial from '../externalLoginApi'
 
 export const requestShops = () => ({ type: "REQUEST_SHOPS" })
 
-const loadShops = response => ({
+const loadShops = (shops, favoriteShops) => ({
   type: "LOAD_SHOPS",
-  response
+  shops,
+  favoriteShops
 })
-export const fetchShops = (filter, service, id) => dispatch =>
+export const fetchShops = (filter, service, id) => (dispatch, getState) =>
 {
   dispatch(requestShops())
   fromApi
     .getShops(filter, service, id)
-    .then(response => dispatch(loadShops(response)))
+    .then(shops => dispatch(loadShops(shops, getState().common.favoriteShops)))
 }
 
 const addStateShop = (id, name, address, description, services, coordinates) => ({
@@ -70,12 +71,19 @@ export const favoriteClick = id => ({
   id
 })
 
-export const localLoad = (userId, token, username) => ({
+export const stateLocalLoad = (userId, token, username) => ({
     type: "LOCAL_LOAD",
     userId,
     token,
     username
 })
+
+export const localLoad = (userId, token, username) => dispatch => {
+  dispatch(stateLocalLoad(userId, token, username))
+  if (userId !== null) {
+    dispatch(loadPreferences(userId))
+  }
+}
 
 const stateLogin = (userId, token, username) => ({
   type: "LOGIN",
@@ -83,12 +91,16 @@ const stateLogin = (userId, token, username) => ({
   token,
   username
 })
+const loginThunk = (userId, token, username) => dispatch => {
+  dispatch(stateLogin(userId, token, username));
+  dispatch(loadPreferences(userId));
+}
 const loginUnsuccessful = () => ({ type: "LOGIN_UNSUCCESSFUL" })
 export const login = (username, password) =>
   fromApi
     .login(username, password)
     .then(
-      ({userId, token }) => stateLogin(userId, token, username),
+      ({userId, token }) => loginThunk(userId, token, username),
       loginUnsuccessful
     )
 
@@ -101,7 +113,7 @@ export const loginFacebook = () =>
       accessToken => fromApi
         .loginFacebook(accessToken)
         .then(
-          ({userId, token, username }) => stateLogin(userId, token, username),
+          ({userId, token, username }) => loginThunk(userId, token, username),
           loginUnsuccessful
         ),
       loginUnsuccessful
@@ -160,3 +172,12 @@ export const updateBookingStatus = (shopId, bookingId, status) =>
   fromApi
     .updateBookingStatus(shopId, bookingId, status)
     .then(() => stateUpdateBookingStatus(shopId, bookingId, status))
+
+const stateLoadPreferences = favorites => ({
+  type: 'LOAD_PREFERENCES',
+  favorites
+})
+export const loadPreferences = userId =>
+  fromApi
+    .loadPreferences(userId)
+    .then(favorites => stateLoadPreferences(favorites))

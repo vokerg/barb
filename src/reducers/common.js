@@ -48,8 +48,16 @@ const snackbarMessage = (state="", action) => {
   }
 }
 
+const favoriteShops = (state=[], action) => {
+  switch(action.type) {
+    case 'LOAD_PREFERENCES': return action.favorites
+    case 'LOGOUT': return []
+    default: return state
+  }
+}
+
 export const getSnackbarMessage = state => state.snackbarMessage
 export const getUsername = state => state.username
 export const getUserId = state => state.userId
 
-export default combineReducers({token, userId, username, redirectTo, snackbarMessage})
+export default combineReducers({token, userId, username, redirectTo, snackbarMessage, favoriteShops})

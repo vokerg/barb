@@ -143,3 +143,8 @@ export const updateBookingStatus = (shopId, bookingId, status) =>
       .send({status})
       .then(res => resolve(res.body))
   })
+
+  export const loadPreferences = userId =>
+    new Promise((resolve, reject) =>
+      resolve(['5a523ec73fbe9f2dcf20d8e5'])
+    )

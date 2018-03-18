@@ -69,11 +69,26 @@ const shops = (state = [], action) => {
     }
 
     case "LOAD_SHOPS": {
-      return action.response.map(shop => {
-        return {...shop, id:shop._id}
-      })
+      return action.shops.map(shop => ({
+        ...shop,
+        id:shop._id,
+        favorited: (action.favoriteShops.indexOf(shop._id) !== -1)
+      }))
     }
 
+    case "LOGOUT": {
+      return state.map(shop => ({...shop,
+        id:shop._id,
+        favorited: false
+      }))
+    }
+
+    case 'LOAD_PREFERENCES': {
+      return state.map(shop => ({
+        ...shop,
+        favorited: (action.favorites.indexOf(shop._id) !== -1)
+      }))
+    }
     default: return state
   }
 }
