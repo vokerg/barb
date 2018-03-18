@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ShopList from './ShopList'
+import ShopList from './shopList'
 import { getShops } from '../reducers'
-import { favoriteClick, requestShops, fetchShops } from '../actions'
+import { requestShops, fetchShops } from '../actions'
 import Container from './container'
 
 class ShopsByService extends React.Component  {
@@ -11,7 +11,7 @@ class ShopsByService extends React.Component  {
     fetchShops(service)
   }
   render() {
-    const {service, shops, onFavoriteClick} = this.props
+    const {service, shops} = this.props
     return (
       <Container>
         <div>
@@ -34,11 +34,7 @@ const mapStateToProp = (state, {match}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchShops: (service) => {
-      dispatch(requestShops())
       dispatch(fetchShops('All', service))
-    },
-    onFavoriteClick: (id) => {
-      dispatch(favoriteClick(id))
     }
   }
 }

@@ -1,6 +1,10 @@
 import React from 'react'
-import ShopPreview from './ShopPreview'
-import GoogleMaps from './GoogleMaps'
+import { connect } from 'react-redux'
+import ShopPreview from '../ShopPreview'
+import GoogleMaps from '../GoogleMaps'
+import { favoriteClick } from '../../actions'
+import { isShopsRequested } from '../../reducers'
+import Shops from './shops'
 
 class ShopList extends React.Component {
   constructor() {
@@ -8,14 +12,8 @@ class ShopList extends React.Component {
     this.state = {
       visibleShops: [],
       bounds: {
-        b: {
-          b: 0,
-          f: 0
-        },
-        f: {
-          b: 0,
-          f: 0
-        }
+        b: { b: 0, f: 0 },
+        f: { b: 0, f: 0 }
       }
     }
   }
@@ -50,13 +48,15 @@ class ShopList extends React.Component {
       let mapBoundsChange=false
       let bounds
       return (
-        <div>
-          <GoogleMaps markers={shops.map(
-            shop => shop.coordinates
-          )}
-          mapRef={map => mapRef1 = map}
-          onBoundsChanged={
-            () => {
+        <Shops
+          onFavoriteClick={onFavoriteClick}
+          isShopsRequested={isShopsRequested}
+          shops={shops.filter(this.filterShops.bind(this))}
+        >
+          <GoogleMaps
+            markers={shops.map(shop => shop.coordinates)}
+            mapRef={map => mapRef1 = map}
+            onBoundsChanged={() => {
               bounds = mapRef1.getBounds()
               if (mapBoundsChange) return
               mapBoundsChange = true
@@ -64,28 +64,21 @@ class ShopList extends React.Component {
                 mapBoundsChange = false;
                 this.setBoundsState(bounds)
               }, 300)
-            }
-          }
+            }}
           />
-          <hr></hr>
-          {isShopsRequested ? <div>Loading...</div>:
-            <div>
-              {shops
-                .filter(this.filterShops.bind(this))
-                .map(element=>
-                  <ShopPreview
-                    key={element.id}
-                    shop={element}
-                    onFavoriteClick= { ()=>{onFavoriteClick(element.id)} }
-                  />
-                )
-              }
-            </div>
-          }
-        </div>
+        </Shops>
       )
   }
 }
 
+const mapStateToProps = (state) => ({
+    isShopsRequested: isShopsRequested(state)
+})
 
-export default ShopList
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick: (id) => {
+    dispatch(favoriteClick(id))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopList)
