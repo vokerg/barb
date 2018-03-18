@@ -1,7 +1,7 @@
 import React from 'react'
-import ShopPreview from '../ShopPreview'
+import ShopPreview from './shopPreview'
 
-const Shops = ({shops, onFavoriteClick, isShopsRequested, children}) => {
+const Shops = ({shops, onFavoriteClick, isShopsRequested, children, isShowFavorites}) => {
   return (
     <div>
       { children }
@@ -11,8 +11,9 @@ const Shops = ({shops, onFavoriteClick, isShopsRequested, children}) => {
           {shops
             .map((shop, key)=>
               <ShopPreview
-                key={key}
-                shop={shop}
+                isShowFavorites={ isShowFavorites }
+                key={ key }
+                shop={ shop }
                 onFavoriteClick= { ()=>{onFavoriteClick(shop.id)} }
               />
             )

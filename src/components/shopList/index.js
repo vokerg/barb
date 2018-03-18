@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ShopPreview from '../ShopPreview'
 import GoogleMaps from '../GoogleMaps'
 import { favoriteClick } from '../../actions'
-import { isShopsRequested } from '../../reducers'
+import { isShopsRequested, getUserId } from '../../reducers'
 import Shops from './shops'
 
 class ShopList extends React.Component {
@@ -43,15 +42,16 @@ class ShopList extends React.Component {
   }
 
   render() {
-      const {shops, onFavoriteClick, isShopsRequested} = this.props
+      const {shops, onFavoriteClick, isShopsRequested, userId} = this.props
       let mapRef1
       let mapBoundsChange=false
       let bounds
       return (
         <Shops
-          onFavoriteClick={onFavoriteClick}
-          isShopsRequested={isShopsRequested}
-          shops={shops.filter(this.filterShops.bind(this))}
+          isShowFavorites={ userId!==null }
+          onFavoriteClick={ onFavoriteClick }
+          isShopsRequested={ isShopsRequested }
+          shops={ shops.filter(this.filterShops.bind(this)) }
         >
           <GoogleMaps
             markers={shops.map(shop => shop.coordinates)}
@@ -72,7 +72,8 @@ class ShopList extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isShopsRequested: isShopsRequested(state)
+    isShopsRequested: isShopsRequested(state),
+    userId: getUserId(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

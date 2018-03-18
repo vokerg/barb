@@ -66,10 +66,14 @@ export const getServices = () =>
   fromApi.getServices()
     .then(services => getStateServices(services))
 
-export const favoriteClick = id => ({
+const stateFavoriteClick = id => ({
   type: "ADD_FAVORITE",
   id
 })
+export const favoriteClick = id =>
+  fromApi
+    .addFavorite()
+    .then(() => stateFavoriteClick(id))
 
 export const stateLocalLoad = (userId, token, username) => ({
     type: "LOCAL_LOAD",

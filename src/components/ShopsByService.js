@@ -17,7 +17,7 @@ class ShopsByService extends React.Component  {
         <div>
           { service }
         </div>
-        <ShopList shops={ shops } onFavoriteClick={ onFavoriteClick } />
+        <ShopList shops={ shops }/>
       </Container>
     )
   }

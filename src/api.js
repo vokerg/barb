@@ -144,7 +144,12 @@ export const updateBookingStatus = (shopId, bookingId, status) =>
       .then(res => resolve(res.body))
   })
 
-  export const loadPreferences = userId =>
-    new Promise((resolve, reject) =>
-      resolve(['5a523ec73fbe9f2dcf20d8e5'])
-    )
+export const loadPreferences = userId =>
+  new Promise((resolve, reject) =>
+    resolve(['5a523ec73fbe9f2dcf20d8e5'])
+  )
+
+export const addFavorite = shopId =>
+new Promise((resolve, reject) =>
+  resolve(true)
+)
