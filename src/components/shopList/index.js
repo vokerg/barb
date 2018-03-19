@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import GoogleMaps from '../GoogleMaps'
-import { favoriteClick } from '../../actions'
+import { addFavorite } from '../../actions'
 import { isShopsRequested, getUserId } from '../../reducers'
 import Shops from './shops'
 
@@ -41,6 +41,8 @@ class ShopList extends React.Component {
     })
   }
 
+  onFavoriteClick = userId => shopId => this.props.addFavorite(userId, shopId)
+
   render() {
       const {shops, onFavoriteClick, isShopsRequested, userId} = this.props
       let mapRef1
@@ -49,7 +51,7 @@ class ShopList extends React.Component {
       return (
         <Shops
           isShowFavorites={ userId!==null }
-          onFavoriteClick={ onFavoriteClick }
+          onFavoriteClick={ this.onFavoriteClick(userId) }
           isShopsRequested={ isShopsRequested }
           shops={ shops.filter(this.filterShops.bind(this)) }
         >
@@ -77,8 +79,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFavoriteClick: (id) => {
-    dispatch(favoriteClick(id))
+  addFavorite: (userId, shopId) => {
+    dispatch(addFavorite(userId, shopId))
   }
 })
 

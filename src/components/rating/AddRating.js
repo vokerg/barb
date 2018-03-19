@@ -4,9 +4,14 @@ import { connect } from 'react-redux'
 import AddRatingForm from './AddRatingForm'
 import { addRating } from '../../actions'
 import FlatButton from 'material-ui/FlatButton'
+import { getUserId } from '../../reducers'
+
+const mapStateToProps = state => ({
+  userId: getUserId(state)
+})
 
 const mapDispatchToProps = (dispatch, {shopId}) => ({
-  addRating: (author, rating, comment) => dispatch(addRating(shopId, author, rating, comment)),
+  addRating: (userId, author, rating, comment) => dispatch(addRating(userId, shopId, author, rating, comment))
 })
 
 class AddRating extends React.Component {
@@ -62,6 +67,7 @@ class AddRating extends React.Component {
                 name={this.state.name}
                 comment={this.state.comment}
                 rating={this.state.rating}
+                isNameVisible={this.props.userId === null}
                 onChangeName={this.onChangeName.bind(this)}
                 onChangeComment={this.onChangeComment.bind(this)}
                 onChangeRating={this.onChangeRating.bind(this)}
@@ -80,4 +86,4 @@ class AddRating extends React.Component {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(AddRating)
+export default connect(mapStateToProps, mapDispatchToProps)(AddRating)

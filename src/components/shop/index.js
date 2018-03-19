@@ -13,11 +13,11 @@ import FlatButton from 'material-ui/FlatButton'
 const Shop = ({shop, shopId, fetchShops, doRedirect}) => {
   if (shop === undefined) {
     fetchShops('All', '', shopId)
+    return <div>Loading...</div>
   }
   const {name, address, description, services, coordinates} = shop
 
   return(
-    ((shopId !== 0) && (shop !== undefined)) ?
     <div>
       <Container>
         <ShopInfo name={name} address={address} description={description}/>
@@ -31,7 +31,6 @@ const Shop = ({shop, shopId, fetchShops, doRedirect}) => {
         <RatingList shop={ shop } />
       </Container>
     </div>
-  : <div>Loading...</div>
   )
 }
 

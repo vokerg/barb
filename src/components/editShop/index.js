@@ -11,7 +11,6 @@ import EditShopForm from './editShopForm'
 class EditShop extends React.Component {
 	constructor(props) {
 		super()
-
 		if (props.userId === null) {
 			props.doRedirect('/login/')
 		}
@@ -24,8 +23,8 @@ class EditShop extends React.Component {
 			description: (shop === undefined) ? '' : shop.description,
 			services: (shop === undefined) ? [] : shop.services,
 			coordinates: ((shop === undefined)
-					&& (shop.coordinates !== undefined)
-					&& (shop.coordinates !== {}))
+					|| (shop.coordinates === undefined)
+					|| (shop.coordinates === {}))
 				? constants.DEFAULT_COORDINATES : shop.coordinates
 		}
 

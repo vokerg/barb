@@ -78,7 +78,7 @@ export const getServices = () =>
 
 export const addRating = (shopId, author, rating, comment) =>
   new Promise((resolve, reject) => {
-    request.put('/shops/' + shopId + '/ratings')
+    request.put(`/shops/${shopId}/ratings`)
       .set('content-type', 'application/x-www-form-urlencoded')
       .use(tokenPlugin)
       .send({shopId, author, rating, comment})
@@ -96,7 +96,7 @@ export const updateShop = (shopId, name='', address='', favorited='', descriptio
       coordinates!=='' ? {coordinates}: {},
     )
     return request
-      .post('/shops/' + shopId)
+      .post(`/shops/${shopId}`)
       .use(tokenPlugin)
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(shop)
@@ -117,7 +117,7 @@ export const addBooking = (shopId, userId, date, service, comment) =>
   new Promise((resolve, reject) => {
     date = date.toString()
     request
-      .put('/shops/' + shopId + '/bookings/')
+      .put(`/shops/${shopId}/bookings/`)
       .use(tokenPlugin)
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({userId, date, service, comment})
@@ -127,7 +127,7 @@ export const addBooking = (shopId, userId, date, service, comment) =>
 export const getBookings = (shopId, status, time) =>
   new Promise((resolve, reject) => {
     request
-      .get('/shops/' + shopId + '/bookings/')
+      .get(`/shops/${shopId}/bookings/`)
       .use(tokenPlugin)
       .query({'status': status})
       .query({'time': time})
@@ -137,7 +137,7 @@ export const getBookings = (shopId, status, time) =>
 export const updateBookingStatus = (shopId, bookingId, status) =>
   new Promise((resolve, reject) => {
     request
-      .post('/shops/' + shopId + '/bookings/' + bookingId)
+      .post(`/shops/'${shopId}/bookings/${bookingId}`)
       .use(tokenPlugin)
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({status})
@@ -146,10 +146,19 @@ export const updateBookingStatus = (shopId, bookingId, status) =>
 
 export const loadPreferences = userId =>
   new Promise((resolve, reject) =>
-    resolve(['5a523ec73fbe9f2dcf20d8e5'])
+    request
+      .get(`/users/${userId}/favorites`)
+      .use(tokenPlugin)
+      .end((err, res) => {
+        resolve(res.body)
+      })
   )
 
-export const addFavorite = shopId =>
-new Promise((resolve, reject) =>
-  resolve(true)
+export const addFavorite = (userId, shopId) =>
+  new Promise((resolve, reject) =>
+    request
+      .put(`/users/${userId}/favorites/${shopId}`)
+      .use(tokenPlugin)
+      .send({})
+      .then(res => resolve(true))
 )
