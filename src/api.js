@@ -76,12 +76,12 @@ export const getServices = () =>
       .end((err, res) => resolve(res.body))
   })
 
-export const addRating = (shopId, author, rating, comment) =>
+export const addRating = (userId, shopId, author, rating, comment) =>
   new Promise((resolve, reject) => {
     request.put(`/shops/${shopId}/ratings`)
       .set('content-type', 'application/x-www-form-urlencoded')
       .use(tokenPlugin)
-      .send({shopId, author, rating, comment})
+      .send({userId, shopId, author, rating, comment})
       .then(() => resolve())
   })
 
@@ -137,7 +137,7 @@ export const getBookings = (shopId, status, time) =>
 export const updateBookingStatus = (shopId, bookingId, status) =>
   new Promise((resolve, reject) => {
     request
-      .post(`/shops/'${shopId}/bookings/${bookingId}`)
+      .post(`/shops/${shopId}/bookings/${bookingId}`)
       .use(tokenPlugin)
       .set('content-type', 'application/x-www-form-urlencoded')
       .send({status})
