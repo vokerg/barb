@@ -74,8 +74,8 @@ class ShopList extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isShopsRequested: isShopsRequested(state),
-    userId: getUserId(state)
+  isShopsRequested: isShopsRequested(state),
+  userId: getUserId(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ShopList from './shopList'
 import { getShops } from '../reducers'
-import { requestShops, fetchShops } from '../actions'
+import { fetchShops } from '../actions'
 import Container from './container'
 
 class ShopsByService extends React.Component  {

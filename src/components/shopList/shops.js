@@ -1,5 +1,6 @@
 import React from 'react'
 import ShopPreview from './shopPreview'
+import Divider from 'material-ui/Divider'
 
 const Shops = ({shops, onFavoriteClick, isShopsRequested, children, isShowFavorites}) => {
   return (
@@ -10,12 +11,14 @@ const Shops = ({shops, onFavoriteClick, isShopsRequested, children, isShowFavori
         <div>
           {shops
             .map((shop, key)=>
-              <ShopPreview
-                isShowFavorites={ isShowFavorites }
-                key={ key }
-                shop={ shop }
-                onFavoriteClick= { ()=>{onFavoriteClick(shop.id)} }
-              />
+              <div key={ key }>
+                <ShopPreview
+                  isShowFavorites={ isShowFavorites }
+                  shop={ shop }
+                  onFavoriteClick= { ()=>{onFavoriteClick(shop.id)} }
+                />
+                <Divider />
+              </div>
             )
           }
         </div>}
