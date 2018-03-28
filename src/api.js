@@ -27,8 +27,8 @@ export const login = (username, password) =>
       .send({username, password})
       .end((error, response) => {
         if (error) return reject()
-        const {userId, token, username} = response.body
-        return resolve({userId, token, username})
+        const {userId, token, username, admin, moderateShops} = response.body
+        return resolve({userId, token, username, admin, moderateShops})
       })
   })
 

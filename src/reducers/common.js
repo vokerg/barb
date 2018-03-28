@@ -16,6 +16,22 @@ const userId = (state=null, action) => {
   }
 }
 
+const admin = (state=false, action) => {
+  switch (action.type) {
+    case 'LOGIN': case 'LOCAL_LOAD': return action.admin
+    case 'LOGIN_UNSUCCESSFUL': case 'SIGNUP': case 'LOGOUT': return false
+    default: return state
+  }
+}
+
+const moderateShops = (state = [], action) => {
+  switch (action.type) {
+    case 'LOGIN': case 'LOCAL_LOAD': return action.moderateShops
+    case 'LOGIN_UNSUCCESSFUL': case 'SIGNUP': case 'LOGOUT': return []
+    default: return state
+  }
+}
+
 const username = (state="", action) => {
   switch(action.type) {
     case 'LOGIN': case 'LOCAL_LOAD': return action.username
@@ -59,5 +75,7 @@ const favoriteShops = (state=[], action) => {
 export const getSnackbarMessage = state => state.snackbarMessage
 export const getUsername = state => state.username
 export const getUserId = state => state.userId
+export const isModerateShop = (state, shopId) => state.admin || state.moderateShops.includes(shopId)
+export const isAdmin = state => state.admin
 
-export default combineReducers({token, userId, username, redirectTo, snackbarMessage, favoriteShops})
+export default combineReducers({token, userId, admin, moderateShops, username, redirectTo, snackbarMessage, favoriteShops})

@@ -3,7 +3,7 @@ import BookingList from './bookingList'
 import BookingFilter from './bookingFilter'
 import { connect } from 'react-redux'
 import { loadBookings, updateBookingStatus } from '../../actions'
-import { getBookings } from '../../reducers'
+import { getBookings, isModerateShop } from '../../reducers'
 
 class BookingAdmin extends React.Component {
   constructor() {
@@ -65,8 +65,9 @@ class BookingAdmin extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  bookings : getBookings(state)
+const mapStateToProps = (state, ownProps) => ({
+  bookings : getBookings(state),
+  isModerateShop: isModerateShop(state, ownProps.match.params.id)
 })
 
 const mapDispatchToProps = (dispatch) => {

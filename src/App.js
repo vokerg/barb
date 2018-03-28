@@ -24,7 +24,7 @@ import BookingAdmin from './components/bookingAdmin'
 const mapDispatchToProps = dispatch => {
   return {
     redirect: () => dispatch(redirect()),
-    localLoad: (userId, token, username) => dispatch(localLoad(userId, token, username))
+    localLoad: (userId, token, username, admin, moderateShops) => dispatch(localLoad(userId, token, username, admin, moderateShops))
   }
 }
 
@@ -39,7 +39,13 @@ class App extends React.Component {
     super(props)
     const token = localStorage.getItem("token")
     setToken(token)
-    props.localLoad(localStorage.getItem("userId"), token, localStorage.getItem("username"))
+    props.localLoad(
+      localStorage.getItem("userId"),
+      token,
+      localStorage.getItem("username"),
+      localStorage.getItem("admin") || false,
+      localStorage.getItem("moderateShops") || []
+    )
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import ServiceSelect from './serviceSelect'
 import { addShop, updateShop, getServices, doRedirect } from '../../actions'
-import { getShopById } from '../../reducers'
+import { getShopById, isAdmin, isModerateShop } from '../../reducers'
 import GoogleMap from '../GoogleMaps'
 import * as constants from '../../constants'
 import EditShopForm from './editShopForm'
@@ -14,9 +14,15 @@ class EditShop extends React.Component {
 		if (props.userId === null) {
 			props.doRedirect('/login/')
 		}
-
-		props.getServices()
 		const {shop} = props
+		if ((shop === undefined) && (!props.admin)) {
+			props.doRedirect('/')
+		}
+		if ((shop !== undefined) && (!props.isModerateShop)) {
+			props.doRedirect('/')
+		}
+		props.getServices()
+
 		this.state = {
 			name: (shop === undefined) ? '' : shop.name,
 			address: (shop === undefined) ? '' : shop.address,
@@ -103,10 +109,11 @@ const mapStateToProps = (state, ownProps) => {
 				description,
 				services,
 				coordinates
-			}
+			},
+			isModerateShop: isModerateShop(state, id)
 		}
 	}
-	return {...returnObject, serviceList: state.services, userId: state.common.userId}
+	return {...returnObject, serviceList: state.services, userId: state.common.userId, admin: isAdmin(state)}
 }
 
 const mapDispatchToProps = (dispatch) => {

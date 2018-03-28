@@ -19,6 +19,8 @@ export const getServices = state => fromServices.getServices(state.services)
 export const getSnackbarMessage = state => fromCommon.getSnackbarMessage(state.common)
 export const getUsername = state => fromCommon.getUsername(state.common)
 export const getUserId = state => fromCommon.getUserId(state.common)
+export const isModerateShop = (state, shopId) => fromCommon.isModerateShop(state.common, shopId)
+export const isAdmin = state => fromCommon.isAdmin(state.common)
 export const getBookings = state => fromBookings.getBookings(state.bookings)
 
 export default mainReducer

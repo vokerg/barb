@@ -79,28 +79,32 @@ export const addFavorite = (userId, shopId) =>
     .addFavorite(userId, shopId)
     .then(() => stateAddFavorite(shopId))
 
-export const stateLocalLoad = (userId, token, username) => ({
+export const stateLocalLoad = (userId, token, username, admin, moderateShops) => ({
     type: "LOCAL_LOAD",
     userId,
     token,
-    username
+    username,
+    admin,
+    moderateShops
 })
 
-export const localLoad = (userId, token, username) => dispatch => {
-  dispatch(stateLocalLoad(userId, token, username))
+export const localLoad = (userId, token, username, admin, moderateShops) => dispatch => {
+  dispatch(stateLocalLoad(userId, token, username, admin, moderateShops))
   if (userId !== null) {
     dispatch(loadPreferences(userId))
   }
 }
 
-const stateLogin = (userId, token, username) => ({
+const stateLogin = (userId, token, username, admin, moderateShops) => ({
   type: "LOGIN",
   userId,
   token,
-  username
+  username,
+  admin,
+  moderateShops
 })
-const loginThunk = (userId, token, username) => dispatch => {
-  dispatch(stateLogin(userId, token, username));
+const loginThunk = (userId, token, username, admin, moderateShops) => dispatch => {
+  dispatch(stateLogin(userId, token, username, admin, moderateShops));
   dispatch(loadPreferences(userId));
 }
 const loginUnsuccessful = () => ({ type: "LOGIN_UNSUCCESSFUL" })
@@ -108,7 +112,7 @@ export const login = (username, password) =>
   fromApi
     .login(username, password)
     .then(
-      ({userId, token }) => loginThunk(userId, token, username),
+      ({userId, token, admin, moderateShops }) => loginThunk(userId, token, username, admin, moderateShops),
       loginUnsuccessful
     )
 
@@ -121,7 +125,7 @@ export const loginFacebook = () =>
       accessToken => fromApi
         .loginFacebook(accessToken)
         .then(
-          ({userId, token, username }) => loginThunk(userId, token, username),
+          ({userId, token, username, admin, moderateShops }) => loginThunk(userId, token, username, admin, moderateShops),
           loginUnsuccessful
         ),
       loginUnsuccessful
