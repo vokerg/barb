@@ -7,11 +7,15 @@ const tokenPlugin = req => {
   req.set({'Authorization': 'Bearer ' + token})
 }
 
+const urlEncodedPlugin = req => {
+  req.set('content-type', 'application/x-www-form-urlencoded')
+}
+
 export const signup = (username, password) =>
   new Promise((resolve, reject) => {
     request
       .post('/signup')
-      .set('content-type', 'application/x-www-form-urlencoded')
+      .use(urlEncodedPlugin)
       .send({username, password})
       .end((error, response) => {
         if (error) return reject()
@@ -23,7 +27,7 @@ export const login = (username, password) =>
   new Promise((resolve, reject) => {
     request
       .post('/login')
-      .set('content-type', 'application/x-www-form-urlencoded')
+      .use(urlEncodedPlugin)
       .send({username, password})
       .end((error, response) => {
         if (error) return reject()
@@ -36,7 +40,7 @@ export const loginFacebook = accessToken =>
   new Promise((resolve, reject) => {
     request
       .post('/login/facebook')
-      .set('content-type', 'application/x-www-form-urlencoded')
+      .use(urlEncodedPlugin)
       .send({accessToken})
       .end((error, response) => {
         if (error) return reject()
@@ -79,7 +83,7 @@ export const getServices = () =>
 export const addRating = (userId, shopId, author, rating, comment) =>
   new Promise((resolve, reject) => {
     request.put(`/shops/${shopId}/ratings`)
-      .set('content-type', 'application/x-www-form-urlencoded')
+      .use(urlEncodedPlugin)
       .use(tokenPlugin)
       .send({userId, shopId, author, rating, comment})
       .then(() => resolve())
@@ -98,7 +102,7 @@ export const updateShop = (shopId, name='', address='', favorited='', descriptio
     return request
       .post(`/shops/${shopId}`)
       .use(tokenPlugin)
-      .set('content-type', 'application/x-www-form-urlencoded')
+      .use(urlEncodedPlugin)
       .send(shop)
       .then(() => resolve())
   })
@@ -119,7 +123,7 @@ export const addBooking = (shopId, userId, date, service, comment) =>
     request
       .put(`/shops/${shopId}/bookings/`)
       .use(tokenPlugin)
-      .set('content-type', 'application/x-www-form-urlencoded')
+      .use(urlEncodedPlugin)
       .send({userId, date, service, comment})
       .then(res => resolve(res.body))
   })
@@ -139,7 +143,7 @@ export const updateBookingStatus = (shopId, bookingId, status) =>
     request
       .post(`/shops/${shopId}/bookings/${bookingId}`)
       .use(tokenPlugin)
-      .set('content-type', 'application/x-www-form-urlencoded')
+      .use(urlEncodedPlugin)
       .send({status})
       .then(res => resolve(res.body))
   })
@@ -162,3 +166,14 @@ export const addFavorite = (userId, shopId) =>
       .send({})
       .then(res => resolve(true))
 )
+
+export const loadUsers = filter =>
+  new Promise((resolve, reject) =>
+    request
+      .get(`users`)
+      .use(tokenPlugin)
+      .query({'filter': filter})
+      .end((err, res) => {
+        resolve(res.body)
+      })
+  )

@@ -5,10 +5,11 @@ import currentShopId, * as fromCurrentShopId from './currentShopId'
 import services, * as fromServices from './services'
 import bookings, * as fromBookings from './bookings'
 import common, * as fromCommon from './common'
+import userAdmin, * as fromUserAdmin from './userAdmin'
 
 
 const mainReducer = combineReducers({
-  common, shops, isLoading, currentShopId, services, bookings
+  common, shops, isLoading, currentShopId, services, bookings, userAdmin
 })
 
 export const getCurrentId = state => fromCurrentShopId.getCurrentId(state.currentShopId)
@@ -22,5 +23,7 @@ export const getUserId = state => fromCommon.getUserId(state.common)
 export const isModerateShop = (state, shopId) => fromCommon.isModerateShop(state.common, shopId)
 export const isAdmin = state => fromCommon.isAdmin(state.common)
 export const getBookings = state => fromBookings.getBookings(state.bookings)
+export const getUserAdminFilter = state => fromUserAdmin.getUserAdminFilter(state.userAdmin)
+export const getUserAdminUsers = state => fromUserAdmin.getUserAdminUsers(state.userAdmin)
 
 export default mainReducer

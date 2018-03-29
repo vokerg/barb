@@ -1,6 +1,6 @@
 import  uuidv4 from 'uuid/v4'
 import * as fromApi from '../api'
-import * as fromSocial from '../externalLoginApi'
+import * as fromSocial from '../api/externalLogin'
 
 export const requestShops = () => ({ type: "REQUEST_SHOPS" })
 
