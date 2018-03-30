@@ -25,10 +25,11 @@ const BookingList = ({bookings, bookingApprove, bookingReject}) => {
       </TableHeader>
       <TableBody>
         {bookings.map((booking, i) => {
-            const {id, username, service, date, comment, status} = booking
+            const {id, username, service, date, comment, status, userId} = booking
             return <SingleBooking
               key = {i}
               username = {username}
+              userId= {userId}
               service = {service}
               date = {date}
               comment = {comment}

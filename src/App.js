@@ -21,6 +21,7 @@ import BottomSnackbar from './components/bottomSnackbar'
 import Booking from './components/booking'
 import BookingAdmin from './components/bookingAdmin'
 import UserAdmin from './components/userAdmin'
+import UserProfile from './components/userProfile'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -74,6 +75,7 @@ class App extends React.Component {
               <Route exact path="/shop/book/:id" component= {Booking} />
               <Route exact path="/fbredirect" component= {Login} />
               <Route exact path="/useradmin" component= {UserAdmin} />
+              <Route exact path="/users/:id" component= {UserProfile} />
             </div>
             <div>
               <BottomSnackbar/>

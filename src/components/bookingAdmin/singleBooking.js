@@ -3,11 +3,22 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table'
+import { Link } from 'react-router-dom'
 
-const SingleBooking = ({username, service, date, comment, status, bookingApproveClick, bookingRejectClick}) => {
+
+const SingleBooking = ({
+  username,
+  service,
+  date,
+  comment,
+  status,
+  bookingApproveClick,
+  bookingRejectClick,
+  userId
+}) => {
   return (
     <TableRow>
-      <TableRowColumn>{username}</TableRowColumn>
+      <TableRowColumn><Link to={`/users/${userId}`}>{username}</Link></TableRowColumn>
       <TableRowColumn>{date}</TableRowColumn>
       <TableRowColumn>{service}</TableRowColumn>
       <TableRowColumn>{comment}</TableRowColumn>
