@@ -44,8 +44,8 @@ export const loginFacebook = accessToken =>
       .send({accessToken})
       .end((error, response) => {
         if (error) return reject()
-        const {userId, username, token} = response.body
-        return resolve({userId, token, username})
+        const {userId, token, username, admin, moderateShops} = response.body
+        return resolve({userId, token, username, admin, moderateShops})
       })
   })
 
@@ -154,7 +154,7 @@ export const loadPreferences = userId =>
       .get(`/users/${userId}/favorites`)
       .use(tokenPlugin)
       .end((err, res) => {
-        resolve(res.body)
+        return (err) ? resolve([]) : resolve(res.body)
       })
   )
 

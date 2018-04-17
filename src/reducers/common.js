@@ -18,7 +18,7 @@ const userId = (state=null, action) => {
 
 const admin = (state=false, action) => {
   switch (action.type) {
-    case 'LOGIN': case 'LOCAL_LOAD': return action.admin
+    case 'LOGIN': case 'LOCAL_LOAD': return (action.admin || false)
     case 'LOGIN_UNSUCCESSFUL': case 'SIGNUP': case 'LOGOUT': return false
     default: return state
   }
@@ -26,7 +26,7 @@ const admin = (state=false, action) => {
 
 const moderateShops = (state = [], action) => {
   switch (action.type) {
-    case 'LOGIN': case 'LOCAL_LOAD': return action.moderateShops
+    case 'LOGIN': case 'LOCAL_LOAD': return (action.moderateShops || [])
     case 'LOGIN_UNSUCCESSFUL': case 'SIGNUP': case 'LOGOUT': return []
     default: return state
   }
