@@ -3,7 +3,7 @@ import Rating from './Rating'
 import AddRating from './AddRating'
 
 const RatingList = (props) => {
-    const ratings = props.shop.ratings
+    const {ratings} = props.shop
     return (
       <div className="card card-outline-secondary my-4">
         <AddRating shopId={props.shop.id}/>

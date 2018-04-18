@@ -104,12 +104,16 @@ const loginThunk = (userId, token, username, admin, moderateShops) => dispatch =
 }
 const loginUnsuccessful = () => ({ type: "LOGIN_UNSUCCESSFUL" })
 export const login = (username, password) =>
-  fromApi
+{
+  console.log(username, password)
+  return fromApi
     .login(username, password)
     .then(
       ({userId, token, admin, moderateShops }) => loginThunk(userId, token, username, admin, moderateShops),
       loginUnsuccessful
     )
+}
+
 
 export const logout = () => ({ type: "LOGOUT" })
 

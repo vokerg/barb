@@ -15,13 +15,16 @@ const mapDispatchToProps = (dispatch, {shopId}) => ({
 })
 
 class AddRating extends React.Component {
+
+  clearState = () => ({
+    name: "",
+    rating: "",
+    comment: ""
+  })
+
   constructor() {
     super()
-    this.state = {
-      name: "",
-      rating: "",
-      comment: ""
-    }
+    this.state = this.clearState()
   }
   componentDidMount() {
     this.addRatingVisibility = false;
@@ -31,6 +34,12 @@ class AddRating extends React.Component {
     const {name, rating, comment} = this.state
     const userId = this.props.userId || null
     this.props.addRating(userId, name, rating, comment)
+    this.setState(this.clearState())
+  }
+
+  cancelRatingClick = () => {
+    this.addRatingVisibility = false
+    this.setState(this.clearState())
   }
 
   addRatingClick = () => {
@@ -75,11 +84,11 @@ class AddRating extends React.Component {
               />
             :null
           }
-          <FlatButton  onClick={ (this.addRatingClick).bind(this)}>
+          <FlatButton onClick={ (this.addRatingClick).bind(this)}>
             { (this.addRatingVisibility) ? "Post review" : "Add review" }
           </FlatButton>
           {(this.addRatingVisibility) ?
-            <FlatButton>Cancel</FlatButton>
+            <FlatButton onClick={ (this.cancelRatingClick).bind(this) }>Cancel</FlatButton>
             :null
           }
         </div>

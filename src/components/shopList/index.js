@@ -44,7 +44,7 @@ class ShopList extends React.Component {
   onFavoriteClick = userId => shopId => this.props.addFavorite(userId, shopId)
 
   render() {
-      const {shops, onFavoriteClick, isShopsRequested, userId} = this.props
+      const {shops, isShopsRequested, userId} = this.props
       let mapRef1
       let mapBoundsChange=false
       let bounds

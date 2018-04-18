@@ -58,6 +58,7 @@ const snackbarMessage = (state="", action) => {
     case 'ADD_BOOKING': return "Booking added"
     case 'SET_SNACKBAR': return action.snackbarMessage
     case 'LOGOUT': return "Logged out"
+    case 'LOGIN_UNSUCCESSFUL': return "Login unsuccessful"
     case 'LOGIN': return "Logged in"
     case 'CLEAR_SNACKBAR': return ""
     default: return state
