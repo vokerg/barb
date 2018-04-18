@@ -86,7 +86,7 @@ export const addRating = (userId, shopId, author, rating, comment) =>
       .use(urlEncodedPlugin)
       .use(tokenPlugin)
       .send({userId, shopId, author, rating, comment})
-      .then(() => resolve())
+      .then((response) => resolve(response.body))
   })
 
 export const updateShop = (shopId, name='', address='', favorited='', description='', services=[], coordinates='') =>

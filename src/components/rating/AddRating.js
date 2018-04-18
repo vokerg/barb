@@ -27,14 +27,15 @@ class AddRating extends React.Component {
     this.addRatingVisibility = false;
   }
 
-  addRatingClick = () => {
+  addRating = () => {
+    const {name, rating, comment} = this.state
+    const userId = this.props.userId || null
+    this.props.addRating(userId, name, rating, comment)
+  }
 
+  addRatingClick = () => {
     if (this.addRatingVisibility) {
-      this.props.addRating(
-        this.state.name,
-        this.state.rating,
-        this.state.comment
-      )
+      this.addRating()
     }
     this.addRatingVisibility = !this.addRatingVisibility
     this.forceUpdate()

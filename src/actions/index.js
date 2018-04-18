@@ -44,7 +44,6 @@ export const updateShop = (id, name, address, description, services, coordinates
   fromApi.updateShop(id, name, address, '', description, services, coordinates)
     .then(() => updateStateShop(id, name, address, description, services, coordinates))
 
-
 const addStateRating = (shopId, author, rating, comment) => ({
   type: "ADD_RATING",
   id: uuidv4(),
@@ -54,13 +53,9 @@ const addStateRating = (shopId, author, rating, comment) => ({
   comment
 })
 export const addRating = (userId, shopId, author, rating, comment) =>
-{
-  console.log(userId, shopId, author, rating, comment)
-  return fromApi
-    .addRating(userId, shopId, author, rating, comment)
-    .then(({newAuthor}) => addStateRating(shopId, newAuthor, rating, comment))
-}
-
+  fromApi
+      .addRating(userId, shopId, author, rating, comment)
+      .then(({newAuthor}) => addStateRating(shopId, newAuthor, rating, comment))
 
 const getStateServices = services => ({
   type: "LOAD_SERVICES",
