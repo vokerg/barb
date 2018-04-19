@@ -5,5 +5,13 @@ const stateLoadUser = user => ({
   user
 })
 
-const loadUser = userId =>
+export const loadUser = userId =>
   fromApi.getUser(userId).then(user => stateLoadUser(user))
+
+const stateLoadUserRatings = ratings => ({
+  type: "LOAD_USER_RATINGS",
+  ratings
+})
+
+export const loadUserRatings = userId =>
+  fromApi.getUserRatings(userId).then(ratings => stateLoadUserRatings(ratings))

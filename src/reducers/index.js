@@ -10,7 +10,7 @@ import userProfile, * as fromUserProfile from './userProfile'
 
 
 const mainReducer = combineReducers({
-  common, shops, isLoading, currentShopId, services, bookings, userAdmin
+  common, shops, isLoading, currentShopId, services, bookings, userAdmin, userProfile
 })
 
 export const getCurrentId = state => fromCurrentShopId.getCurrentId(state.currentShopId)

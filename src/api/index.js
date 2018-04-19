@@ -177,3 +177,17 @@ export const loadUsers = filter =>
         resolve(res.body)
       })
   )
+
+  export const getUser = userId =>
+    new Promise((resolve, reject) =>
+      request
+        .get(`/users/${userId}`)
+        .then(response => resolve(response.body))
+    )
+
+  export const getUserRatings = userId =>
+    new Promise((resolve, reject) =>
+      request
+        .get(`/users/${userId}/ratings`)
+        .then(response => resolve(response.body))
+  )
