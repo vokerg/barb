@@ -1,41 +1,52 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {getUsername} from '../reducers'
-import {logout} from '../actions'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { getUsername } from '../reducers'
+import { logout, doRedirect} from '../actions'
+
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import FlatButton from 'material-ui/FlatButton'
 
 class Navigation extends React.Component {
   render() {
+
+    const buttonStyle = {
+      color: 'white',
+      textDecoration: 'none'
+    };
+
+    console.log(AppBar.iconElementRight)
+
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div className="container">
-          <Link className="navbar-brand"  to="/">Barber shops</Link>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarResponsive">
-          {this.props.username ?
-            <ul className="navbar-nav ml-auto">
-              <li key="1" className="nav-item">
-                <a className="nav-link" href="#">Hello {this.props.username}</a>
-              </li>
-              <li key="2" className="nav-item">
-                <a className="nav-link" href="#" onClick={this.props.logout}>Logout</a>
-              </li>
-            </ul>
-            :
-            <ul className="navbar-nav ml-auto">
-              <li key="3" className="nav-item">
-                <a className="nav-link" href="/login">Login</a>
-              </li>
-              <li key="4" className="nav-item">
-                <a className="nav-link" href="/signup">Signup</a>
-              </li>
-            </ul>
+      <AppBar title={<Link style={buttonStyle} to="/">Barber shops</Link>}
+        iconElementRight=
+          {(this.props.username) ?
+            <div>
+              <span style={buttonStyle}>Hello {this.props.username}</span>
+              <IconMenu
+                iconButtonElement={
+                  <IconButton iconStyle={buttonStyle}><MoreVertIcon/></IconButton>
+                }
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+                <MenuItem primaryText="Refresh" />
+                <MenuItem primaryText="Help" />
+                <MenuItem primaryText="Sign out" onClick={this.props.logout}/>
+              </IconMenu>
+            </div>
+          :
+            <div>
+              <FlatButton style={buttonStyle} label="Login" onClick={() => this.props.doRedirect('/login')}/>
+              <FlatButton style={buttonStyle} label="Signup" onClick={() => this.props.doRedirect('/signup')}/>
+            </div>
           }
-          </div>
-        </div>
-      </nav>
+      >
+      </AppBar>
     )
   }
 }
@@ -45,7 +56,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
+  doRedirect: (redirectTo) => dispatch(doRedirect(redirectTo))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
