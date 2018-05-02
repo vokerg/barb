@@ -12,10 +12,7 @@ const RatingList = (props) => {
         </div>
         <div className="card-body">
           {ratings.map((rating, i) =>
-              <Rating
-                key={i}
-                rating={rating}
-              />
+              <Rating key={i} rating={rating} />
           )}
         </div>
       </div>

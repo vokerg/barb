@@ -1,22 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import StarRating from '../common/starRating'
 
 const Rating = (props) => {
-  const { rating, comment, author, userId } = props.rating
+  const { rating, comment, author, userId, date } = props.rating
   return (
     <div>
-      <p>{ comment }</p>
-      <p><small className="text-muted">Rating: { rating } </small></p>
-      <p><small className="text-muted">
-        <span>Posted by </span>
-        <span>
-          {
-            (userId) ?
-            <Link to={`/users/${userId}`}>{ author }</Link>
-            : <span>{ author }</span>
-          }
-        </span>
-      </small></p>
+      <div>
+        <h4>
+          <span>
+            {
+              (userId) ?
+              <Link to={`/users/${userId}`} style={{textDecoration: 'none', color: 'inherit'}}>{ author }</Link>
+              : <span>{ author }</span>
+            }
+          </span>
+        </h4>
+        {
+            date ?
+              <small className="text-muted">
+                <span>posted on </span>
+                <span>{date}</span>
+              </small> : <small/>
+        }
+      </div>
+      <div><StarRating selected={rating} total={5} /></div>
+      <div>{ comment }</div>
       <hr />
     </div>
   )

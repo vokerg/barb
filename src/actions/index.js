@@ -44,18 +44,19 @@ export const updateShop = (id, name, address, description, services, coordinates
   fromApi.updateShop(id, name, address, '', description, services, coordinates)
     .then(() => updateStateShop(id, name, address, description, services, coordinates))
 
-const addStateRating = (shopId, author, rating, comment) => ({
+const addStateRating = (shopId, author, rating, comment, date) => ({
   type: "ADD_RATING",
   id: uuidv4(),
   shopId,
   author,
   rating,
-  comment
+  comment,
+  date
 })
-export const addRating = (userId, shopId, author, rating, comment) =>
+export const addRating = (userId, shopId, author, rating, comment, date=(new Date())) =>
   fromApi
-      .addRating(userId, shopId, author, rating, comment)
-      .then(({newAuthor}) => addStateRating(shopId, newAuthor, rating, comment))
+      .addRating(userId, shopId, author, rating, comment, date)
+      .then(({newAuthor, date}) => addStateRating(shopId, newAuthor, rating, comment, date))
 
 const getStateServices = services => ({
   type: "LOAD_SERVICES",

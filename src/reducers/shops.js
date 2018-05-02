@@ -1,7 +1,5 @@
-import  uuidv4 from 'uuid/v4'
 
 const shops = (state = [], action) => {
-
   switch(action.type) {
     case "ADD_FAVORITE": {
       return (state.map(element => {
@@ -25,10 +23,10 @@ const shops = (state = [], action) => {
             ratings: [
               ...element.ratings,
               {
-                id: uuidv4(),
                 author: action.author,
                 rating: action.rating,
-                comment: action.comment
+                comment: action.comment,
+                date: action.date
               }
             ]
           }

@@ -80,12 +80,12 @@ export const getServices = () =>
       .end((err, res) => resolve(res.body))
   })
 
-export const addRating = (userId, shopId, author, rating, comment) =>
+export const addRating = (userId, shopId, author, rating, comment, dateAdded) =>
   new Promise((resolve, reject) => {
     request.put(`/shops/${shopId}/ratings`)
       .use(urlEncodedPlugin)
       .use(tokenPlugin)
-      .send({userId, shopId, author, rating, comment})
+      .send({userId, shopId, author, rating, comment, date: JSON.stringify(dateAdded)})
       .then((response) => resolve(response.body))
   })
 
