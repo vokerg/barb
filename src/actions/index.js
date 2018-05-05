@@ -15,7 +15,32 @@ export const fetchShops = (filter, service, id) => (dispatch, getState) =>
   fromApi
     .getShops(filter, service, id)
     .then(shops => dispatch(loadShops(shops, getState().common.favoriteShops)))
+    .then(() => {
+      if (id) {
+        dispatch(loadRatings(id))
+      }
+    })
 }
+
+const loadStateRatings = (shopId, ratings) => ({
+  type: "LOAD_RATINGS",
+  shopId,
+  ratings
+})
+export const loadRatings = shopId =>
+  fromApi.getRatings(shopId)
+    .then(ratings => loadStateRatings(shopId, ratings))
+
+const addStateRatingScore = (shopId, ratingId, newRatingScore) => ({
+  type: "ADD_RATING_SCORE",
+  shopId,
+  ratingId,
+  newRatingScore
+})
+export const addRatingScore = (shopId, ratingId, direction) =>
+  fromApi
+    .addRatingScore(shopId, ratingId, direction)
+    .then((rating) => addStateRatingScore(shopId, ratingId, rating.score))
 
 const addStateShop = (id, name, address, description, services, coordinates) => ({
   type: "ADD_SHOP",
@@ -44,19 +69,20 @@ export const updateShop = (id, name, address, description, services, coordinates
   fromApi.updateShop(id, name, address, '', description, services, coordinates)
     .then(() => updateStateShop(id, name, address, description, services, coordinates))
 
-const addStateRating = (shopId, author, rating, comment, date) => ({
+const addStateRating = (id, shopId, author, rating, comment, date, score) => ({
   type: "ADD_RATING",
-  id: uuidv4(),
+  id,
   shopId,
   author,
   rating,
   comment,
-  date
+  date,
+  score
 })
 export const addRating = (userId, shopId, author, rating, comment, date=(new Date())) =>
   fromApi
-      .addRating(userId, shopId, author, rating, comment, date)
-      .then(({newAuthor, date}) => addStateRating(shopId, newAuthor, rating, comment, date))
+      .addRating(userId, shopId, author, rating, comment, date, 0)
+      .then(({newAuthor, id, date}) => addStateRating(id, shopId, newAuthor, rating, comment, date, 0))
 
 const getStateServices = services => ({
   type: "LOAD_SERVICES",
@@ -106,7 +132,6 @@ const loginThunk = (userId, token, username, admin, moderateShops) => dispatch =
 const loginUnsuccessful = () => ({ type: "LOGIN_UNSUCCESSFUL" })
 export const login = (username, password) =>
 {
-  console.log(username, password)
   return fromApi
     .login(username, password)
     .then(

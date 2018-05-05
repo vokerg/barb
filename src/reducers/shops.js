@@ -1,40 +1,45 @@
-
 const shops = (state = [], action) => {
   switch(action.type) {
     case "ADD_FAVORITE": {
-      return (state.map(element => {
-          if (element.id === action.id) {
-            return {
-              ...element,
-              favorited: !element.favorited
-            }
-          }
-          else {
-            return {...element}
-          }
-      }))
+      return (state.map(shop => (shop.id === action.id) ?
+        {
+          ...shop,
+          favorited: !shop.favorited
+        } : shop
+      ))
     }
 
     case "ADD_RATING": {
-      return (state.map(element => {
-        if (element.id === action.shopId) {
-          return {
-            ...element,
-            ratings: [
-              ...element.ratings,
-              {
-                author: action.author,
-                rating: action.rating,
-                comment: action.comment,
-                date: action.date
-              }
-            ]
-          }
-        }
-        else {
-          return element
-        }
-      }))
+      return (state.map(shop => (shop.id === action.shopId) ?
+        {
+          ...shop,
+          ratings: [
+            ...shop.ratings,
+            {
+              id: action.id,
+              author: action.author,
+              rating: action.rating,
+              comment: action.comment,
+              date: action.date,
+              score: action.score
+            }
+          ]
+        } : shop
+      ))
+    }
+
+    case "ADD_RATING_SCORE": {
+      return (state.map(shop => (shop.id === action.shopId) ?
+        {
+          ...shop,
+          ratings: shop.ratings.map(rating => (rating.id === action.ratingId) ?
+            {
+              ...rating,
+              score: action.newRatingScore
+            } : rating
+          )
+        } : shop
+      ))
     }
 
     case "ADD_SHOP": {
@@ -50,32 +55,39 @@ const shops = (state = [], action) => {
     }
 
     case "UPDATE_SHOP": {
-      return state.map(shop => {
-        if (shop.id === action.id) {
-          return {
+      return state.map(shop => (shop.id === action.id) ?
+          {
             ...shop,
             name: action.name,
             address: action.address,
             description: action.description,
             services: action.services,
             coordinates: action.coordinates
-          }
-        } else {
-          return shop
-        }
-      })
+          } : shop
+      )
     }
 
     case "LOAD_SHOPS": {
       return action.shops.map(shop => ({
         ...shop,
-        id:shop._id,
-        favorited: (action.favoriteShops.indexOf(shop._id) !== -1)
+        id: shop._id,
+        favorited: (action.favoriteShops.indexOf(shop._id) !== -1),
+        ratings: []
       }))
     }
 
+    case "LOAD_RATINGS": {
+      return state.map(shop => (shop.id === action.shopId) ?
+        {
+          ...shop,
+          ratings: action.ratings.map(rating => ({...rating, id:rating._id}))
+        } : shop
+      )
+    }
+
     case "LOGOUT": {
-      return state.map(shop => ({...shop,
+      return state.map(shop => ({
+        ...shop,
         id:shop._id,
         favorited: false
       }))

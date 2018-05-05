@@ -72,6 +72,24 @@ export const getShops = (filter="all", service="", id="") =>
     })
 }
 
+export const getRatings = shopId =>
+  new Promise((resolve, reject) => {
+    request
+      .get(`/shops/${shopId}/ratings`)
+      .end((err, res) => resolve(res.body))
+  })
+
+export const addRatingScore = (shopId, ratingId, direction) =>
+  new Promise((resolve, reject) => {
+    request
+      .post(`/shops/${shopId}/ratings/${ratingId}/score`)
+      .query({'direction': direction})
+      .use(urlEncodedPlugin)
+      .use(tokenPlugin)
+      .send({})
+      .end((err, res) => resolve(res.body))
+  })
+
 export const getServices = () =>
   new Promise((resolve, reject) => {
     request
@@ -80,12 +98,12 @@ export const getServices = () =>
       .end((err, res) => resolve(res.body))
   })
 
-export const addRating = (userId, shopId, author, rating, comment, dateAdded) =>
+export const addRating = (userId, shopId, author, rating, comment, dateAdded, score) =>
   new Promise((resolve, reject) => {
     request.put(`/shops/${shopId}/ratings`)
       .use(urlEncodedPlugin)
       .use(tokenPlugin)
-      .send({userId, shopId, author, rating, comment, date: JSON.stringify(dateAdded)})
+      .send({userId, shopId, author, rating, comment, date: JSON.stringify(dateAdded), score})
       .then((response) => resolve(response.body))
   })
 

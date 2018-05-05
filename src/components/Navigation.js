@@ -19,8 +19,6 @@ class Navigation extends React.Component {
       textDecoration: 'none'
     };
 
-    console.log(AppBar.iconElementRight)
-
     return (
       <AppBar title={<Link style={buttonStyle} to="/">Barber shops</Link>}
         iconElementRight=
