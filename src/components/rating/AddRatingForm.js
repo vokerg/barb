@@ -1,7 +1,10 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 
-const AddRatingForm = ({name, comment, rating, onChangeName, onChangeRating, onChangeComment, isNameVisible}) => {
+import Star from 'material-ui-icons/Star'
+import StarBorder from 'material-ui-icons/StarBorder'
+
+const AddRatingForm = ({name, comment, onChangeName, onChangeComment, isNameVisible, totalStars, selected, onRatingHover}) => {
   return (
     <div>
     {isNameVisible ?
@@ -12,7 +15,13 @@ const AddRatingForm = ({name, comment, rating, onChangeName, onChangeRating, onC
       <div/>
     }
       <div>
-        <TextField hintText="Rating" value={rating} onChange={onChangeRating}/>
+        {Array(totalStars).fill(0).map((element, i) =>
+            <span key={i} onMouseOver={() => onRatingHover(i+1)}>
+              {
+                i+1 <= selected ? <Star /> : <StarBorder />
+              }
+            </span>
+        )}
       </div>
       <div>
         <TextField hintText="Comment" multiLine={true} value={comment} onChange={onChangeComment}/>

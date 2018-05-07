@@ -39,7 +39,7 @@ const Rating = (props) => {
           </div>
           <div><StarRating selected={rating} total={5} /></div>
         </div>
-        <div style={childTable}><RatingScore id={id} shopId={shopId} score={score}/></div>
+        <div style={childTable}><RatingScore id={id} shopId={shopId} score={score} userId={userId}/></div>
       </div>
       <div>{ comment }</div>
       <hr />

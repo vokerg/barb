@@ -18,8 +18,8 @@ class AddRating extends React.Component {
 
   clearState = () => ({
     name: "",
-    rating: "",
-    comment: ""
+    comment: "",
+    selected: 1
   })
 
   constructor() {
@@ -31,9 +31,9 @@ class AddRating extends React.Component {
   }
 
   addRating = () => {
-    const {name, rating, comment} = this.state
+    const {name, selected, comment} = this.state
     const userId = this.props.userId || null
-    this.props.addRating(userId, name, rating, comment)
+    this.props.addRating(userId, name, selected, comment)
     this.setState(this.clearState())
   }
 
@@ -50,49 +50,39 @@ class AddRating extends React.Component {
     this.forceUpdate()
   }
 
-  onChangeName = (event, value) =>
-    this.setState({
-      ...this.state,
-      name: value
-    })
+  onChangeName = (event, name) => this.setState({ name })
 
-  onChangeComment = (event, value) =>
-    this.setState({
-      ...this.state,
-      comment: value
-    })
+  onChangeComment = (event, comment) => this.setState({ comment })
 
-  onChangeRating = (event, value) =>
-    this.setState({
-      ...this.state,
-      rating: value
-    })
+  onRatingHover = selected => this.setState({ selected })
 
   render() {
-      return (
-        <div>
-          {
-            (this.addRatingVisibility) ?
-              <AddRatingForm
-                name={this.state.name}
-                comment={this.state.comment}
-                rating={this.state.rating}
-                isNameVisible={this.props.userId === null}
-                onChangeName={this.onChangeName.bind(this)}
-                onChangeComment={this.onChangeComment.bind(this)}
-                onChangeRating={this.onChangeRating.bind(this)}
-              />
-            :null
-          }
-          <FlatButton onClick={ (this.addRatingClick).bind(this)}>
-            { (this.addRatingVisibility) ? "Post review" : "Add review" }
-          </FlatButton>
-          {(this.addRatingVisibility) ?
-            <FlatButton onClick={ (this.cancelRatingClick).bind(this) }>Cancel</FlatButton>
-            :null
-          }
-        </div>
-      )
+    const {name, comment, selected} = this.state
+    return (
+      <div>
+        {
+          (this.addRatingVisibility) ?
+            <AddRatingForm
+              name={ name }
+              comment={ comment }
+              isNameVisible={this.props.userId === null}
+              onChangeName={this.onChangeName.bind(this)}
+              onChangeComment={this.onChangeComment.bind(this)}
+              selected={ selected }
+              totalStars={5}
+              onRatingHover={this.onRatingHover.bind(this)}
+            />
+          :null
+        }
+        <FlatButton onClick={ (this.addRatingClick).bind(this)}>
+          { (this.addRatingVisibility) ? "Post review" : "Add review" }
+        </FlatButton>
+        {(this.addRatingVisibility) ?
+          <FlatButton onClick={ (this.cancelRatingClick).bind(this) }>Cancel</FlatButton>
+          :null
+        }
+      </div>
+    )
   }
 }
 

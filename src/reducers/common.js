@@ -73,10 +73,18 @@ const favoriteShops = (state=[], action) => {
   }
 }
 
+const votedRatings = (state=[], action) => {
+  switch(action.type) {
+    case 'LOAD_VOTED_RATINGS': return action.votedRatings
+    case 'LOGOUT' return []
+  }
+}
+
 export const getSnackbarMessage = state => state.snackbarMessage
 export const getUsername = state => state.username
 export const getUserId = state => state.userId
 export const isModerateShop = (state, shopId) => state.admin || state.moderateShops.includes(shopId)
 export const isAdmin = state => state.admin
+export const getVotedRatings = state => state.votedRatings
 
-export default combineReducers({token, userId, admin, moderateShops, username, redirectTo, snackbarMessage, favoriteShops})
+export default combineReducers({token, userId, admin, moderateShops, username, redirectTo, snackbarMessage, favoriteShops, votedRatings})
