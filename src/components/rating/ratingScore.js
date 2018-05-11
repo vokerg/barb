@@ -5,26 +5,35 @@ import IconButton from 'material-ui/IconButton'
 import { connect } from 'react-redux'
 
 import { addRatingScore } from '../../actions'
-import { getUserId } from '../../reducers'
+import { getUserId, getVotedRatings } from '../../reducers'
 
-const RatingScore = ({id, shopId, score, addRatingScore, userId, currentUserId}) => {
+const RatingScore = ({id, shopId, score, addRatingScore, userId, currentUserId, votedRatings}) => {
   return (
-    (currentUserId !== userId) ?
-    <div>
-      <IconButton onClick = {() => addRatingScore(shopId, id, 'positive')} >
-        <ThumbUp/>
-      </IconButton>
-      <span>{score}</span>
-      <IconButton onClick = {() => addRatingScore(shopId, id, 'negative')} >
-        <ThumbDown/>
-      </IconButton>
+    <div style={{'textAlign': 'right'}}>
+    {
+      (currentUserId && (currentUserId !== userId) && !votedRatings.includes(id)) ?
+        <div>
+          <IconButton onClick = {() => addRatingScore(shopId, id, 'positive')} >
+            <ThumbUp/>
+          </IconButton>
+          <span>{score}</span>
+          <IconButton onClick = {() => addRatingScore(shopId, id, 'negative')} >
+            <ThumbDown/>
+          </IconButton>
+        </div>
+      :
+        <div >
+          <span>{score}</span>
+          <div/>
+        </div>
+    }
     </div>
-    : null
   )
 }
 
 const mapStateToProps = state => ({
-  currentUserId: getUserId(state)
+  currentUserId: getUserId(state),
+  votedRatings: getVotedRatings(state)
 })
 
 const mapDispatchToProps = dispatch => ({

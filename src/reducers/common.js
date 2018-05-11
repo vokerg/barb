@@ -76,7 +76,9 @@ const favoriteShops = (state=[], action) => {
 const votedRatings = (state=[], action) => {
   switch(action.type) {
     case 'LOAD_VOTED_RATINGS': return action.votedRatings
-    case 'LOGOUT' return []
+    case 'ADD_RATING_SCORE': return [...state, action.id]
+    case 'LOGOUT': return []
+    default: return state
   }
 }
 

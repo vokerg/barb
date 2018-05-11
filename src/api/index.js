@@ -209,3 +209,10 @@ export const loadUsers = filter =>
         .get(`/users/${userId}/ratings`)
         .then(response => resolve(response.body))
   )
+
+  export const getVotedRatings = userId =>
+    new Promise((resolve, reject) =>
+      request
+        .get(`/users/${userId}/votedRatings`)
+        .then(response => resolve(response.body))
+  )

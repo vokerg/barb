@@ -31,8 +31,9 @@ export const loadRatings = shopId =>
   fromApi.getRatings(shopId)
     .then(ratings => loadStateRatings(shopId, ratings))
 
-const addStateRatingScore = (shopId, ratingId, newRatingScore) => ({
+const addStateRatingScore = (id, shopId, ratingId, newRatingScore) => ({
   type: "ADD_RATING_SCORE",
+  id,
   shopId,
   ratingId,
   newRatingScore
@@ -40,7 +41,7 @@ const addStateRatingScore = (shopId, ratingId, newRatingScore) => ({
 export const addRatingScore = (shopId, ratingId, direction) =>
   fromApi
     .addRatingScore(shopId, ratingId, direction)
-    .then((rating) => addStateRatingScore(shopId, ratingId, rating.score))
+    .then((rating) => addStateRatingScore(rating._id, shopId, ratingId, rating.score))
 
 const addStateShop = (id, name, address, description, services, coordinates) => ({
   type: "ADD_SHOP",
@@ -69,20 +70,14 @@ export const updateShop = (id, name, address, description, services, coordinates
   fromApi.updateShop(id, name, address, '', description, services, coordinates)
     .then(() => updateStateShop(id, name, address, description, services, coordinates))
 
-const addStateRating = (id, shopId, author, rating, comment, date, score) => ({
+const addStateRating = rating => ({
   type: "ADD_RATING",
-  id,
-  shopId,
-  author,
-  rating,
-  comment,
-  date,
-  score
+  rating
 })
-export const addRating = (userId, shopId, author, rating, comment, date=(new Date())) =>
+export const addRating = (userId, shopId, author, ratingStars, comment, date=(new Date())) =>
   fromApi
-      .addRating(userId, shopId, author, rating, comment, date, 0)
-      .then(({newAuthor, id, date}) => addStateRating(id, shopId, newAuthor, rating, comment, date, 0))
+      .addRating(userId, shopId, author, ratingStars, comment, date, 0)
+      .then(rating => addStateRating(rating))
 
 const getStateServices = services => ({
   type: "LOAD_SERVICES",
@@ -114,6 +109,7 @@ export const localLoad = (userId, token, username, admin, moderateShops) => disp
   dispatch(stateLocalLoad(userId, token, username, admin, moderateShops))
   if (userId !== null) {
     dispatch(loadPreferences(userId))
+    dispatch(loadVotedRatings(userId))
   }
 }
 
@@ -126,8 +122,9 @@ const stateLogin = (userId, token, username, admin, moderateShops) => ({
   moderateShops
 })
 const loginThunk = (userId, token, username, admin, moderateShops) => dispatch => {
-  dispatch(stateLogin(userId, token, username, admin, moderateShops));
-  dispatch(loadPreferences(userId));
+  dispatch(stateLogin(userId, token, username, admin, moderateShops))
+  dispatch(loadPreferences(userId))
+  dispatch(loadVotedRatings(userId))
 }
 const loginUnsuccessful = () => ({ type: "LOGIN_UNSUCCESSFUL" })
 export const login = (username, password) =>
@@ -218,3 +215,12 @@ export const loadPreferences = userId =>
   fromApi
     .loadPreferences(userId)
     .then(favorites => stateLoadPreferences(favorites))
+
+const stateLoadVotedRatings = votedRatings => ({
+  type: 'LOAD_VOTED_RATINGS',
+  votedRatings
+})
+export const loadVotedRatings = userId =>
+  fromApi
+    .getVotedRatings(userId)
+    .then(votedRatings => stateLoadVotedRatings(votedRatings))

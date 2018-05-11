@@ -15,14 +15,7 @@ const shops = (state = [], action) => {
           ...shop,
           ratings: [
             ...shop.ratings,
-            {
-              id: action.id,
-              author: action.author,
-              rating: action.rating,
-              comment: action.comment,
-              date: action.date,
-              score: action.score
-            }
+            {...action.rating, id: action.rating._id}
           ]
         } : shop
       ))
