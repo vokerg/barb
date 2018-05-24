@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getShopById, getUserId } from '../../reducers'
-import { addBooking, doRedirect } from '../../actions'
+import { addBooking, doRedirect, fetchShops } from '../../actions'
 import BookingView from './bookingView'
 
 class Booking extends React.Component {
@@ -12,6 +12,13 @@ class Booking extends React.Component {
       date: "",
       selectedService: "",
       comment: ""
+    }
+  }
+
+  componentWillMount = () => {
+    const {shop, fetchShops, match} = this.props
+    if (shop === undefined) {
+      fetchShops('All', '', match.params.id)
     }
   }
 
@@ -46,7 +53,7 @@ class Booking extends React.Component {
 
   render() {
     const {shop} = this.props
-    return (
+    return (shop === undefined) ? <div>Loading...</div> :
       <BookingView
         selectedService={this.state.selectedService}
         services={shop.services}
@@ -55,7 +62,6 @@ class Booking extends React.Component {
         onServiceChange={this.serviceChange.bind(this)}
         onCommentChange={this.commentChange}
       />
-    )
   }
 }
 
@@ -63,17 +69,14 @@ const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps.match.params
   const shop = getShopById(state, id)
   const userId = getUserId(state)
-  return {
-    shop,
-    id,
-    userId
-  }
+  return { shop, id, userId }
 }
 
 const mapDispatchToProps = dispatch => ({
   addBooking: (shopId, userId, date, service, commment) =>
     dispatch(addBooking(shopId, userId, date, service, commment)),
-  doRedirect: path => dispatch(doRedirect(path))
+  doRedirect: path => dispatch(doRedirect(path)),
+  fetchShops: (filter, services, id) => dispatch(fetchShops(filter, services, id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Booking)

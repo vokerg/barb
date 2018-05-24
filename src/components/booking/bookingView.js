@@ -4,21 +4,39 @@ import DatePicker from 'material-ui/DatePicker'
 import Card from 'material-ui/Card'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  }
+})
 
 const BookingView = (
-  {selectedService, services, onSubmit, onDateChange, onServiceChange, onCommentChange}
+  {classes, selectedService, services, onSubmit, onDateChange, onServiceChange, onCommentChange}
 ) => {
   return (
     <Card className="container">
       <h2 className="card-heading">Book time</h2>
       <form onSubmit = {onSubmit}>
         <div className="field-line">
-          <DatePicker
-            hintText="Select date"
-            disableYearSelection={true}
+          <TextField
+            label="Select date"
+            type="datetime-local"
+            className={classes.dateTimePickup}
+            //disableYearSelection={true}
             onChange={onDateChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
         </div>
         <div className="field-line">
@@ -35,11 +53,14 @@ const BookingView = (
         <div className="field-line">
           <TextField
             onChange = {onCommentChange}
-            hintText="Comments"
-            multiLine={true}
-            rows={2}
+            label="Comments"
+            placeholder="Add your notes here"
+            multiline
+            rows={10}
             rowsMax={4}
           />
+        </div>
+        <div className="field-line">
         </div>
         <div className="field-line">
           <FlatButton label="Submit" type="Submit" />
@@ -49,4 +70,4 @@ const BookingView = (
   )
 }
 
-export default BookingView
+export default withStyles(styles)(BookingView)
