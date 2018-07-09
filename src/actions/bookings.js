@@ -6,7 +6,7 @@ const stateLoadUserBookings = (bookings, status, time) => ({
   status,
   time
 })
-export const lodUserBookings = (userId, status, time) =>
+export const loadUserBookings = (userId, status, time) =>
   fromApi
     .getUserBookings(userId, status, time)
     .then(bookings => stateLoadUserBookings(bookings, status, time))

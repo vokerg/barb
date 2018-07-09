@@ -56,5 +56,6 @@ export const getBookings = state =>
   )
 
 export const getActiveBookingCount = state => state.userActiveBookings.length
+export const getBookingsForCurrentUser = state => state.userBookings
 
-export default combineReducers({bookings, filter, userActiveBookings})
+export default combineReducers({bookings, filter, userActiveBookings, userBookings})

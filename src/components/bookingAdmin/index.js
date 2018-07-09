@@ -7,7 +7,7 @@ import { getBookings, isModerateShop } from '../../reducers'
 
 class BookingAdmin extends React.Component {
 
-  shopId = this.props.match.params.id;
+  shopId = this.props.match.params.id
 
   loadBookingsShop = shopId => (statusFilter, timeFilter) => this.props.loadBookings(shopId, statusFilter, timeFilter)
   updateBookingStatus = status => id => () => this.props.updateBookingStatus(this.shopId, id, status)
@@ -35,7 +35,7 @@ const mapStateToProps = (state, ownProps) => ({
   isModerateShop: isModerateShop(state, ownProps.match.params.id)
 })
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     loadBookings: (shopId, status, time) => dispatch(loadBookings(shopId, status, time)),
     updateBookingStatus: (shopId, bookingId, status) => dispatch(updateBookingStatus(shopId, bookingId, status))

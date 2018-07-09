@@ -24,7 +24,7 @@ const BookingFilter = ({statusFilter, timeFilter, changeStatusFilter, changeTime
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="status-helper">Service</InputLabel>
+        <InputLabel htmlFor="status-helper">Status</InputLabel>
         <Select
           input={<Input name="Status" id="status-helper" />}
           value={statusFilter}
@@ -40,7 +40,7 @@ const BookingFilter = ({statusFilter, timeFilter, changeStatusFilter, changeTime
       </FormControl>
 
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="time-helper">Service</InputLabel>
+        <InputLabel htmlFor="time-helper">Time</InputLabel>
         <Select
           input={<Input name="Status" id="time-helper" />}
           value={timeFilter}

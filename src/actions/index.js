@@ -1,4 +1,3 @@
-import  uuidv4 from 'uuid/v4'
 import * as fromApi from '../api'
 import * as fromSocial from '../api/externalLogin'
 import * as fromBookingActions from './bookings'

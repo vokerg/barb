@@ -31,7 +31,7 @@ class Navigation extends React.Component {
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
               >
-                <MenuItem primaryText={`Bookings(${this.props.activeBookingCount})`} />
+                <MenuItem primaryText={`Bookings(${this.props.activeBookingCount})`} onClick={() => this.props.doRedirect('/bookings')}/>
                 <MenuItem primaryText="Help" />
                 <MenuItem primaryText="Sign out" onClick={this.props.logout}/>
               </IconMenu>
