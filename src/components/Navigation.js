@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getUsername } from '../reducers'
+import { getUsername, getActiveBookingCount } from '../reducers'
 import { logout, doRedirect} from '../actions'
 
 import IconMenu from 'material-ui/IconMenu';
@@ -13,7 +13,6 @@ import FlatButton from 'material-ui/FlatButton'
 
 class Navigation extends React.Component {
   render() {
-
     const buttonStyle = {
       color: 'white',
       textDecoration: 'none'
@@ -32,7 +31,7 @@ class Navigation extends React.Component {
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
               >
-                <MenuItem primaryText="Refresh" />
+                <MenuItem primaryText={`Bookings(${this.props.activeBookingCount})`} />
                 <MenuItem primaryText="Help" />
                 <MenuItem primaryText="Sign out" onClick={this.props.logout}/>
               </IconMenu>
@@ -50,6 +49,7 @@ class Navigation extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  activeBookingCount: getActiveBookingCount(state),
   username: getUsername(state)
 })
 

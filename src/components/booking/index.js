@@ -22,29 +22,12 @@ class Booking extends React.Component {
     }
   }
 
-  dateChange = (event, value) => {
-    this.setState({
-      ...this.state,
-      date: value
-    })
+  onChange = event => {
+    this.setState({[event.target.name]: event.target.value});
   }
 
-  serviceChange = (event, index, value) => {
-    this.setState({
-      ...this.state,
-      selectedService: value
-    })
-  }
-
-  commentChange = (event, value) => {
-    this.setState({
-      ...this.state,
-      comment: value
-    })
-  }
-
-  submit(e) {
-    e.preventDefault();
+  submit = event => {
+    event.preventDefault();
     const {shop, userId} = this.props
     const {date, selectedService, comment} = this.state
     this.props.addBooking(shop.id, userId, date, selectedService, comment)
@@ -58,9 +41,7 @@ class Booking extends React.Component {
         selectedService={this.state.selectedService}
         services={shop.services}
         onSubmit={this.submit.bind(this)}
-        onDateChange={this.dateChange.bind(this)}
-        onServiceChange={this.serviceChange.bind(this)}
-        onCommentChange={this.commentChange}
+        onChange={this.onChange}
       />
   }
 }

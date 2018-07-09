@@ -1,6 +1,7 @@
 import  uuidv4 from 'uuid/v4'
 import * as fromApi from '../api'
 import * as fromSocial from '../api/externalLogin'
+import * as fromBookingActions from './bookings'
 
 export const requestShops = () => ({ type: "REQUEST_SHOPS" })
 
@@ -110,6 +111,7 @@ export const localLoad = (userId, token, username, admin, moderateShops) => disp
   if (userId !== null) {
     dispatch(loadPreferences(userId))
     dispatch(loadVotedRatings(userId))
+    dispatch(fromBookingActions.lodUserActiveBookings(userId))
   }
 }
 

@@ -28,5 +28,6 @@ export const getUserAdminFilter = state => fromUserAdmin.getUserAdminFilter(stat
 export const getUserAdminUsers = state => fromUserAdmin.getUserAdminUsers(state.userAdmin)
 export const getUserProfile = state => fromUserProfile.getUserProfile(state.userProfile)
 export const getVotedRatings = state => fromCommon.getVotedRatings(state.common)
+export const getActiveBookingCount = state => fromBookings.getActiveBookingCount(state.bookings)
 
 export default mainReducer

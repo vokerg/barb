@@ -30,9 +30,20 @@ const bookings = (state = [], action) => {
   }
 }
 
-export const getBookings = (state) =>
+const userActiveBookings = (state=[], action) => {
+  switch(action.type) {
+    case 'LOAD_USER_ACTIVE_BOOKINGS': return action.bookings.map(booking => {
+      return {...booking, id: booking._id}
+    })
+    default: return state;
+  }
+}
+
+export const getBookings = state =>
   (state.filter.status === 'All') ? state.bookings : state.bookings.filter(booking =>
     booking.status === state.filter.status
   )
 
-export default combineReducers({bookings, filter})
+export const getActiveBookingCount = state => state.userActiveBookings.length
+
+export default combineReducers({bookings, filter, userActiveBookings})

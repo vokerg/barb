@@ -1,12 +1,14 @@
 import React from 'react'
 
-import DatePicker from 'material-ui/DatePicker'
-import Card from 'material-ui/Card'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import Card from '@material-ui/core/Card';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import FlatButton from 'material-ui/FlatButton'
 import TextField from '@material-ui/core/TextField'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
+import FormControl from '@material-ui/core/FormControl'
 
 const styles = theme => ({
   container: {
@@ -21,7 +23,7 @@ const styles = theme => ({
 })
 
 const BookingView = (
-  {classes, selectedService, services, onSubmit, onDateChange, onServiceChange, onCommentChange}
+  {classes, selectedService, services, onSubmit, onChange}
 ) => {
   return (
     <Card className="container">
@@ -32,32 +34,38 @@ const BookingView = (
             label="Select date"
             type="datetime-local"
             className={classes.dateTimePickup}
-            //disableYearSelection={true}
-            onChange={onDateChange}
+            onChange={onChange}
             InputLabelProps={{
               shrink: true,
             }}
+            name="date"
           />
         </div>
         <div className="field-line">
-          <SelectField
-            floatingLabelText="Service"
-            value={selectedService}
-            onChange={onServiceChange}
-          >
-            {services.map((service, key) =>
-              <MenuItem key={key} value={service} primaryText={service} />
-            )}
-          </SelectField>
+          <FormControl>
+            <InputLabel htmlFor="service-helper">Service</InputLabel>
+            <Select
+              input={<Input name="service" id="service-helper" />}
+              value={selectedService}
+              onChange={onChange}
+              displayEmpty
+              name="selectedService"
+            >
+              {services.map((service, key) =>
+                <MenuItem key={key} value={service}>{service}</MenuItem>
+              )}
+            </Select>
+          </FormControl>
         </div>
         <div className="field-line">
           <TextField
-            onChange = {onCommentChange}
+            onChange={onChange}
             label="Comments"
             placeholder="Add your notes here"
             multiline
             rows={10}
             rowsMax={4}
+            name="comment"
           />
         </div>
         <div className="field-line">
