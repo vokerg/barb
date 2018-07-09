@@ -12,7 +12,6 @@ const BookingList = ({bookings, bookingApprove, bookingReject}) => {
   return (
     <Table
       height={'300px'}
-
     >
       <TableHeader displaySelectAll={false}>
         <TableRow>

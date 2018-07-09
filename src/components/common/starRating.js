@@ -1,7 +1,7 @@
 import React from 'react'
-import Star from 'material-ui-icons/Star'
-import StarBorder from 'material-ui-icons/StarBorder'
-import StarHalf from 'material-ui-icons/StarHalf'
+import Star from '@material-ui/icons/Star'
+import StarBorder from '@material-ui/icons/StarBorder'
+import StarHalf from '@material-ui/icons/StarHalf'
 
 const StarRating = ({selected=1, total=5}) =>
     <div>

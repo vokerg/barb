@@ -1,59 +1,24 @@
 import React from 'react'
 import BookingList from './bookingList'
-import BookingFilter from './bookingFilter'
+import BookingFilter from '../common/bookingFilter'
 import { connect } from 'react-redux'
 import { loadBookings, updateBookingStatus } from '../../actions'
 import { getBookings, isModerateShop } from '../../reducers'
 
 class BookingAdmin extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      statusFilter: "All",
-      timeFilter: "Future"
-    }
-  }
 
-  componentWillMount() {
-    const shopId = this.props.match.params.id
-    this.props.loadBookings(shopId, this.state.statusFilter, this.state.timeFilter)
-  }
+  shopId = this.props.match.params.id;
 
-  changeStatusFilter = event => {
-    const statusFilter = event.target.value
-    const shopId = this.props.match.params.id
-    this.props.loadBookings(shopId, statusFilter, this.state.timeFilter)
-    this.setState({
-      statusFilter
-    })
-  }
-
-  changeTimeFilter = event => {
-    const timeFilter = event.target.value
-    const shopId = this.props.match.params.id
-    this.props.loadBookings(shopId, this.state.statusFilter, timeFilter)
-    this.setState({
-      timeFilter
-    })
-  }
-
-  updateBookingStatus = status => id => () => {
-    const shopId = this.props.match.params.id
-    this.props.updateBookingStatus(shopId, id, status)
-  }
+  loadBookingsShop = shopId => (statusFilter, timeFilter) => this.props.loadBookings(shopId, statusFilter, timeFilter)
+  updateBookingStatus = status => id => () => this.props.updateBookingStatus(this.shopId, id, status)
   bookingApprove = this.updateBookingStatus('Approved')
   bookingReject = this.updateBookingStatus('Rejected')
 
   render() {
-    const {statusFilter, timeFilter} = this.state
     return (
       <div>
-        Booking admin
         <BookingFilter
-          statusFilter={ statusFilter }
-          timeFilter={ timeFilter }
-          changeStatusFilter={ this.changeStatusFilter.bind(this) }
-          changeTimeFilter={ this.changeTimeFilter.bind(this) }
+          loadBookings={this.loadBookingsShop(this.shopId)}
         />
         <BookingList
           bookings={ this.props.bookings }

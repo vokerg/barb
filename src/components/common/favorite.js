@@ -1,18 +1,17 @@
 import React from 'react'
-import FavoriteIcon from 'material-ui-icons/Favorite'
-import FavoriteBorder from 'material-ui-icons/FavoriteBorder'
-import IconButton from 'material-ui/IconButton'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
+import IconButton from '@material-ui/core/IconButton';
 
 const Favorite = ({isShowFavorites, favorited, onFavoriteClick}) => {
   return (
-    isShowFavorites ?
+    isShowFavorites &&
       <IconButton onClick= { onFavoriteClick }>
         {favorited===true ?
           <FavoriteIcon/> :
           <FavoriteBorder/>
         }
-      </IconButton> :
-      <div/>
+      </IconButton>
   )
 }
 

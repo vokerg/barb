@@ -30,11 +30,22 @@ const bookings = (state = [], action) => {
   }
 }
 
+const userBookings = (state=[], action) => {
+  switch(action.type) {
+    case 'LOAD_USER_BOOKINGS': return action.bookings.map(booking => {
+      return {...booking, id: booking._id}
+    })
+    case 'LOGOUT': return []
+    default: return state;
+  }
+}
+
 const userActiveBookings = (state=[], action) => {
   switch(action.type) {
     case 'LOAD_USER_ACTIVE_BOOKINGS': return action.bookings.map(booking => {
       return {...booking, id: booking._id}
     })
+    case 'LOGOUT': return []
     default: return state;
   }
 }

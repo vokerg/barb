@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Card from '@material-ui/core/Card';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import Card from '@material-ui/core/Card'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'

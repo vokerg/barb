@@ -156,18 +156,15 @@ export const getBookings = (shopId, status, time) =>
       .end((err, res) => resolve(res.body))
   })
 
-  export const getUserBookings = (userId, status, time) => {
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!", userId, status, time)
-    return new Promise((resolve, reject) => {
-      request
-        .get(`/users/${userId}/bookings/`)
-        .use(tokenPlugin)
-        .query({'status': status})
-        .query({'time': time})
-        .end((err, res) => resolve(res.body))
-    })
-  }
-
+export const getUserBookings = (userId, status, time) =>
+  new Promise((resolve, reject) => {
+    request
+      .get(`/users/${userId}/bookings/`)
+      .use(tokenPlugin)
+      .query({'status': status})
+      .query({'time': time})
+      .end((err, res) => resolve(res.body))
+  })
 
 export const updateBookingStatus = (shopId, bookingId, status) =>
   new Promise((resolve, reject) => {

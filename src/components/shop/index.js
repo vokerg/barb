@@ -1,5 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import FlatButton from 'material-ui/FlatButton'
+import IconButton from '@material-ui/core/IconButton';
+import BookIcon from '@material-ui/icons/Book';
 
 import RatingList from '../rating'
 import ShopServiceList from './ShopServiceList'
@@ -8,8 +11,8 @@ import GoogleMaps from '../GoogleMaps'
 import { getShopById, getCurrentId, getUserId, isModerateShop } from '../../reducers'
 import { fetchShops, doRedirect, addFavorite, loadRatings } from '../../actions'
 import Container from '../container'
-import FlatButton from 'material-ui/FlatButton'
 import Favorite from '../common/favorite'
+
 
 class Shop extends React.Component {
   componentWillMount() {
@@ -36,9 +39,13 @@ class Shop extends React.Component {
             favorited={shop.favorited === true}
             isShowFavorites={authorized}
           />
-          {authorized ? <FlatButton onClick={() => doRedirect('/shop/book/' + shopId)}>Book time</FlatButton> : <span/>}
-          {moderator ? <FlatButton onClick={() => doRedirect('/shop/edit/' + shopId)}>Edit</FlatButton> : <span/>}
-          {moderator ? <FlatButton onClick={() => doRedirect('/shop/' + shopId + "/bookings/")}>Bookings</FlatButton> : <span/>}
+          {authorized &&
+            <IconButton aria-label="Book" onClick={() => doRedirect('/shop/book/' + shopId)}>
+              <BookIcon />
+            </IconButton>
+          }
+          {moderator && <FlatButton onClick={() => doRedirect('/shop/edit/' + shopId)}>Edit</FlatButton>}
+          {moderator && <FlatButton onClick={() => doRedirect('/shop/' + shopId + "/bookings/")}>Bookings</FlatButton>}
           <ShopServiceList services={ services } />
           <GoogleMaps markers={[coordinates]}/>
         </Container>

@@ -97,6 +97,14 @@ export const addFavorite = (userId, shopId) =>
     .addFavorite(userId, shopId)
     .then(() => stateAddFavorite(shopId))
 
+const loadCurrentUserInfo = userId => dispatch => {
+  if (userId !== null) {
+    dispatch(loadPreferences(userId))
+    dispatch(loadVotedRatings(userId))
+    dispatch(fromBookingActions.loadUserActiveBookings(userId))
+  }
+}
+
 export const stateLocalLoad = (userId, token, username, admin, moderateShops) => ({
     type: "LOCAL_LOAD",
     userId,
@@ -105,14 +113,9 @@ export const stateLocalLoad = (userId, token, username, admin, moderateShops) =>
     admin,
     moderateShops
 })
-
 export const localLoad = (userId, token, username, admin, moderateShops) => dispatch => {
   dispatch(stateLocalLoad(userId, token, username, admin, moderateShops))
-  if (userId !== null) {
-    dispatch(loadPreferences(userId))
-    dispatch(loadVotedRatings(userId))
-    dispatch(fromBookingActions.lodUserActiveBookings(userId))
-  }
+  dispatch(loadCurrentUserInfo(userId))
 }
 
 const stateLogin = (userId, token, username, admin, moderateShops) => ({
@@ -125,8 +128,7 @@ const stateLogin = (userId, token, username, admin, moderateShops) => ({
 })
 const loginThunk = (userId, token, username, admin, moderateShops) => dispatch => {
   dispatch(stateLogin(userId, token, username, admin, moderateShops))
-  dispatch(loadPreferences(userId))
-  dispatch(loadVotedRatings(userId))
+  dispatch(loadCurrentUserInfo(userId))
 }
 const loginUnsuccessful = () => ({ type: "LOGIN_UNSUCCESSFUL" })
 export const login = (username, password) =>
@@ -138,7 +140,6 @@ export const login = (username, password) =>
       loginUnsuccessful
     )
 }
-
 
 export const logout = () => ({ type: "LOGOUT" })
 

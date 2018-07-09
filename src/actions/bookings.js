@@ -15,7 +15,7 @@ const stateLoadUserActiveBookings = bookings => ({
   type: 'LOAD_USER_ACTIVE_BOOKINGS',
   bookings
 })
-export const lodUserActiveBookings = userId =>
+export const loadUserActiveBookings = userId =>
   fromApi
     .getUserBookings(userId, 'Approved', 'Future')
     .then(bookings => stateLoadUserActiveBookings(bookings))
