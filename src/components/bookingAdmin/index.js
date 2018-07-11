@@ -10,7 +10,7 @@ class BookingAdmin extends React.Component {
   shopId = this.props.match.params.id
 
   loadBookingsShop = shopId => (statusFilter, timeFilter) => this.props.loadBookings(shopId, statusFilter, timeFilter)
-  updateBookingStatus = status => id => () => this.props.updateBookingStatus(this.shopId, id, status)
+  updateBookingStatus = status => id => () => this.props.updateBookingStatus(id, status)
   bookingApprove = this.updateBookingStatus('Approved')
   bookingReject = this.updateBookingStatus('Rejected')
 
@@ -38,7 +38,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => {
   return {
     loadBookings: (shopId, status, time) => dispatch(loadBookings(shopId, status, time)),
-    updateBookingStatus: (shopId, bookingId, status) => dispatch(updateBookingStatus(shopId, bookingId, status))
+    updateBookingStatus: (bookingId, status) => dispatch(updateBookingStatus(bookingId, status))
   }
 }
 

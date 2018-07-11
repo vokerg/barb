@@ -10,22 +10,24 @@ const filter = (state={status: 'All', time: 'All'}, action) => {
   }
 }
 
+const getStateWithUpdatedBookingStatus = (bookings, bookingId, status) =>
+  bookings.map(booking => {
+    if (booking.id === bookingId) {
+      return {
+        ...booking,
+        status
+      }
+    } else {
+      return booking
+    }
+  })
+
 const bookings = (state = [], action) => {
   switch(action.type) {
     case 'LOAD_BOOKINGS' : return action.bookings.map(booking => {
       return {...booking, id: booking._id}
     })
-    case 'UPDATE_BOOKING_STATUS' : return state.map(booking => {
-      if (booking.id === action.bookingId) {
-        const {status} = action
-        return {
-          ...booking,
-          status
-        }
-      } else {
-        return booking
-      }
-    })
+    case 'UPDATE_BOOKING_STATUS' : return getStateWithUpdatedBookingStatus(state, action.bookingId, action.status)
     default: return state
   }
 }
@@ -35,6 +37,7 @@ const userBookings = (state=[], action) => {
     case 'LOAD_USER_BOOKINGS': return action.bookings.map(booking => {
       return {...booking, id: booking._id}
     })
+    case 'UPDATE_BOOKING_STATUS' : return getStateWithUpdatedBookingStatus(state, action.bookingId, action.status)
     case 'LOGOUT': return []
     default: return state;
   }

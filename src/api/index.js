@@ -166,10 +166,10 @@ export const getUserBookings = (userId, status, time) =>
       .end((err, res) => resolve(res.body))
   })
 
-export const updateBookingStatus = (shopId, bookingId, status) =>
+export const updateBookingStatus = (bookingId, status) =>
   new Promise((resolve, reject) => {
     request
-      .post(`/shops/${shopId}/bookings/${bookingId}`)
+      .post(`/bookings/${bookingId}`)
       .use(tokenPlugin)
       .use(urlEncodedPlugin)
       .send({status})

@@ -198,16 +198,15 @@ export const loadBookings = (shopId, status, time) =>
     .getBookings(shopId, status, time)
     .then(bookings => stateLoadBookings(bookings, status, time))
 
-const stateUpdateBookingStatus = (shopId, bookingId, status) => ({
+const stateUpdateBookingStatus = (bookingId, status) => ({
     type: 'UPDATE_BOOKING_STATUS',
-    shopId,
     bookingId,
     status
 })
-export const updateBookingStatus = (shopId, bookingId, status) =>
+export const updateBookingStatus = (bookingId, status) =>
   fromApi
-    .updateBookingStatus(shopId, bookingId, status)
-    .then(() => stateUpdateBookingStatus(shopId, bookingId, status))
+    .updateBookingStatus(bookingId, status)
+    .then(() => stateUpdateBookingStatus(bookingId, status))
 
 const stateLoadPreferences = favorites => ({
   type: 'LOAD_PREFERENCES',

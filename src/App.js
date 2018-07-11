@@ -1,9 +1,8 @@
 import React  from 'react';
-//import './App.css';
 
 import './vendor/bootstrap/css/bootstrap.min.css'
 
-import { Route } from 'react-router-dom';
+import { Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { connect } from 'react-redux'
 
