@@ -9,7 +9,7 @@ class Booking extends React.Component {
   constructor() {
     super()
     this.state = {
-      date: "",
+      date: null,
       selectedService: "",
       comment: ""
     }
@@ -23,8 +23,10 @@ class Booking extends React.Component {
   }
 
   onChange = event => {
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({[event.target.name]: event.target.value})
   }
+
+  onDateChange = date => {this.setState({date})}
 
   submit = event => {
     event.preventDefault();
@@ -42,6 +44,8 @@ class Booking extends React.Component {
         services={shop.services}
         onSubmit={this.submit.bind(this)}
         onChange={this.onChange}
+        date={this.state.date}
+        onDateChange={this.onDateChange}
       />
   }
 }

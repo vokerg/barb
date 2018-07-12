@@ -210,6 +210,7 @@ export const loadUsers = filter =>
     new Promise((resolve, reject) =>
       request
         .get(`/users/${userId}`)
+        .use(tokenPlugin)
         .then(response => resolve(response.body))
     )
 
@@ -217,6 +218,7 @@ export const loadUsers = filter =>
     new Promise((resolve, reject) =>
       request
         .get(`/users/${userId}/ratings`)
+        .use(tokenPlugin)
         .then(response => resolve(response.body))
   )
 
@@ -224,5 +226,6 @@ export const loadUsers = filter =>
     new Promise((resolve, reject) =>
       request
         .get(`/users/${userId}/votedRatings`)
+        .use(tokenPlugin)
         .then(response => resolve(response.body))
   )

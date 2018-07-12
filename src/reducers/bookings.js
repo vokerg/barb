@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 
 const filter = (state={status: 'All', time: 'All'}, action) => {
   switch(action.type) {
-    case 'LOAD_BOOKINGS': return {
+    case 'LOAD_BOOKINGS':
+    case 'LOAD_USER_BOOKINGS': return {
       status: action.status,
       time: action.time
     }
@@ -53,12 +54,12 @@ const userActiveBookings = (state=[], action) => {
   }
 }
 
-export const getBookings = state =>
-  (state.filter.status === 'All') ? state.bookings : state.bookings.filter(booking =>
-    booking.status === state.filter.status
-  )
-
 export const getActiveBookingCount = state => state.userActiveBookings.length
-export const getBookingsForCurrentUser = state => state.userBookings
+
+const getFilteredBookings = (status, bookings) => status==='All' ? bookings : bookings.filter(booking => booking.status === status)
+
+export const getBookings = state => getFilteredBookings(state.filter.status, state.bookings)
+
+export const getBookingsForCurrentUser = state => getFilteredBookings(state.filter.status, state.userBookings)
 
 export default combineReducers({bookings, filter, userActiveBookings, userBookings})

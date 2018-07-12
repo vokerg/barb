@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import FormControl from '@material-ui/core/FormControl'
+import { DateTimePicker } from 'material-ui-pickers'
 
 const styles = theme => ({
   container: {
@@ -23,22 +24,19 @@ const styles = theme => ({
 })
 
 const BookingView = (
-  {classes, selectedService, services, onSubmit, onChange}
+  {classes, date, onDateChange, selectedService, services, onSubmit, onChange}
 ) => {
+  console.log(date)
   return (
     <Card className="container">
       <h2 className="card-heading">Book time</h2>
       <form onSubmit = {onSubmit}>
         <div className="field-line">
-          <TextField
-            label="Select date"
-            type="datetime-local"
-            className={classes.dateTimePickup}
-            onChange={onChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            name="date"
+          <DateTimePicker
+            value={date}
+            onChange={onDateChange}
+            label="Booking date"
+            clearable
           />
         </div>
         <div className="field-line">
