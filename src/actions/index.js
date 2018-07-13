@@ -177,14 +177,14 @@ export const setSnackbar = snackbarMessage => ({
 
 export const clearSnackbar = () => ({ type: 'CLEAR_SNACKBAR' })
 
-const stateAddBooking = (shopId) => ({
+const stateAddBooking = shopId => ({
   type: 'ADD_BOOKING',
   shopId
 })
 
 export const addBooking = (shopId, userId, date, service, comment) =>
   fromApi
-    .addBooking(shopId, userId, date, service, comment)
+    .addBooking({shopId, userId, date: date.toString(), service, comment})
     .then(() => stateAddBooking(shopId))
 
 const stateLoadBookings = (bookings, status, time) => ({

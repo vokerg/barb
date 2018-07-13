@@ -38,6 +38,7 @@ class BookingFilter extends React.Component {
           timeFilter={ timeFilter }
           changeStatusFilter={ this.changeStatusFilter.bind(this) }
           changeTimeFilter={ this.changeTimeFilter.bind(this) }
+          statusList= {["All", "Unprocessed", "Approved", "Rejected", "Cancelled"]}
         />
     )
   }

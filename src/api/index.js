@@ -135,14 +135,13 @@ export const createShop = (name, address, description, services=[], coordinates=
       .then(res => resolve(res.body))
   })
 
-export const addBooking = (shopId, userId, date, service, comment) =>
+export const addBooking = booking =>
   new Promise((resolve, reject) => {
-    date = date.toString()
     request
-      .put(`/shops/${shopId}/bookings/`)
+      .put(`/bookings/`)
       .use(tokenPlugin)
       .use(urlEncodedPlugin)
-      .send({userId, date, service, comment})
+      .send(booking)
       .then(res => resolve(res.body))
   })
 

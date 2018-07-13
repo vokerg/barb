@@ -44,7 +44,7 @@ const redirectTo = (state=null, action) => {
   switch(action.type) {
     case 'SIGNUP': return "/login"
     case 'LOGIN': case 'LOGOUT': return '/'
-    case 'ADD_BOOKING': return '/shop/' + action.shopId
+    case 'ADD_BOOKING': return `/shop/${action.shopId}`
     case 'DO_REDIRECT': return action.redirectTo
     case 'REDIRECT': return null
     default: return state
@@ -60,6 +60,7 @@ const snackbarMessage = (state="", action) => {
     case 'LOGOUT': return "Logged out"
     case 'LOGIN_UNSUCCESSFUL': return "Login unsuccessful"
     case 'LOGIN': return "Logged in"
+    case 'UPDATE_BOOKING_STATUS': return `Booking ${action.status}`
     case 'CLEAR_SNACKBAR': return ""
     default: return state
   }

@@ -20,7 +20,7 @@ const styles = theme => ({
   },
 });
 
-const BookingFilter = ({statusFilter, timeFilter, changeStatusFilter, changeTimeFilter, classes}) => {
+const BookingFilter = ({statusFilter, timeFilter, changeStatusFilter, changeTimeFilter, classes, statusList}) => {
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -32,10 +32,9 @@ const BookingFilter = ({statusFilter, timeFilter, changeStatusFilter, changeTime
           displayEmpty
           name="statusFilter"
         >
-          <MenuItem value="All">All</MenuItem>
-          <MenuItem value="Unprocessed">Unprocessed</MenuItem>
-          <MenuItem value="Approved">Approved</MenuItem>
-          <MenuItem value="Rejected">Rejected</MenuItem>
+        {statusList.map(status =>
+          <MenuItem key={status} value={status}>{status}</MenuItem>
+        )}
         </Select>
       </FormControl>
 
