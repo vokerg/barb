@@ -1,7 +1,7 @@
 import React from 'react'
 import BookingFilterView from './bookingFilterView'
 
-class BookingFilter extends React.Component {
+class BookingFilter extends React.PureComponent {
   constructor() {
     super()
     this.state = {
@@ -38,7 +38,8 @@ class BookingFilter extends React.Component {
           timeFilter={ timeFilter }
           changeStatusFilter={ this.changeStatusFilter.bind(this) }
           changeTimeFilter={ this.changeTimeFilter.bind(this) }
-          statusList= {["All", "Unprocessed", "Approved", "Rejected", "Cancelled"]}
+          statusList={['All', 'Unprocessed', 'Approved', 'Rejected', 'Cancelled']}
+          timesList={['Future', 'Past', 'All']}
         />
     )
   }

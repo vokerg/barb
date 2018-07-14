@@ -1,10 +1,6 @@
 import React from 'react'
-import {
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table'
+import { TableRow, TableRowColumn } from 'material-ui/Table'
 import { Link } from 'react-router-dom'
-
 
 const SingleBooking = ({
   username,
@@ -23,15 +19,11 @@ const SingleBooking = ({
       <TableRowColumn>{service}</TableRowColumn>
       <TableRowColumn>{comment}</TableRowColumn>
       <TableRowColumn>
-        {(status === "Unprocessed" || status === "Rejected") ?
+        {(status === "Unprocessed" || status === "Rejected") &&
           <button onClick={bookingApproveClick}>Approve</button>
-          :
-          <div></div>
         }
-        {(status === "Unprocessed" || status === "Approved") ?
+        {(status === "Unprocessed" || status === "Approved") &&
           <button onClick={bookingRejectClick}>Reject</button>
-          :
-          <div></div>
         }
       </TableRowColumn>
     </TableRow>

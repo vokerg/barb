@@ -40,7 +40,7 @@ const getFormattedDate = date => {
 const BookingsUserView = ({bookings, classes, cancelBooking}) => {
   const bull = <span className={classes.bullet}>•</span>;
   return(
-    <div>
+    <React.Fragment>
       {bookings.map((booking, key) =>
         <Card className={classes.card} key={key}>
           <CardContent>
@@ -64,7 +64,7 @@ const BookingsUserView = ({bookings, classes, cancelBooking}) => {
           </CardActions>
         </Card>
       )}
-    </div>
+    </React.Fragment>
   )
 }
 

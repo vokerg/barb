@@ -10,9 +10,7 @@ import {
 
 const BookingList = ({bookings, bookingApprove, bookingReject}) => {
   return (
-    <Table
-      height={'300px'}
-    >
+    <Table height={'300px'}>
       <TableHeader displaySelectAll={false}>
         <TableRow>
           <TableHeaderColumn>User</TableHeaderColumn>
@@ -23,10 +21,10 @@ const BookingList = ({bookings, bookingApprove, bookingReject}) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {bookings.map((booking, i) => {
+        {bookings.map(booking => {
             const {id, username, service, date, comment, status, userId} = booking
             return <SingleBooking
-              key = {i}
+              key = {id}
               username = {username}
               userId= {userId}
               service = {service}

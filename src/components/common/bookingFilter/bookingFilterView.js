@@ -18,11 +18,13 @@ const styles = theme => ({
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
   },
-});
+})
 
-const BookingFilter = ({statusFilter, timeFilter, changeStatusFilter, changeTimeFilter, classes, statusList}) => {
+const BookingFilter = ({
+  statusFilter, timeFilter, changeStatusFilter, changeTimeFilter, classes, statusList, timesList
+}) => {
   return (
-    <div>
+    <React.Fragment>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="status-helper">Status</InputLabel>
         <Select
@@ -47,12 +49,12 @@ const BookingFilter = ({statusFilter, timeFilter, changeStatusFilter, changeTime
           displayEmpty
           name="timeFilter"
         >
-          <MenuItem value="Future">Future</MenuItem>
-          <MenuItem value="Past">Past</MenuItem>
-          <MenuItem value="All">All</MenuItem>
+          {timesList.map(time =>
+            <MenuItem key={time} value={time}>{time}</MenuItem>
+          )}
         </Select>
       </FormControl>
-    </div>
+    </React.Fragment>
   )
 }
 

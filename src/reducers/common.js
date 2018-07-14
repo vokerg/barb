@@ -69,6 +69,12 @@ const snackbarMessage = (state="", action) => {
 const favoriteShops = (state=[], action) => {
   switch(action.type) {
     case 'LOAD_PREFERENCES': return action.favorites
+    case "ADD_FAVORITE": {
+      const favIndex = state.indexOf(action.id);
+      return favIndex > 0
+        ? [...state.slice(0, favIndex), ...state.slice(favIndex+1), state.length]
+        : [...state, action.id]
+    }
     case 'LOGOUT': return []
     default: return state
   }
