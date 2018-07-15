@@ -1,12 +1,29 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-const Services = () =>
-{
-  return (
-    <div>
-      Services chips
-    </div>
-  )
+import { getServices } from '../../reducers'
+import { loadServices } from '../../actions'
+
+class Services extends React.Component {
+  componentDidMount = () => this.props.loadServices()
+
+  render() {
+    const { serviceList } = this.props
+    return (
+      <div>
+        {serviceList && serviceList.map(service => <snap>{service}</snap>)}
+      </div>
+    )
+  }
+
 }
 
-export default Services;
+const mapStateToProps = state => ({
+  serviceList: getServices(state)
+})
+
+const mapDispatchToProps = dispatch => ({
+  loadServices: () => dispatch(loadServices())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Services)

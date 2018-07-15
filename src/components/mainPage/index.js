@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect }  from 'react-redux'
-import Filter from './Filter'
+import Filter from './shopFilter'
 import Shops from './shops'
 import { getShops } from '../../reducers'
 import { fetchShops } from '../../actions'

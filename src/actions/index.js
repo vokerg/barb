@@ -81,13 +81,13 @@ export const addRating = (userId, shopId, author, ratingStars, comment, date=(ne
       .addRating(userId, shopId, author, ratingStars, comment, date, 0)
       .then(rating => addStateRating(rating))
 
-const getStateServices = services => ({
+const loadStateServices = services => ({
   type: "LOAD_SERVICES",
   services
 })
-export const getServices = () =>
+export const loadServices = () =>
   fromApi.getServices()
-    .then(services => getStateServices(services))
+    .then(services => loadStateServices(services))
 
 const stateAddFavorite = id => ({
   type: "ADD_FAVORITE",

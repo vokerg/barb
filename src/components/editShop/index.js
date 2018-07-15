@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import ServiceSelect from './serviceSelect'
-import { addShop, updateShop, getServices, doRedirect } from '../../actions'
-import { getShopById, isAdmin, isModerateShop } from '../../reducers'
+import { addShop, updateShop, loadServices, doRedirect } from '../../actions'
+import { getShopById, isAdmin, isModerateShop, getServices, getUserId } from '../../reducers'
 import GoogleMap from '../GoogleMaps'
 import * as constants from '../../constants'
 import EditShopForm from './editShopForm'
@@ -11,17 +11,17 @@ import EditShopForm from './editShopForm'
 class EditShop extends React.Component {
 	constructor(props) {
 		super()
-		if (props.userId === null) {
-			props.doRedirect('/login/')
+		const {userId, admin, isModerateShop, doRedirect, loadServices, shop} = props
+		if (userId === null || (!admin && !isModerateShop)) {
+			doRedirect('/login/')
 		}
-		const {shop} = props
-		if ((shop === undefined) && (!props.admin)) {
-			props.doRedirect('/')
+		if ((shop === undefined) && (!admin)) {
+			doRedirect('/')
 		}
-		if ((shop !== undefined) && (!props.isModerateShop)) {
-			props.doRedirect('/')
+		if ((shop !== undefined) && (!isModerateShop)) {
+			doRedirect('/')
 		}
-		props.getServices()
+		loadServices()
 
 		this.state = {
 			name: (shop === undefined) ? '' : shop.name,
@@ -34,19 +34,15 @@ class EditShop extends React.Component {
 				? constants.DEFAULT_COORDINATES : shop.coordinates
 		}
 
-		const updateFieldEvent = key => event => {
-			this.setState({
-				...this.state,
-				[key]: event.target.value
-			})
-		}
+		const updateFieldEvent = key => event =>
+			this.setState({ [key]: event.target.value })
+
 		this.onUpdateName = updateFieldEvent("name");
 		this.onUpdateAddress = updateFieldEvent("address");
 		this.onUpdateDescription = updateFieldEvent("description");
 	}
 
-	handleSubmit = (event => {
-
+	handleSubmit = event => {
 		event.preventDefault()
 		const {
 			name,
@@ -65,7 +61,7 @@ class EditShop extends React.Component {
 			updateShop(shop.id, name, address, description, services, coordinates)
 			doRedirect('/shop/' + shop.id)
 		}
-	})
+	}
 
 	render() {
 	  return (
@@ -99,8 +95,7 @@ const mapStateToProps = (state, ownProps) => {
 	let returnObject = {}
 	const {id} = ownProps.match.params
 	if (id !== undefined) {
-		let shop = getShopById(state, id)
-		const {name, address, description, services, coordinates} = shop
+		const {name, address, description, services, coordinates} = getShopById(state, id)
 		returnObject = {
 			shop: {
 				id,
@@ -113,23 +108,22 @@ const mapStateToProps = (state, ownProps) => {
 			isModerateShop: isModerateShop(state, id)
 		}
 	}
-	return {...returnObject, serviceList: state.services, userId: state.common.userId, admin: isAdmin(state)}
+	return {
+		...returnObject,
+		serviceList: getServices(state),
+		userId: getUserId(state),
+		admin: isAdmin(state)
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addShop: (name, address, description, services, coordinates) => {
-			dispatch(addShop(name, address, description, services, coordinates))
-		},
-		updateShop: (id, name, address, description, services, coordinates) => {
-			dispatch(updateShop(id, name, address, description, services, coordinates))
-		},
-		getServices: () => {
-			dispatch(getServices())
-		},
-		doRedirect: path => {
-			dispatch(doRedirect(path))
-		}
+		addShop: (name, address, description, services, coordinates) =>
+			dispatch(addShop(name, address, description, services, coordinates)),
+		updateShop: (id, name, address, description, services, coordinates) =>
+			dispatch(updateShop(id, name, address, description, services, coordinates)),
+		loadServices: () => dispatch(loadServices()),
+		doRedirect: path => dispatch(doRedirect(path))
 	}
 }
 
