@@ -66,7 +66,6 @@ class App extends React.Component {
               <Route exact path="/createshop" component= {EditShop} />
               <Route exact path="/shop/:shopId" component= {Shop} />
               <Route exact path="/service/:service" component= {ShopsByService} />
-              <Route path="/filter/:filter" component= {MainPage} />
               <Route exact path="/shop/edit/:id" component= {EditShop} />
               <Route exact path="/shop/:id/bookings" component= {BookingAdmin} />
               <Route exact path="/login" component= {Login} />

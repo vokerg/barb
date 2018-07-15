@@ -12,16 +12,10 @@ const filter = (state={status: 'All', time: 'All'}, action) => {
 }
 
 const getStateWithUpdatedBookingStatus = (bookings, bookingId, status) =>
-  bookings.map(booking => {
-    if (booking.id === bookingId) {
-      return {
-        ...booking,
-        status
-      }
-    } else {
-      return booking
-    }
-  })
+  bookings.map(booking => (booking.id === bookingId)
+      ?({ ...booking, status })
+      :booking
+  )
 
 const bookings = (state = [], action) => {
   switch(action.type) {

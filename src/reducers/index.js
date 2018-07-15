@@ -15,7 +15,7 @@ const mainReducer = combineReducers({
 
 export const getCurrentId = state => fromCurrentShopId.getCurrentId(state.currentShopId)
 export const getShopById = (state, shopId) => fromShops.getShopById(state.shops, shopId)
-export const getShops = state => fromShops.getShops(state.shops)
+export const getShops = (state, filter) => fromShops.getShops(state.shops, filter)
 export const isShopsRequested = state => fromLoading.isShopsRequested(state.isLoading)
 export const getServices = state => fromServices.getServices(state.services)
 export const getSnackbarMessage = state => fromCommon.getSnackbarMessage(state.common)

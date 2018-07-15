@@ -15,23 +15,21 @@ const shops = (state = [], action) => {
           ...shop,
           ratings: [
             ...shop.ratings,
-            {...action.rating, id: action.rating._id}
+            { ...action.rating, id: action.rating._id }
           ]
         } : shop
       ))
     }
 
     case "ADD_RATING_SCORE": {
-      return (state.map(shop => (shop.id === action.shopId) ?
-        {
+      return (state.map(shop => (shop.id === action.shopId)
+        ? {
           ...shop,
-          ratings: shop.ratings.map(rating => (rating.id === action.ratingId) ?
-            {
-              ...rating,
-              score: action.newRatingScore
-            } : rating
+          ratings: shop.ratings.map(rating =>
+            (rating.id === action.ratingId) ? { ...rating, score: action.newRatingScore } : rating
           )
-        } : shop
+        }
+        : shop
       ))
     }
 
@@ -81,7 +79,6 @@ const shops = (state = [], action) => {
     case "LOGOUT": {
       return state.map(shop => ({
         ...shop,
-        id:shop._id,
         favorited: false
       }))
     }
@@ -96,16 +93,8 @@ const shops = (state = [], action) => {
   }
 }
 
-export const getShopById = (state, shopId) => {
-  let shop_found;
-  state.forEach(shop => {
-    if (shop.id === shopId) {
-      shop_found=shop
-    }
-  })
-  return shop_found
-}
+export const getShopById = (state, shopId) => state.find(shop => shop.id === shopId)
 
-export const getShops = state => state
+export const getShops = (state, filter) => (filter !== 'favorites') ? state : state.filter(shop => shop.favorited)
 
 export default shops
