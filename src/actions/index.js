@@ -11,11 +11,11 @@ const loadShops = (shops, favoriteShops) => ({
   shops,
   favoriteShops
 })
-export const fetchShops = (filter, service, id) => (dispatch, getState) =>
+export const fetchShops = (filter, services, id) => (dispatch, getState) =>
 {
   dispatch(requestShops())
   fromApi
-    .getShops(filter, service, id)
+    .getShops(filter, services, id)
     .then(shops => dispatch(loadShops(shops, getState().common.favoriteShops)))
     .then(() => {
       if (id) {

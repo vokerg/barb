@@ -17,6 +17,9 @@ class MainPage extends React.Component {
     }
   }
 
+  handleServiceListChange = event =>
+    this.setState({ services: event.target.value })
+
   handleColumnChange = (event, selectedColumn) => {
     this.setState({ selectedColumn })
     switch(selectedColumn) {
@@ -36,7 +39,7 @@ class MainPage extends React.Component {
         <Filter selectedColumn={this.state.selectedColumn} handleColumnChange={this.handleColumnChange}/>
         {
           (this.state.selectedColumn === 2) &&
-          <ServicesFilter />
+          <ServicesFilter selectedServices={services} handleServiceListChange={this.handleServiceListChange}/>
         }
         <Shops filter={filter} services={services}/>
       </Container>

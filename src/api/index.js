@@ -57,7 +57,7 @@ const getShop = (id) =>
       .end((err, res) => resolve(res.body))
   })
 
-export const getShops = (filter="all", service="", id="") =>
+export const getShops = (filter="all", services=[], id="") =>
 {
   return (id !== "")
     ? getShop(id)
@@ -66,7 +66,7 @@ export const getShops = (filter="all", service="", id="") =>
         .get('/shops/')
         .use(tokenPlugin)
         .query({'filter': filter})
-        .query({'service': service})
+        .query({'services[]': services})
         .query({'id': id})
         .end((err, res) => resolve(res.body))
     })
