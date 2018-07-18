@@ -20,27 +20,31 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-  }
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 300,
+  },
 })
 
 const BookingView = (
   {classes, date, onDateChange, selectedService, services, onSubmit, onChange}
 ) => {
-  console.log(date)
   return (
-    <Card className="container">
-      <h2 className="card-heading">Book time</h2>
+    <Card className={classes.container}>
       <form onSubmit = {onSubmit}>
-        <div className="field-line">
-          <DateTimePicker
-            value={date}
-            onChange={onDateChange}
-            label="Booking date"
-            clearable
-          />
+        <div>
+          <FormControl className={classes.formControl}>
+            <DateTimePicker
+              value={date}
+              onChange={onDateChange}
+              label="Booking date"
+              clearable
+            />
+          </FormControl>
         </div>
-        <div className="field-line">
-          <FormControl>
+        <div>
+          <FormControl className={classes.formControl}>
             <InputLabel htmlFor="service-helper">Service</InputLabel>
             <Select
               input={<Input name="service" id="service-helper" />}
@@ -55,20 +59,20 @@ const BookingView = (
             </Select>
           </FormControl>
         </div>
-        <div className="field-line">
-          <TextField
-            onChange={onChange}
-            label="Comments"
-            placeholder="Add your notes here"
-            multiline
-            rows={10}
-            rowsMax={4}
-            name="comment"
-          />
+        <div>
+          <FormControl className={classes.formControl}>
+            <TextField
+              onChange={onChange}
+              label="Comments"
+              placeholder="Add your notes here"
+              multiline
+              rows={10}
+              rowsMax={4}
+              name="comment"
+            />
+          </FormControl>
         </div>
-        <div className="field-line">
-        </div>
-        <div className="field-line">
+        <div>
           <FlatButton label="Submit" type="Submit" />
         </div>
       </form>
