@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import GoogleMaps from '../GoogleMaps'
+import GoogleMaps from '../googleMaps'
 import { addFavorite } from '../../actions'
 import { isShopsRequested, getUserId } from '../../reducers'
 import Shops from './shops'

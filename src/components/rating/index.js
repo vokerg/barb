@@ -1,6 +1,6 @@
 import React from 'react'
-import Rating from './Rating'
-import AddRating from './AddRating'
+import Rating from './rating'
+import AddRating from './addRating'
 
 const RatingList = (props) => {
     const {ratings} = props.shop

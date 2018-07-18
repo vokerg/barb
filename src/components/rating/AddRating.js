@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
-import AddRatingForm from './AddRatingForm'
-import { addRating } from '../../actions'
 import FlatButton from 'material-ui/FlatButton'
+
+import { addRating } from '../../actions'
+import AddRatingForm from './addRatingForm'
 import { getUserId } from '../../reducers'
 
 const mapStateToProps = state => ({

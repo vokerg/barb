@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ServiceSelect from './serviceSelect'
 import { addShop, updateShop, loadServices, doRedirect } from '../../actions'
 import { getShopById, isAdmin, isModerateShop, getServices, getUserId } from '../../reducers'
-import GoogleMap from '../GoogleMaps'
+import GoogleMap from '../googleMaps'
 import * as constants from '../../constants'
 import EditShopForm from './editShopForm'
 

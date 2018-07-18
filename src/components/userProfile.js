@@ -17,7 +17,7 @@ class UserProfile extends React.Component {
     }
     const {id} = this.props.match.params
     return (
-      <div>User profile for user {this.props.user.username}</div>
+      <div>User profile for user {`${id} ${this.props.user.username}`}</div>
     )
   }
 }

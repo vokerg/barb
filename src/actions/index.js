@@ -163,7 +163,7 @@ const signupUnsuccessful = () => ({ type: "SIGNUP_UNSUCCESSFUL" })
 export const signup = (username, password) =>
   fromApi
     .signup(username, password)
-    .then(stateSignup)
+    .then(stateSignup, signupUnsuccessful)
 
 export const doRedirect = redirectTo => ({
     type: 'DO_REDIRECT',

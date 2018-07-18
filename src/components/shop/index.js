@@ -5,9 +5,9 @@ import IconButton from '@material-ui/core/IconButton';
 import BookIcon from '@material-ui/icons/Book';
 
 import RatingList from '../rating'
-import ShopServiceList from './ShopServiceList'
-import ShopInfo from './ShopInfo'
-import GoogleMaps from '../GoogleMaps'
+import ShopServiceList from './shopServiceList'
+import ShopInfo from './shopInfo'
+import GoogleMaps from '../googleMaps'
 import { getShopById, getCurrentId, getUserId, isModerateShop } from '../../reducers'
 import { fetchShops, doRedirect, addFavorite, loadRatings } from '../../actions'
 import Container from '../container'
@@ -24,7 +24,7 @@ class Shop extends React.Component {
     }
   }
   render() {
-    const {userId, shop, shopId, fetchShops, doRedirect, addFavorite, moderator, loadRatings} = this.props
+    const {userId, shop, shopId, doRedirect, addFavorite, moderator} = this.props
     if (shop === undefined) {
       return <div>Loading...</div>
     }

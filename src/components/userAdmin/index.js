@@ -6,10 +6,6 @@ import UsersFilter from './usersFilter'
 import UsersView from './usersView'
 
 class UserAdmin extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentWillMount() {
     this.props.updateFilter()
   }

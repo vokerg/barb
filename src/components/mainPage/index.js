@@ -1,9 +1,6 @@
 import React from 'react'
-import { connect }  from 'react-redux'
 import Filter from './shopFilter'
 import Shops from './shops'
-import { getShops } from '../../reducers'
-import { fetchShops } from '../../actions'
 import ServicesFilter from './servicesFilter'
 import Container from '../container'
 
@@ -23,7 +20,7 @@ class MainPage extends React.Component {
   handleColumnChange = (event, selectedColumn) => {
     this.setState({ selectedColumn })
     switch(selectedColumn) {
-      case 0: this.setState({ filter:'', services: [] })
+      case 0: default: this.setState({ filter:'', services: [] })
       break
       case 1: this.setState({ filter:'favorites', services: [] })
       break
@@ -36,9 +33,9 @@ class MainPage extends React.Component {
     const {selectedColumn, filter, services} = this.state;
     return (
       <Container>
-        <Filter selectedColumn={this.state.selectedColumn} handleColumnChange={this.handleColumnChange}/>
+        <Filter selectedColumn={selectedColumn} handleColumnChange={this.handleColumnChange}/>
         {
-          (this.state.selectedColumn === 2) &&
+          (selectedColumn === 2) &&
           <ServicesFilter selectedServices={services} handleServiceListChange={this.handleServiceListChange}/>
         }
         <Shops filter={filter} services={services}/>
