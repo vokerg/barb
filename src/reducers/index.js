@@ -30,5 +30,6 @@ export const getUserProfile = state => fromUserProfile.getUserProfile(state.user
 export const getVotedRatings = state => fromCommon.getVotedRatings(state.common)
 export const getActiveBookingCount = state => fromBookings.getActiveBookingCount(state.bookings)
 export const getBookingsForCurrentUser = state => fromBookings.getBookingsForCurrentUser(state.bookings)
+export const isShopRatedByCurrentUser = (state, shopId) => fromCommon.isShopRatedByCurrentUser(state.common, shopId)
 
 export default mainReducer

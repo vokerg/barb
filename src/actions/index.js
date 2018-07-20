@@ -103,6 +103,7 @@ const loadCurrentUserInfo = userId => dispatch => {
     dispatch(loadPreferences(userId))
     dispatch(loadVotedRatings(userId))
     dispatch(fromBookingActions.loadUserActiveBookings(userId))
+    dispatch(loadRatedShops(userId))
   }
 }
 
@@ -196,3 +197,12 @@ export const loadVotedRatings = userId =>
   fromApi
     .getVotedRatings(userId)
     .then(votedRatings => stateLoadVotedRatings(votedRatings))
+
+const stateLoadRatedShops = ratedShops => ({
+  type: 'LOAD_RATED_SHOPS',
+  ratedShops
+})
+export const loadRatedShops = userId =>
+  fromApi
+    .getUserRatings(userId)
+    .then(ratedShops => stateLoadRatedShops(ratedShops))

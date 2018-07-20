@@ -205,26 +205,26 @@ export const loadUsers = filter =>
       })
   )
 
-  export const getUser = userId =>
-    new Promise((resolve, reject) =>
-      request
-        .get(`/users/${userId}`)
-        .use(tokenPlugin)
-        .then(response => resolve(response.body))
-    )
-
-  export const getUserRatings = userId =>
-    new Promise((resolve, reject) =>
-      request
-        .get(`/users/${userId}/ratings`)
-        .use(tokenPlugin)
-        .then(response => resolve(response.body))
+export const getUser = userId =>
+  new Promise((resolve, reject) =>
+    request
+      .get(`/users/${userId}`)
+      .use(tokenPlugin)
+      .then(response => resolve(response.body))
   )
 
-  export const getVotedRatings = userId =>
-    new Promise((resolve, reject) =>
-      request
-        .get(`/users/${userId}/votedRatings`)
-        .use(tokenPlugin)
-        .then(response => resolve(response.body))
-  )
+export const getUserRatings = userId =>
+  new Promise((resolve, reject) =>
+    request
+      .get(`/users/${userId}/ratingsWritten`)
+      .use(tokenPlugin)
+      .then(response => resolve(response.body))
+)
+
+export const getVotedRatings = userId =>
+  new Promise((resolve, reject) =>
+    request
+      .get(`/users/${userId}/votedRatings`)
+      .use(tokenPlugin)
+      .then(response => resolve(response.body))
+)

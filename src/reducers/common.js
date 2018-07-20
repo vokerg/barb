@@ -89,11 +89,19 @@ const votedRatings = (state=[], action) => {
   }
 }
 
+const ratedShops = (state=[], action) => {
+  switch(action.type) {
+    case 'LOAD_RATED_SHOPS': return action.ratedShops
+    default: return state
+  }
+}
+
 export const getSnackbarMessage = state => state.snackbarMessage
 export const getUsername = state => state.username
 export const getUserId = state => state.userId
 export const isModerateShop = (state, shopId) => state.admin || state.moderateShops.includes(shopId)
 export const isAdmin = state => state.admin
 export const getVotedRatings = state => state.votedRatings
+export const isShopRatedByCurrentUser = (state, shopId) => state.ratedShops.includes(shopId)
 
-export default combineReducers({token, userId, admin, moderateShops, username, redirectTo, snackbarMessage, favoriteShops, votedRatings})
+export default combineReducers({token, userId, admin, moderateShops, username, redirectTo, snackbarMessage, favoriteShops, votedRatings, ratedShops})
