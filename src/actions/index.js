@@ -11,7 +11,7 @@ const loadShops = (shops, favoriteShops) => ({
   shops,
   favoriteShops
 })
-export const fetchShops = (filter, services, id) => (dispatch, getState) =>
+export const fetchShops = (filter='All', services=[], id="") => (dispatch, getState) =>
 {
   dispatch(requestShops())
   fromApi
@@ -76,9 +76,10 @@ const addStateRating = rating => ({
   type: "ADD_RATING",
   rating
 })
-export const addRating = (userId, shopId, author, ratingStars, comment, date=(new Date())) =>
+
+export const addRating = (userId, shopId, author, rating, comment, date=(new Date())) =>
   fromApi
-      .addRating(userId, shopId, author, ratingStars, comment, date, 0)
+      .addRating({userId, shopId, author, rating, comment, date: JSON.stringify(date), score: 0})
       .then(rating => addStateRating(rating))
 
 const loadStateServices = services => ({

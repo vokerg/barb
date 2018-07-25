@@ -10,7 +10,7 @@ const shops = (state = [], action) => {
     }
 
     case "ADD_RATING": {
-      return (state.map(shop => (shop.id === action.shopId) ?
+      return (state.map(shop => (shop.id === action.rating.shopId) ?
         {
           ...shop,
           ratings: [

@@ -6,7 +6,15 @@ import { addRating } from '../../actions'
 import AddRatingForm from './addRatingForm'
 import { getUserId, isShopRatedByCurrentUser } from '../../reducers'
 
+const getClearState = () => ({
+  name: "",
+  comment: "",
+  selected: 1,
+  addRatingVisibility: false,
+})
+
 class AddRating extends React.Component {
+  state = getClearState();
 
   clearState = () => this.setState({
     name: "",
@@ -15,19 +23,14 @@ class AddRating extends React.Component {
     addRatingVisibility: false,
   })
 
-  constructor() {
-    super()
-    this.clearState()
-  }
-
   addRating = () => {
     const {name, selected, comment} = this.state
     const userId = this.props.userId || null
     this.props.addRating(userId, name, selected, comment)
-    this.clearState()
+    this.setState(getClearState())
   }
 
-  cancelRatingClick = () => this.clearState()
+  cancelRatingClick = () => this.setState(getClearState())
 
   addRatingClick = () => {
     const {addRatingVisibility} = this.state

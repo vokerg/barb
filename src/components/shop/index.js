@@ -18,7 +18,7 @@ class Shop extends React.Component {
   componentWillMount() {
     const {shopId, shop, fetchShops, loadRatings} = this.props
     if (shop === undefined) {
-      fetchShops('All', '', shopId)
+      fetchShops(shopId)
     } else {
       loadRatings(shopId)
     }
@@ -70,7 +70,7 @@ const mapStateToPropShop = (state, {match}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchShops: (filter, services, id) => dispatch(fetchShops(filter, services, id)),
+    fetchShops: id => dispatch(fetchShops('All', '', id)),
     doRedirect: redirectTo => dispatch(doRedirect(redirectTo)),
     loadRatings: shopId => dispatch(loadRatings(shopId)),
     addFavorite: (userId, shopId) => {
