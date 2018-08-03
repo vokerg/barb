@@ -1,3 +1,4 @@
+/* global google */
 import React from "react"
 import { compose, withProps, } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
@@ -28,6 +29,7 @@ const GoogleMaps = compose(
             lng: Number(marker.lng)
           }}
           onClick={() => {}}
+          animation= {(marker.selected) ? google.maps.Animation.BOUNCE : "any"}
         />
       )
     })

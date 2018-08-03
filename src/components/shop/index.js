@@ -10,7 +10,6 @@ import ShopInfo from './shopInfo'
 import GoogleMaps from '../googleMaps'
 import { getShopById, getCurrentId, getUserId, isModerateShop } from '../../reducers'
 import { fetchShops, doRedirect, addFavorite, loadRatings } from '../../actions'
-import Container from '../container'
 import Favorite from '../common/favorite'
 
 
@@ -32,7 +31,7 @@ class Shop extends React.Component {
     const authorized = userId !== null
     return(
       <div>
-        <Container>
+        <div>
           <ShopInfo name={name} address={address} description={description}/>
           <Favorite
             onFavoriteClick={() => addFavorite(userId, shopId)}
@@ -48,10 +47,10 @@ class Shop extends React.Component {
           {moderator && <FlatButton onClick={() => doRedirect('/shop/' + shopId + "/bookings/")}>Bookings</FlatButton>}
           <ShopServiceList services={ services } />
           <GoogleMaps markers={[coordinates]}/>
-        </Container>
-        <Container>
+        </div>
+        <div>
           <RatingList shop={ shop } />
-        </Container>
+        </div>
       </div>
     )
   }

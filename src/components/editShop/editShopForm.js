@@ -1,9 +1,7 @@
 import React from 'react'
-import Container from '../container'
 
 const editShop = (props) => {
   return(
-    <Container>
       <form onSubmit={props.onSubmit}>
         <div>
           <div>
@@ -32,7 +30,6 @@ const editShop = (props) => {
           <input type="button" value="Cancel" />
         </div>
       </form>
-    </Container>
   )
 }
 

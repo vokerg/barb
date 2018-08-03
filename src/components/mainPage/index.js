@@ -2,7 +2,6 @@ import React from 'react'
 import Filter from './shopFilter'
 import Shops from './shops'
 import ServicesFilter from './servicesFilter'
-import Container from '../container'
 
 class MainPage extends React.Component {
   constructor() {
@@ -32,14 +31,14 @@ class MainPage extends React.Component {
   render() {
     const {selectedColumn, filter, services} = this.state;
     return (
-      <Container>
+      <div>
         <Filter selectedColumn={selectedColumn} handleColumnChange={this.handleColumnChange}/>
         {
           (selectedColumn === 2) &&
           <ServicesFilter selectedServices={services} handleServiceListChange={this.handleServiceListChange}/>
         }
         <Shops filter={filter} services={services}/>
-      </Container>
+      </div>
     )
   }
 }

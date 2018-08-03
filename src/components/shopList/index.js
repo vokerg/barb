@@ -54,6 +54,7 @@ class ShopList extends React.Component {
           onFavoriteClick={ this.onFavoriteClick(userId) }
           isShopsRequested={ isShopsRequested }
           shops={ shops.filter(this.filterShops.bind(this)) }
+          onMouseOverShop={id => console.log("mouse over shop ", id)}
         >
           <GoogleMaps
             markers={shops.map(shop => shop.coordinates)}

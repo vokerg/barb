@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import ShopList from './shopList'
 import { getShops } from '../reducers'
 import { fetchShops } from '../actions'
-import Container from './container'
 
 class ShopsByService extends React.Component  {
   componentDidMount() {
@@ -13,12 +12,12 @@ class ShopsByService extends React.Component  {
   render() {
     const {service, shops} = this.props
     return (
-      <Container>
+      <div>
         <div>
           { service }
         </div>
         <ShopList shops={ shops }/>
-      </Container>
+      </div>
     )
   }
 }
