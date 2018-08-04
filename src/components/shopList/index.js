@@ -6,14 +6,13 @@ import { isShopsRequested, getUserId } from '../../reducers'
 import Shops from './shops'
 
 class ShopList extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      visibleShops: [],
-      bounds: {
-        b: { b: 0, f: 0 },
-        f: { b: 0, f: 0 }
-      }
+
+  state = {
+    selectedShopId: 0,
+    visibleShops: [],
+    bounds: {
+      b: { b: 0, f: 0 },
+      f: { b: 0, f: 0 }
     }
   }
 
@@ -27,7 +26,6 @@ class ShopList extends React.Component {
 
   setBoundsState(bounds) {
     this.setState({
-      ...this.state,
       bounds: {
         b: {
           b: bounds.b.b,
@@ -42,9 +40,11 @@ class ShopList extends React.Component {
   }
 
   onFavoriteClick = userId => shopId => this.props.addFavorite(userId, shopId)
+  selectShop = id => this.setState({ selectedShopId: id })
+  deSelectShop = () => this.setState({ selectedShopId: 0 })
 
   render() {
-      const {shops, isShopsRequested, userId} = this.props
+      const { shops, isShopsRequested, userId } = this.props
       let mapRef1
       let mapBoundsChange=false
       let bounds
@@ -54,10 +54,11 @@ class ShopList extends React.Component {
           onFavoriteClick={ this.onFavoriteClick(userId) }
           isShopsRequested={ isShopsRequested }
           shops={ shops.filter(this.filterShops.bind(this)) }
-          onMouseOverShop={id => console.log("mouse over shop ", id)}
+          onMouseOverShop={ this.selectShop }
+          onMouseOut={ this.deSelectShop }
         >
           <GoogleMaps
-            markers={shops.map(shop => shop.coordinates)}
+            markers={shops.map(shop => ({ ...shop.coordinates, selected: shop.id === this.state.selectedShopId }))}
             mapRef={map => mapRef1 = map}
             onBoundsChanged={() => {
               bounds = mapRef1.getBounds()
