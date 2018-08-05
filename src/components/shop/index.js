@@ -12,7 +12,6 @@ import { getShopById, getCurrentId, getUserId, isModerateShop } from '../../redu
 import { fetchShops, doRedirect, addFavorite, loadRatings } from '../../actions'
 import Favorite from '../common/favorite'
 
-
 class Shop extends React.Component {
   componentWillMount() {
     const {shopId, shop, fetchShops, loadRatings} = this.props
@@ -31,8 +30,9 @@ class Shop extends React.Component {
     const authorized = userId !== null
     return(
       <div>
-        <div>
+        <div style={{display: 'inline-block', width:"50%", height: "90vh", overflowY:"auto", verticalAlign:"top"}}>
           <ShopInfo name={name} address={address} description={description}/>
+          <ShopServiceList services={ services } />
           <Favorite
             onFavoriteClick={() => addFavorite(userId, shopId)}
             favorited={shop.favorited === true}
@@ -45,10 +45,13 @@ class Shop extends React.Component {
           }
           {moderator && <FlatButton onClick={() => doRedirect('/shop/edit/' + shopId)}>Edit</FlatButton>}
           {moderator && <FlatButton onClick={() => doRedirect('/shop/' + shopId + "/bookings/")}>Bookings</FlatButton>}
-          <ShopServiceList services={ services } />
-          <GoogleMaps markers={[coordinates]}/>
+          <div>
+            <div style={{ height:'400px' }}>
+              <GoogleMaps markers={[ coordinates ]}/>
+            </div>
+          </div>
         </div>
-        <div>
+        <div style={{display: 'inline-block', width:"50%", height: "90vh", overflowY:"auto", verticalAlign:"top"}}>
           <RatingList shop={ shop } />
         </div>
       </div>

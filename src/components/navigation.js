@@ -55,7 +55,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
-  doRedirect: (redirectTo) => dispatch(doRedirect(redirectTo))
+  doRedirect: redirectTo => dispatch(doRedirect(redirectTo))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

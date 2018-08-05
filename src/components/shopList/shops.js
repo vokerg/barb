@@ -5,7 +5,7 @@ import Divider from 'material-ui/Divider'
 const Shops = ({shops, onFavoriteClick, isShopsRequested, children, isShowFavorites, onMouseOverShop, onMouseOut}) => {
   return (
     <div>
-    <div style={{display: 'inline-block', width:"25%", height: "50vh", overflowY:"auto", verticalAlign:"top"}}>
+    <div style={{display: 'inline-block', width:"30%", height: "80vh", overflowY:"auto", verticalAlign:"top"}}>
       {isShopsRequested ? <div>Loading...</div>:
         <div>
           {shops
@@ -24,7 +24,7 @@ const Shops = ({shops, onFavoriteClick, isShopsRequested, children, isShowFavori
           }
         </div>}
       </div>
-      <div style={{display: 'inline-block', width:"75%", height: "80vh", verticalAlign:"top"}}>
+      <div style={{display: 'inline-block', width:"70%", height: "80vh", verticalAlign:"top"}}>
         { children }
       </div>
     </div>

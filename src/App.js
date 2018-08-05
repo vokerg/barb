@@ -1,6 +1,6 @@
 import React  from 'react';
 
-import './vendor/bootstrap/css/bootstrap.min.css'
+//import './vendor/bootstrap/css/bootstrap.min.css'
 
 import { Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
