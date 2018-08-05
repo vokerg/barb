@@ -4,11 +4,17 @@ import { Marker, InfoWindow } from "react-google-maps"
 
 class ShopMarker extends React.Component {
   state={ isOpen: false }
+
   handleOpenClick = () => this.setState({ isOpen: true })
   handleCloseClick = () => this.setState({ isOpen: false })
+
+  onDragEnd = coordinates => this.props.onDragEnd({
+      lat: coordinates.latLng.lat(),
+      lng: coordinates.latLng.lng()
+    })
+
   render() {
-    const { marker } = this.props
-    console.log(this.state)
+    const { marker, editable } = this.props
     return (
       <Marker
         position={{
@@ -16,7 +22,9 @@ class ShopMarker extends React.Component {
           lng: Number(marker.lng)
         }}
         onClick={this.handleOpenClick}
-        animation= {marker.selected ? google.maps.Animation.BOUNCE : "any"}
+        animation= {(!editable && marker.selected) ? google.maps.Animation.BOUNCE : "any"}
+        draggable = {editable}
+        onDragEnd={this.onDragEnd}
       >
         {this.state.isOpen &&
           <InfoWindow onCloseClick = {this.handleCloseClick}>
