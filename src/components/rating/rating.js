@@ -3,48 +3,61 @@ import { Link } from 'react-router-dom'
 import StarRating from '../common/starRating'
 import RatingScore from './ratingScore'
 
-const Rating = (props) => {
-  const { id, shopId, rating, comment, author, userId, date, score } = props.rating
-  const mainTable = {
-    'display': 'table',
-    'tablelayout': 'fixed',
-    'width': '100%'
-  }
+import { withStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
 
-  const childTable = {
-    'display': 'table-cell'
+const styles = theme => ({
+  card: {
+    maxWidth: 500,
+  },
+  date: {
+    fontSize: 12,
+  },
+  mainTable: {
+    display: 'table',
+    tablelayout: 'fixed',
+    width: '100%'
+  },
+  childTable: {
+    display: 'table-cell'
   }
+})
+
+const Rating = props => {
+  const { id, shopId, rating, comment, author, userId, date, score } = props.rating
+  const { classes } = props
 
   return (
     <div>
-      <div style={mainTable}>
-        <div style={childTable}>
-          <div>
-            <h4>
-              <span>
-                {
-                  (userId) ?
+      <Card className={classes.card}>
+        <CardContent class={classes.content}>
+          <div className={classes.mainTable}>
+            <div className={classes.childTable}>
+              <Typography gutterBottom variant="subheading">
+                {userId ?
                   <Link to={`/users/${userId}`} style={{textDecoration: 'none', color: 'inherit'}}>{ author }</Link>
-                  : <span>{ author }</span>
+                  : author
                 }
-              </span>
-            </h4>
-            {
-                date ?
-                  <small className="text-muted">
-                    <span>posted on </span>
-                    <span>{date}</span>
-                  </small> : <small/>
-            }
+              </Typography>
+              <Typography component="p" className={classes.date} color="textSecondary">
+                { date && `posted on ${date}` }
+              </Typography>
+              <StarRating selected={rating} total={5} />
+            </div>
+            <div className={classes.childTable}>
+              <RatingScore id={id} shopId={shopId} score={score} userId={userId}/>
+            </div>
           </div>
-          <div><StarRating selected={rating} total={5} /></div>
-        </div>
-        <div style={childTable}><RatingScore id={id} shopId={shopId} score={score} userId={userId}/></div>
-      </div>
-      <div>{ comment }</div>
-      <hr />
+          <Typography component="p">
+            { comment }
+          </Typography>
+        </CardContent>
+      </Card>
+      <br/>
     </div>
   )
 }
 
-export default Rating
+export default withStyles(styles)(Rating)
