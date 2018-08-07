@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import FlatButton from 'material-ui/FlatButton'
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import BookIcon from '@material-ui/icons/Book';
 
@@ -13,38 +13,42 @@ import { fetchShops, doRedirect, addFavorite, loadRatings } from '../../actions'
 import Favorite from '../common/favorite'
 
 class Shop extends React.Component {
+
   componentWillMount() {
-    const {shopId, shop, fetchShops, loadRatings} = this.props
-    if (shop === undefined) {
-      fetchShops(shopId)
-    } else {
+    const { shopId, shop, fetchShops, loadRatings } = this.props
+    if (shop) {
       loadRatings(shopId)
+    } else {
+      fetchShops(shopId)
     }
   }
+
+  redirect = redirectTo => () => this.props.doRedirect(redirectTo)
+
   render() {
-    const {userId, shop, shopId, doRedirect, addFavorite, moderator} = this.props
+    const { userId, shop, shopId, addFavorite, moderator } = this.props
     if (shop === undefined) {
       return <div>Loading...</div>
     }
-    const {name, address, description, services, coordinates} = shop
+    const { services, coordinates, favorited } = shop
     const authorized = userId !== null
     return(
       <div>
         <div style={{display: 'inline-block', width:"50%", height: "90vh", overflowY:"auto", verticalAlign:"top"}}>
-          <ShopInfo name={name} address={address} description={description}/>
+          <ShopInfo shop={ shop }/>
           <ShopServiceList services={ services } />
           <Favorite
             onFavoriteClick={() => addFavorite(userId, shopId)}
-            favorited={shop.favorited === true}
-            isShowFavorites={authorized}
+            favorited={ favorited }
+            isShowFavorites={ authorized }
           />
           {authorized &&
-            <IconButton aria-label="Book" onClick={() => doRedirect('/shop/book/' + shopId)}>
+            <IconButton aria-label="Book" onClick={ this.redirect(`/shop/book/${shopId}`) }>
               <BookIcon />
             </IconButton>
           }
-          {moderator && <FlatButton onClick={() => doRedirect('/shop/edit/' + shopId)}>Edit</FlatButton>}
-          {moderator && <FlatButton onClick={() => doRedirect('/shop/' + shopId + "/bookings/")}>Bookings</FlatButton>}
+          {moderator && <Button onClick={ this.redirect(`/shop/edit/${shopId}`) }>Edit</Button>}
+          {moderator && <Button onClick={ this.redirect(`/shop/${shopId}/bookings/`) }>Bookings</Button>}
           <div>
             <div style={{ height:'400px' }}>
               <GoogleMaps markers={[ coordinates ]}/>
@@ -60,7 +64,7 @@ class Shop extends React.Component {
 }
 
 const mapStateToPropShop = (state, {match}) => {
-  let {shopId} = match.params
+  let { shopId } = match.params
   shopId = (shopId !== 'new') ? shopId : getCurrentId(state)
   return {
     shopId,
@@ -70,15 +74,11 @@ const mapStateToPropShop = (state, {match}) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchShops: id => dispatch(fetchShops('All', '', id)),
-    doRedirect: redirectTo => dispatch(doRedirect(redirectTo)),
-    loadRatings: shopId => dispatch(loadRatings(shopId)),
-    addFavorite: (userId, shopId) => {
-      dispatch(addFavorite(userId, shopId))
-    }
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  fetchShops: id => dispatch(fetchShops('All', '', id)),
+  doRedirect: redirectTo => dispatch(doRedirect(redirectTo)),
+  loadRatings: shopId => dispatch(loadRatings(shopId)),
+  addFavorite: (userId, shopId) => dispatch(addFavorite(userId, shopId))
+})
 
 export default connect(mapStateToPropShop, mapDispatchToProps)(Shop)

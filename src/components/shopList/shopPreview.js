@@ -38,9 +38,7 @@ const styles = theme => ({
 class ShopPreview extends React.Component {
   state = { expanded: false }
 
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  };
+  handleExpandClick = () => this.setState(state => ({ expanded: !state.expanded }));
 
   render() {
     const {shop, onFavoriteClick, isShowFavorites, onMouseOverShop, onMouseOut, classes, doRedirect} = this.props
@@ -58,15 +56,12 @@ class ShopPreview extends React.Component {
               <Typography component="p">
                 { shop.address }
               </Typography>
-          </div>
-
-          <div style={{display: 'inline-block', verticalAlign:'top', float:'right'}}>
-            <img alt="" width="90" src="http://thefader-res.cloudinary.com/private_images/w_2400,c_limit,f_auto,q_auto:best/40380002_WEB_gmcgws/levels-barbershop-new-york-ny.jpg"/>
-          </div>
-
+            </div>
+            <div style={{display: 'inline-block', verticalAlign:'top', float:'right'}}>
+              <img alt="" width="90" src="http://thefader-res.cloudinary.com/private_images/w_2400,c_limit,f_auto,q_auto:best/40380002_WEB_gmcgws/levels-barbershop-new-york-ny.jpg"/>
+            </div>
           </CardContent>
 
-          <div>
           <CardActions className={classes.actions} disableActionSpacing>
             <Favorite
               onFavoriteClick={onFavoriteClick}
@@ -74,28 +69,27 @@ class ShopPreview extends React.Component {
               isShowFavorites={isShowFavorites}
             />
             <Button size="small" color="primary" onClick={() => doRedirect(`/shop/${shop.id}`)}>
-              Learn More
+              Show More
             </Button>
             <IconButton
               className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded,
+                [ classes.expandOpen ]: this.state.expanded,
               })}
-              onClick={this.handleExpandClick}
-              aria-expanded={this.state.expanded}
+              onClick={ this.handleExpandClick }
+              aria-expanded={ this.state.expanded }
               aria-label="Show more"
             >
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
-          </div>
 
-          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+          <Collapse in={ this.state.expanded } timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph>
-                {shop.description}
+                 { shop.description }
               </Typography>
               <Typography paragraph>
-                {shop.services}
+                { shop.services }
               </Typography>
             </CardContent>
           </Collapse>

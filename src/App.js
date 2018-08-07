@@ -1,7 +1,5 @@
 import React  from 'react';
 
-//import './vendor/bootstrap/css/bootstrap.min.css'
-
 import { Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { connect } from 'react-redux'
@@ -22,18 +20,14 @@ import UserAdmin from './components/userAdmin'
 import UserProfile from './components/userProfile'
 import BookingsUser from './components/bookingsUser'
 
-const mapDispatchToProps = dispatch => {
-  return {
-    redirect: () => dispatch(redirect()),
-    localLoad: (userId, token, username, admin, moderateShops) => dispatch(localLoad(userId, token, username, admin, moderateShops))
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  redirect: () => dispatch(redirect()),
+  localLoad: (userId, token, username, admin, moderateShops) => dispatch(localLoad(userId, token, username, admin, moderateShops))
+})
 
-const mapStateToProps = state => {
-  return {
-    redirectTo: state.common.redirectTo
-  }
-}
+const mapStateToProps = state => ({
+  redirectTo: state.common.redirectTo
+})
 
 class App extends React.Component {
   constructor(props) {
@@ -48,40 +42,35 @@ class App extends React.Component {
       localStorage.getItem("moderateShops") || []
     )
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.redirectTo) {
-      this.props.history.push(nextProps.redirectTo)
-      nextProps.redirect();
+
+  componentWillReceiveProps({ redirectTo, redirect }) {
+    if (redirectTo) {
+      this.props.history.push(redirectTo)
+      redirect();
     }
   }
 
   render() {
     return (
-      <div className="App">
-        <MuiThemeProvider>
+      <MuiThemeProvider>
           <div>
-            <div>
-              <Navigation />
-              <Route exact path="/" component= {MainPage} />
-              <Route exact path="/createshop" component= {EditShop} />
-              <Route exact path="/shop/:shopId" component= {Shop} />
-              <Route exact path="/service/:service" component= {ShopsByService} />
-              <Route exact path="/shop/edit/:id" component= {EditShop} />
-              <Route exact path="/shop/:id/bookings" component= {BookingAdmin} />
-              <Route exact path="/login" component= {Login} />
-              <Route exact path="/signup" component= {Signup} />
-              <Route exact path="/shop/book/:id" component= {Booking} />
-              <Route exact path="/fbredirect" component= {Login} />
-              <Route exact path="/useradmin" component= {UserAdmin} />
-              <Route exact path="/users/:id" component= {UserProfile} />
-              <Route exact path="/bookings" component= {BookingsUser} />
-            </div>
-            <div>
-              <BottomSnackbar/>
-            </div>
+            <Navigation />
+            <Route exact path="/" component= {MainPage} />
+            <Route exact path="/createshop" component= {EditShop} />
+            <Route exact path="/shop/:shopId" component= {Shop} />
+            <Route exact path="/service/:service" component= {ShopsByService} />
+            <Route exact path="/shop/edit/:id" component= {EditShop} />
+            <Route exact path="/shop/:id/bookings" component= {BookingAdmin} />
+            <Route exact path="/login" component= {Login} />
+            <Route exact path="/signup" component= {Signup} />
+            <Route exact path="/shop/book/:id" component= {Booking} />
+            <Route exact path="/fbredirect" component= {Login} />
+            <Route exact path="/useradmin" component= {UserAdmin} />
+            <Route exact path="/users/:id" component= {UserProfile} />
+            <Route exact path="/bookings" component= {BookingsUser} />
           </div>
-        </MuiThemeProvider>
-      </div>
+          <BottomSnackbar/>
+      </MuiThemeProvider>
     )
   }
 }

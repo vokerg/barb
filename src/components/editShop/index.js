@@ -20,7 +20,7 @@ class EditShop extends React.Component {
 
 	constructor(props) {
 		super()
-		const { userId, admin, isModerateShop, doRedirect, loadServices, shop, match } = props
+		const { userId, admin, isModerateShop, doRedirect, loadServices, match } = props
 		const { id } = match.params
 
 		if (userId === null || (!admin && !isModerateShop)) {
@@ -97,7 +97,7 @@ class EditShop extends React.Component {
 				<div style={{height: "400px"}}>
 					<GoogleMap
 						marker={this.state.coordinates}
-						onDragEnd={coordinates => this.setState({coordinates})}
+						onDragEnd={coordinates => this.setState({ coordinates })}
 					/>
 				</div>
 			</EditShopForm>
@@ -124,16 +124,15 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		addShop: (name, address, description, services, coordinates) =>
-			dispatch(addShop(name, address, description, services, coordinates)),
-		updateShop: (id, name, address, description, services, coordinates) =>
-			dispatch(updateShop(id, name, address, description, services, coordinates)),
-		loadServices: () => dispatch(loadServices()),
-		doRedirect: path => dispatch(doRedirect(path)),
-		fetchShops: id => dispatch(fetchShops('All', '', id)),
-	}
-}
+const mapDispatchToProps = dispatch => ({
+	addShop: (name, address, description, services, coordinates) =>
+		dispatch(addShop(name, address, description, services, coordinates)),
+	updateShop: (id, name, address, description, services, coordinates) =>
+		dispatch(updateShop(id, name, address, description, services, coordinates)),
+	loadServices: () => dispatch(loadServices()),
+	doRedirect: path => dispatch(doRedirect(path)),
+	fetchShops: id => dispatch(fetchShops('All', '', id)),
+	})
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditShop)

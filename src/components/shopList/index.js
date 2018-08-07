@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import GoogleMaps from '../googleMaps'
 import { addFavorite } from '../../actions'
 import { isShopsRequested, getUserId } from '../../reducers'
@@ -9,14 +10,13 @@ class ShopList extends React.Component {
 
   state = {
     selectedShopId: 0,
-    visibleShops: [],
     bounds: {
       b: { b: 0, f: 0 },
       f: { b: 0, f: 0 }
-    }
+    },
   }
 
-  filterShops(shop) {
+  filterShops = shop => {
     let {lat, lng} = shop.coordinates
     lat = parseFloat(lat)
     lng = parseFloat(lng)
@@ -24,7 +24,7 @@ class ShopList extends React.Component {
     return (!f || !b) || ((lat >= f.b) && (lat <=f.f) && (lng >= b.b) && (lng <= b.f))
   }
 
-  setBoundsState(bounds) {
+  setBoundsState = bounds =>
     this.setState({
       bounds: {
         b: {
@@ -37,7 +37,6 @@ class ShopList extends React.Component {
         }
       }
     })
-  }
 
   onFavoriteClick = userId => shopId => this.props.addFavorite(userId, shopId)
   selectShop = id => this.setState({ selectedShopId: id })
@@ -75,15 +74,13 @@ class ShopList extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isShopsRequested: isShopsRequested(state),
   userId: getUserId(state)
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  addFavorite: (userId, shopId) => {
-    dispatch(addFavorite(userId, shopId))
-  }
+const mapDispatchToProps = dispatch => ({
+  addFavorite: (userId, shopId) => dispatch(addFavorite(userId, shopId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopList)

@@ -4,13 +4,11 @@ import Shops from './shops'
 import ServicesFilter from './servicesFilter'
 
 class MainPage extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      selectedColumn: 0,
-      filter: '',
-      services: []
-    }
+
+  state = {
+    selectedColumn: 0,
+    filter: '',
+    services: []
   }
 
   handleServiceListChange = event =>
@@ -29,15 +27,15 @@ class MainPage extends React.Component {
   }
 
   render() {
-    const {selectedColumn, filter, services} = this.state;
+    const { selectedColumn, filter, services } = this.state;
     return (
       <div>
-        <Filter selectedColumn={selectedColumn} handleColumnChange={this.handleColumnChange}/>
+        <Filter selectedColumn={ selectedColumn } handleColumnChange={ this.handleColumnChange }/>
         {
           (selectedColumn === 2) &&
-          <ServicesFilter selectedServices={services} handleServiceListChange={this.handleServiceListChange}/>
+          <ServicesFilter selectedServices={services} handleServiceListChange={ this.handleServiceListChange }/>
         }
-        <Shops filter={filter} services={services}/>
+        <Shops filter={ filter } services= {services }/>
       </div>
     )
   }
