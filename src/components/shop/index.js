@@ -70,7 +70,7 @@ const mapStateToPropShop = (state, {match}) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchShops: id => dispatch(fetchShops('All', '', id)),
     doRedirect: redirectTo => dispatch(doRedirect(redirectTo)),

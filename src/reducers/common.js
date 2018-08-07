@@ -92,6 +92,7 @@ const votedRatings = (state=[], action) => {
 const ratedShops = (state=[], action) => {
   switch(action.type) {
     case 'LOAD_RATED_SHOPS': return action.ratedShops
+    case 'ADD_RATING': return [...state, action.rating.shopId]
     default: return state
   }
 }
