@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import GoogleMaps from '../googleMaps'
-import { addFavorite } from '../../actions'
 import { isShopsRequested, getUserId } from '../../reducers'
 import Shops from './shops'
 
@@ -38,7 +37,6 @@ class ShopList extends React.Component {
       }
     })
 
-  onFavoriteClick = userId => shopId => this.props.addFavorite(userId, shopId)
   selectShop = id => this.setState({ selectedShopId: id })
   deSelectShop = () => this.setState({ selectedShopId: 0 })
 
@@ -50,14 +48,13 @@ class ShopList extends React.Component {
       return (
         <Shops
           isShowFavorites={ userId!==null }
-          onFavoriteClick={ this.onFavoriteClick(userId) }
           isShopsRequested={ isShopsRequested }
           shops={ shops.filter(this.filterShops.bind(this)) }
           onMouseOverShop={ this.selectShop }
           onMouseOut={ this.deSelectShop }
         >
           <GoogleMaps
-            markers={shops.map(shop => ({ ...shop.coordinates, selected: shop.id === this.state.selectedShopId }))}
+            markers={shops.map(shop => ({ ...shop.coordinates, shopId: shop.id, selected: shop.id === this.state.selectedShopId }))}
             mapRef={map => mapRef1 = map}
             onBoundsChanged={() => {
               bounds = mapRef1.getBounds()
@@ -79,8 +76,4 @@ const mapStateToProps = state => ({
   userId: getUserId(state)
 })
 
-const mapDispatchToProps = dispatch => ({
-  addFavorite: (userId, shopId) => dispatch(addFavorite(userId, shopId))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShopList)
+export default connect(mapStateToProps, () => ({}))(ShopList)

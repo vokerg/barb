@@ -13,7 +13,8 @@ import IconButton from '@material-ui/core/IconButton'
 import classnames from 'classnames'
 
 import Favorite from '../common/favorite'
-import { doRedirect } from '../../actions'
+import { doRedirect, addFavorite } from '../../actions'
+import { isShopsRequested, getUserId } from '../../reducers'
 
 const styles = theme => ({
   card: {
@@ -39,9 +40,10 @@ class ShopPreview extends React.Component {
   state = { expanded: false }
 
   handleExpandClick = () => this.setState(state => ({ expanded: !state.expanded }));
+  onFavoriteClick = () => this.props.addFavorite(this.props.userId, this.props.shop.id)
 
   render() {
-    const {shop, onFavoriteClick, isShowFavorites, onMouseOverShop, onMouseOut, classes, doRedirect} = this.props
+    const {shop, isShowFavorites, onMouseOverShop, onMouseOut, classes, doRedirect} = this.props
     return (
         <div
           onMouseOver={ () => onMouseOverShop(shop.id) }
@@ -64,7 +66,7 @@ class ShopPreview extends React.Component {
 
           <CardActions className={classes.actions} disableActionSpacing>
             <Favorite
-              onFavoriteClick={onFavoriteClick}
+              onFavoriteClick={this.onFavoriteClick}
               favorited={shop.favorited}
               isShowFavorites={isShowFavorites}
             />
@@ -99,8 +101,13 @@ class ShopPreview extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  doRedirect: redirectTo => dispatch(doRedirect(redirectTo))
+const mapStateToProps = state => ({
+  userId: getUserId(state)
 })
 
-export default connect(() =>({}), mapDispatchToProps)(withStyles(styles)(ShopPreview))
+const mapDispatchToProps = dispatch => ({
+  doRedirect: redirectTo => dispatch(doRedirect(redirectTo)),
+  addFavorite: (userId, shopId) => dispatch(addFavorite(userId, shopId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ShopPreview))

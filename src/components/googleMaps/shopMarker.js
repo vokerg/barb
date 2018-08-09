@@ -1,6 +1,10 @@
 /* global google */
 import React from 'react'
-import { Marker, InfoWindow } from "react-google-maps"
+import { Marker, InfoWindow } from 'react-google-maps'
+import { connect } from 'react-redux'
+
+import ShopPreview from '../shopList/shopPreview'
+import { getShopById } from '../../reducers'
 
 class ShopMarker extends React.Component {
   state={ isOpen: false }
@@ -14,7 +18,8 @@ class ShopMarker extends React.Component {
     })
 
   render() {
-    const { marker, editable } = this.props
+
+    const { marker, editable, shop } = this.props
     return (
       <Marker
         position={{
@@ -28,7 +33,7 @@ class ShopMarker extends React.Component {
       >
         {this.state.isOpen &&
           <InfoWindow onCloseClick = {this.handleCloseClick}>
-             <h1>{marker.lat}</h1>
+             <ShopPreview shop={ shop } isShowFavorites={ false } onMouseOverShop={ () => {} }/>
           </InfoWindow>
         }
       </Marker>
@@ -36,4 +41,8 @@ class ShopMarker extends React.Component {
   }
 }
 
-export default ShopMarker
+const mapStateToProps = (state, {marker}) => ({
+  shop: getShopById(state, marker.shopId)
+})
+
+export default connect(mapStateToProps, () => ({}))(ShopMarker)
