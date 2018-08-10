@@ -207,3 +207,8 @@ export const loadRatedShops = userId =>
   fromApi
     .getUserRatings(userId)
     .then(ratedShops => stateLoadRatedShops(ratedShops))
+
+export const updateServiceFilter = services => ({
+  type: 'UPDATE_SERVICE_LIST',
+  services
+})
