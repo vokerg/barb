@@ -26,8 +26,9 @@ class Shop extends React.Component {
   redirect = redirectTo => () => this.props.doRedirect(redirectTo)
 
   render() {
-    const { userId, shop, shopId, addFavorite, moderator } = this.props
+    const { userId, shop, shopId, addFavorite, moderator, fetchShops } = this.props
     if (shop === undefined) {
+      fetchShops(shopId)
       return <div>Loading...</div>
     }
     const { services, coordinates, favorited } = shop
@@ -65,7 +66,12 @@ class Shop extends React.Component {
 
 const mapStateToPropShop = (state, {match}) => {
   let { shopId } = match.params
-  shopId = (shopId !== 'new') ? shopId : getCurrentId(state)
+  if (shopId === 'new') {
+    shopId = getCurrentId(state)
+    if (shopId === 0) {
+      return {}
+    }
+  }
   return {
     shopId,
     shop: getShopById(state, shopId),

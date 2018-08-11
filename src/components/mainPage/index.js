@@ -9,9 +9,12 @@ import { updateServiceFilter } from '../../actions'
 
 class MainPage extends React.Component {
 
-  state = {
-    selectedColumn: 0,
-    filter: '',
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedColumn: (props.serviceFilter.length > 0) ? 2 : 0,
+      filter: ''
+    }
   }
 
   handleServiceListChange = event =>

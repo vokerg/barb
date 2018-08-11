@@ -1,36 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import ShopList from './shopList'
-import { getShops } from '../reducers'
-import { fetchShops } from '../actions'
+import { updateServiceFilter, doRedirect } from '../actions'
 
 class ShopsByService extends React.Component  {
-  componentDidMount() {
-    const {fetchShops, service} = this.props
-    fetchShops(service)
+  constructor(props) {
+    super(props)
+    props.updateServiceFilter([props.match.params.service])
+    props.doRedirect('/')
   }
 
   render() {
-    const { service, shops } = this.props
-    return (
-      <React.Fragment>
-        <div>
-          { service }
-        </div>
-        <ShopList shops={ shops }/>
-      </React.Fragment>
-    )
+    return <React.Fragment />
   }
 }
 
-const mapStateToProp = (state, {match}) => ({
-    service: match.params.service,
-    shops: getShops(state)
-})
-
 const mapDispatchToProps = dispatch => ({
-    fetchShops: service => dispatch(fetchShops('All', service))
+    updateServiceFilter: services => dispatch(updateServiceFilter(services)),
+    doRedirect: redirectTo => dispatch(doRedirect(redirectTo))
 })
 
-export default connect(mapStateToProp, mapDispatchToProps)(ShopsByService)
+export default connect(() =>({ }), mapDispatchToProps)(ShopsByService)

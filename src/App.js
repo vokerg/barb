@@ -68,8 +68,8 @@ class App extends React.Component {
             <Route exact path="/useradmin" component= {UserAdmin} />
             <Route exact path="/users/:id" component= {UserProfile} />
             <Route exact path="/bookings" component= {BookingsUser} />
+            <BottomSnackbar/>
           </div>
-          <BottomSnackbar/>
       </MuiThemeProvider>
     )
   }

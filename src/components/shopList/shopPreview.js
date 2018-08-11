@@ -14,7 +14,7 @@ import classnames from 'classnames'
 
 import Favorite from '../common/favorite'
 import { doRedirect, addFavorite } from '../../actions'
-import { isShopsRequested, getUserId } from '../../reducers'
+import { getUserId } from '../../reducers'
 
 const styles = theme => ({
   card: {
@@ -49,52 +49,52 @@ class ShopPreview extends React.Component {
           onMouseOver={ () => onMouseOverShop(shop.id) }
           onMouseOut={ onMouseOut }
         >
-        <Card className={classes.card}>
-          <CardContent>
-            <div style={{display: 'inline-block', verticalAlign:'top'}}>
-              <Typography gutterBottom variant="subheading" headlineMapping="h1">
-                { shop.name }
-              </Typography>
-              <Typography component="p">
-                { shop.address }
-              </Typography>
-            </div>
-            <div style={{display: 'inline-block', verticalAlign:'top', float:'right'}}>
-              <img alt="" width="90" src="http://thefader-res.cloudinary.com/private_images/w_2400,c_limit,f_auto,q_auto:best/40380002_WEB_gmcgws/levels-barbershop-new-york-ny.jpg"/>
-            </div>
-          </CardContent>
-
-          <CardActions className={classes.actions} disableActionSpacing>
-            <Favorite
-              onFavoriteClick={this.onFavoriteClick}
-              favorited={shop.favorited}
-              isShowFavorites={isShowFavorites}
-            />
-            <Button size="small" color="primary" onClick={() => doRedirect(`/shop/${shop.id}`)}>
-              Show More
-            </Button>
-            <IconButton
-              className={classnames(classes.expand, {
-                [ classes.expandOpen ]: this.state.expanded,
-              })}
-              onClick={ this.handleExpandClick }
-              aria-expanded={ this.state.expanded }
-              aria-label="Show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
-
-          <Collapse in={ this.state.expanded } timeout="auto" unmountOnExit>
+          <Card className={classes.card}>
             <CardContent>
-              <Typography paragraph>
-                 { shop.description }
-              </Typography>
-              <Typography paragraph>
-                { shop.services }
-              </Typography>
+              <div style={{display: 'inline-block', verticalAlign:'top'}}>
+                <Typography gutterBottom variant="subheading">
+                  { shop.name }
+                </Typography>
+                <Typography component="p">
+                  { shop.address }
+                </Typography>
+              </div>
+              <div style={{display: 'inline-block', verticalAlign:'top', float:'right'}}>
+                <img alt="" width="90" src="http://thefader-res.cloudinary.com/private_images/w_2400,c_limit,f_auto,q_auto:best/40380002_WEB_gmcgws/levels-barbershop-new-york-ny.jpg"/>
+              </div>
             </CardContent>
-          </Collapse>
+
+            <CardActions className={classes.actions} disableActionSpacing>
+              <Favorite
+                onFavoriteClick={this.onFavoriteClick}
+                favorited={shop.favorited}
+                isShowFavorites={isShowFavorites}
+              />
+              <Button size="small" color="primary" onClick={() => doRedirect(`/shop/${shop.id}`)}>
+                Show More
+              </Button>
+              <IconButton
+                className={classnames(classes.expand, {
+                  [ classes.expandOpen ]: this.state.expanded,
+                })}
+                onClick={ this.handleExpandClick }
+                aria-expanded={ this.state.expanded }
+                aria-label="Show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </CardActions>
+
+            <Collapse in={ this.state.expanded } timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>
+                   { shop.description }
+                </Typography>
+                <Typography paragraph>
+                  { shop.services }
+                </Typography>
+              </CardContent>
+            </Collapse>
           </Card>
         </div>
     )

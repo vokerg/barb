@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect }  from 'react-redux'
+
 import ShopList from '../shopList'
 import { getShops } from '../../reducers'
 import { fetchShops } from '../../actions'
 
 class Shops extends React.Component {
   componentDidMount() {
-    const {fetchShops, filter, services} = this.props
+    const { fetchShops, filter, services } = this.props
     fetchShops(filter, services)
   }
 
@@ -21,7 +22,7 @@ class Shops extends React.Component {
   }
 }
 
-const mapStateToProps = (state, {filter}) => ({
+const mapStateToProps = (state, { filter }) => ({
   shops: getShops(state, filter)
 })
 

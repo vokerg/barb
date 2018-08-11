@@ -1,6 +1,6 @@
-import React from "react"
-import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
+import React from 'react'
+import { compose, withProps } from 'recompose'
+import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps'
 
 import ShopMarker from './shopMarker'
 
@@ -17,16 +17,16 @@ const GoogleMaps = compose(
   ({ markers, onBoundsChanged, mapRef, marker, onDragEnd }) =>
       <GoogleMap
         ref={ mapRef }
-        defaultZoom={11}
-        defaultCenter={{lat: 55.718035, lng: 12.470284}}
+        defaultZoom={ 11 }
+        defaultCenter={{ lat: 55.718035, lng: 12.470284 }}
         onBoundsChanged={ onBoundsChanged }
       >
-        {markers !== undefined ?
+        { markers ?
           markers.map((marker, i) =>
             <ShopMarker key={i} marker={marker}/>
          )
-        : (marker !== undefined) &&
-            <ShopMarker marker={marker} editable onDragEnd={onDragEnd}/>
+        : marker &&
+            <ShopMarker marker={ marker } editable onDragEnd={ onDragEnd }/>
         }
       < /GoogleMap>
 )

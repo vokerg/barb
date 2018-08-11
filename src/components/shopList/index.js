@@ -39,32 +39,25 @@ class ShopList extends React.Component {
 
   selectShop = id => this.setState({ selectedShopId: id })
   deSelectShop = () => this.setState({ selectedShopId: 0 })
+  onBoundsChanged = () => {
+    let bounds = this.mapRef.getBounds()
+    setTimeout(() => this.setBoundsState(bounds), 100)
+  }
 
   render() {
       const { shops, isShopsRequested, userId } = this.props
-      let mapRef1
-      let mapBoundsChange=false
-      let bounds
       return (
         <Shops
           isShowFavorites={ userId!==null }
           isShopsRequested={ isShopsRequested }
-          shops={ shops.filter(this.filterShops.bind(this)) }
+          shops={ shops.filter(this.filterShops) }
           onMouseOverShop={ this.selectShop }
           onMouseOut={ this.deSelectShop }
         >
           <GoogleMaps
             markers={shops.map(shop => ({ ...shop.coordinates, shopId: shop.id, selected: shop.id === this.state.selectedShopId }))}
-            mapRef={map => mapRef1 = map}
-            onBoundsChanged={() => {
-              bounds = mapRef1.getBounds()
-              if (mapBoundsChange) return
-              mapBoundsChange = true
-              setTimeout(() => {
-                mapBoundsChange = false;
-                this.setBoundsState(bounds)
-              }, 300)
-            }}
+            mapRef={map => this.mapRef = map}
+            onBoundsChanged={ this.onBoundsChanged }
           />
         </Shops>
       )
