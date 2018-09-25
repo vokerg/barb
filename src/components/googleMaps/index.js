@@ -14,11 +14,11 @@ const GoogleMaps = compose(
   withScriptjs,
   withGoogleMap
 )(
-  ({ markers, onBoundsChanged, mapRef, marker, onDragEnd }) =>
+  ({ markers, onBoundsChanged, mapRef, marker, onDragEnd, defaultCenter }) =>
       <GoogleMap
         ref={ mapRef }
         defaultZoom={ 11 }
-        defaultCenter={{ lat: 55.718035, lng: 12.470284 }}
+        defaultCenter={ defaultCenter }
         onBoundsChanged={ onBoundsChanged }
       >
         { markers ?

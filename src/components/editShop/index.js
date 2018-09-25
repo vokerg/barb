@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import ServiceSelect from './serviceSelect'
 import { fetchShops, addShop, updateShop, loadServices, doRedirect } from '../../actions'
 import { getShopById, isAdmin, isModerateShop, getServices, getUserId } from '../../reducers'
+import { getDefaultCoordinates } from '../../utils'
 import GoogleMap from '../googleMaps'
-import * as constants from '../../constants'
 import EditShopForm from './editShopForm'
 
 class EditShop extends React.Component {
@@ -15,7 +15,7 @@ class EditShop extends React.Component {
 		address: '',
 		description: '',
 		services: [],
-		coordinates: constants.DEFAULT_COORDINATES
+		coordinates: getDefaultCoordinates()
 	}
 
 	constructor(props) {
@@ -51,7 +51,7 @@ class EditShop extends React.Component {
 			description: shop ? shop.description : '',
 			services: shop ? shop.services : [],
 			coordinates: (!shop || !shop.coordinates || shop.coordinates === {})
-				? constants.DEFAULT_COORDINATES : shop.coordinates
+				? getDefaultCoordinates() : shop.coordinates
 		})
 	}
 

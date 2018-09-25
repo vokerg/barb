@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { geolocated } from 'react-geolocated'
 
 import GoogleMaps from '../googleMaps'
 import { isShopsRequested, getUserId } from '../../reducers'
+import { getDefaultCoordinates } from '../../utils'
 import Shops from './shops'
 
 class ShopList extends React.Component {
@@ -13,6 +15,7 @@ class ShopList extends React.Component {
       b: { b: 0, f: 0 },
       f: { b: 0, f: 0 }
     },
+    tryLocation: true
   }
 
   filterShops = shop => {
@@ -44,9 +47,24 @@ class ShopList extends React.Component {
     setTimeout(() => this.setBoundsState(bounds), 100)
   }
 
+  componentWillReceiveProps({ isGeolocationAvailable, isGeolocationEnabled, coords }) {
+    if (this.state.tryLocation) {
+      if (!isGeolocationAvailable || !isGeolocationEnabled) {
+        this.setState({ tryLocation: false })
+      } else {
+        if (coords) {
+          this.setState({ tryLocation: false })
+        }
+      }
+    }
+  }
+
   render() {
-      const { shops, isShopsRequested, userId } = this.props
+      const { shops, isShopsRequested, userId, coords } = this.props
+      const defaultCenter = coords ? {lat: coords.latitude, lng: coords.longitude} : getDefaultCoordinates()
+
       return (
+        !this.state.tryLocation &&
         <Shops
           isShowFavorites={ userId!==null }
           isShopsRequested={ isShopsRequested }
@@ -58,6 +76,7 @@ class ShopList extends React.Component {
             markers={shops.map(shop => ({ ...shop.coordinates, shopId: shop.id, selected: shop.id === this.state.selectedShopId }))}
             mapRef={map => this.mapRef = map}
             onBoundsChanged={ this.onBoundsChanged }
+            defaultCenter={defaultCenter}
           />
         </Shops>
       )
@@ -69,4 +88,9 @@ const mapStateToProps = state => ({
   userId: getUserId(state)
 })
 
-export default connect(mapStateToProps, () => ({}))(ShopList)
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(connect(mapStateToProps, () => ({}))(ShopList))

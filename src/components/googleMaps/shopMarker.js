@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import ShopPreview from '../shopList/shopPreview'
 import { getShopById } from '../../reducers'
+import { getCoordinates } from '../../utils'
 
 class ShopMarker extends React.Component {
   state={ isOpen: false }
@@ -22,10 +23,7 @@ class ShopMarker extends React.Component {
     const { marker, editable, shop } = this.props
     return (
       <Marker
-        position={{
-          lat: Number(marker.lat),
-          lng: Number(marker.lng)
-        }}
+        position={ getCoordinates(marker) }
         onClick={this.handleOpenClick}
         animation= {(!editable && marker.selected) ? google.maps.Animation.BOUNCE : "any"}
         draggable = {editable}
