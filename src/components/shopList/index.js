@@ -28,17 +28,18 @@ class ShopList extends React.Component {
 
   setBoundsState = bounds =>
     this.setState({
-      bounds: {
-        b: {
-          b: bounds.b.b,
-          f: bounds.b.f
-        },
-        f: {
-          b: bounds.f.b,
-          f: bounds.f.f
+        bounds: {
+          b: {
+            b: bounds.j.j,
+            f: bounds.j.l
+          },
+          f: {
+            b: bounds.l.j,
+            f: bounds.l.l
+          }
         }
-      }
-    })
+      })
+
 
   selectShop = id => this.setState({ selectedShopId: id })
   deSelectShop = () => this.setState({ selectedShopId: 0 })
