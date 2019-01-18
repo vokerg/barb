@@ -11,6 +11,7 @@ import GoogleMaps from '../googleMaps'
 import { getShopById, getCurrentId, getUserId, isModerateShop } from '../../reducers'
 import { fetchShops, doRedirect, addFavorite, loadRatings } from '../../actions'
 import Favorite from '../common/favorite'
+import { getCoordinates } from '../../utils'
 
 class Shop extends React.Component {
 
@@ -52,7 +53,10 @@ class Shop extends React.Component {
           {moderator && <Button onClick={ this.redirect(`/shop/${shopId}/bookings/`) }>Bookings</Button>}
           <div>
             <div style={{ height:'400px' }}>
-              <GoogleMaps markers={[ coordinates ]}/>
+              <GoogleMaps
+                markers={[ coordinates ]}
+                defaultCenter={getCoordinates(coordinates)}
+              />
             </div>
           </div>
         </div>
